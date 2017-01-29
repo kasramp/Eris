@@ -111,7 +111,7 @@ The JSON response of the call is something similar to below:
 }
 ```
 
-If none numeric `lat` and `lon` given to the endpoint, instead of throwing `400 Bad Request`,
+If none numeric `lat` and/or `lon` given to the endpoint, instead of throwing `400 Bad Request`,
 the API returns the following response,
 
 ```
@@ -139,10 +139,10 @@ the API returns the following response,
 ```
 
 ### <a name="currentbyip">/v1/weather/currentbyip</a>
-This point suits when no coordinates are available. As a result, the weather condition retrieved via called IP address.
+This point suits when no coordinates are available. As a result, the weather condition retrieved via the caller IP address.
 Obviously, compare with the `/current`, this endpoint has lower accuracy.
-The reason for that is because coordinates acquired based on IP address which is usually not the same with the user's location.
-In most cases, the location of the IP is the nearest ISP center that the user is connected to.
+The reason for this is because coordinates acquired based on IP address which is usually not the same with the user's location.
+In most cases, the location of the IP refers to the nearest ISP center that the user is connected to.
 The API parameters are as follows:
 
 Parameter | Description |Type | Compulsory
@@ -154,6 +154,22 @@ The response of this endpoint is identical with the `/current` one.
 
 ### <a name="examples">Examples</a>
 To call the endpoints, you need to send `get` request with appropriate URL parameters.
+
+The request URL for `/current` should be something similar to this.
+
+[http://weather-api.madadipouya.com/v1/weather/current?lat=3.15694859&lon=101.7123029&fahrenheit=false](http://weather-api.madadipouya.com/v1/weather/current?lat=3.15694859&lon=101.7123029&fahrenheit=false)
+
+Consequently, the request URL for `/currentbyip` should be similar to below:
+
+[http://weather-api.madadipouya.com/v1/weather/currentbyip?fahrenheit=false](http://weather-api.madadipouya.com/v1/weather/currentbyip?fahrenheit=false)
+
+In Unix/Linux, you can use `CURL` command to call the service.
+
+`curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X GET 'http://weather-api.madadipouya.com/v1/weather/current?lat=3.15694859&lon=101.7123029&fahrenheit=false'`
+
+Or
+
+`curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X GET 'http://weather-api.madadipouya.com/v1/weather/currentbyip?fahrenheit=false'`
 
 ## <a name="deployment">Deploy your own Eris instance</a>
 To run and deploy the project on your local or any desired server, first clone the project and the follow the below instruction.
