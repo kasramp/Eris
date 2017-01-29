@@ -23,7 +23,7 @@ To run and deploy the project on your local or any desired server, first clone t
         $ java -jar neat-geo-ip-1.0-SNAPSHOT.jar
 
 ## Project & API documentation
-To know more about the project structure and API documentation please refer to our Github page [documentation](http://kasramp.github.io/eris/documentation.html) at this link.
+To know more about the project structure and API documentation please refer to our Github page [documentation](http://eris.madadipouya.com/#apicall) at this link.
 
 ## Contact
 * kasra@madadipouya.com
