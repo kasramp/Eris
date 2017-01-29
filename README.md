@@ -47,9 +47,11 @@ To use this API three parameters are required which two are compulsory and anoth
 
 The list of parameters with their description can be found below table
 
-- lat (compulsory)
-- lon (compulsory)
-- fahrenheit (optional)
+Parameter | Type | Compulsory
+--- | --- | ---
+lat | Decimal | &#10004;
+lon | Decimal | &#10004;
+fahrenheit | Boolean | &#10008;
 
 ### <a name="currentbyip">/v1/weather/currentbyip</a>
 
