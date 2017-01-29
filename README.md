@@ -5,7 +5,7 @@ Quick access:
 
 - [Details](#details)
 - [Dependencies](#dependencies)
-- [API docuentation](#apicall)
+- [API documentation](#apicall)
     - [/v1/weather/current](#current)
     - [/v1/weather/currentbyip](#currentbyip)
     - [Examples](#examples)
@@ -16,28 +16,28 @@ Quick access:
 - [License](#license)
 
 ## <a name="details">Details</a>
-Eris is a simple Spring Boot Java API that is developed as a consolidation of the following services:
+Eris is a simple [Spring Boot](http://projects.spring.io/spring-boot/) Java API service that is developed as a consolidation of the following services:
 
 - [Open Weather Map](https://openweathermap.org/)
 - [Open Street Map](http://openstreetmap.org/)
 - [Group Kt](http://www.groupkt.com/post/f2129b88/services.htm)
 - [IP API](http://ip-api.com/)
 
-The technology stack solely consists of [Spring Boot](http://projects.spring.io/spring-boot/) framework only.
+The technology stack solely consists of Spring Boot framework.
 The live version of the API service is hosted on [Red Hat OpenShift](https://www.openshift.com/).
 The service can be hosted in any platform that supports Spring Boot.
 
 Feel free to fork the project and create your own private API instance.
 
 ## <a name="dependencies">Dependencies</a>
-All the project dependencies exist in pom.xml file and once your run the project, all dependencies will be downloaded.
+All the project dependencies exist in `pom.xml` file and once you run the project, all dependencies will be downloaded.
 
-## <a name="apicall">Call Eris APIs</a>
+## <a name="apicall">API documentation</a>
 Eris has two APIs which both do the same thing, getting the current weather condition.
 
-Each API designed for its own use case, though both gives the same response.
+Each API designed for its own use case, though both give the same response.
 
-To access the APIs need to perform `get` at the following URLs:
+To access the APIs need to perform `get` request at the following URLs:
 
 - [/v1/weather/current](#current)
 - [/v1/weather/currentbyip](#currentbyip)
@@ -139,7 +139,7 @@ the API returns the following response,
 ```
 
 ### <a name="currentbyip">/v1/weather/currentbyip</a>
-This point suits when no coordinates are available. As a result, the weather condition retrieved via the caller IP address.
+This point suits when no coordinates are available. As a result, the weather condition retrieved via the caller IP address location.
 Obviously, compare with the `/current`, this endpoint has lower accuracy.
 The reason for this is because coordinates acquired based on IP address which is usually not the same with the user's location.
 In most cases, the location of the IP refers to the nearest ISP center that the user is connected to.
@@ -149,7 +149,7 @@ Parameter | Description |Type | Compulsory
 :---: | :---: | :---: | :---:
 fahrenheit | Temperature scale, supported Fahrenheit (true) and Celsius (false, default) | Boolean | &#10008;
 
-The IP addressed retrieved automatically from request header and as it can be seen, no parameter is defined to manually determine IP address.
+The IP address retrieved automatically from request header and as it can be seen, no parameter is defined to manually determine it.
 The response of this endpoint is identical with the `/current` one.
 
 ### <a name="examples">Examples</a>
@@ -163,7 +163,7 @@ Consequently, the request URL for `/currentbyip` should be similar to below:
 
 [http://weather-api.madadipouya.com/v1/weather/currentbyip?fahrenheit=false](http://weather-api.madadipouya.com/v1/weather/currentbyip?fahrenheit=false)
 
-In Unix/Linux, you can use `CURL` command to call the service.
+In Unix/Linux, you can use `curl` command to call the service.
 
 `curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X GET 'http://weather-api.madadipouya.com/v1/weather/current?lat=3.15694859&lon=101.7123029&fahrenheit=false'`
 
@@ -172,7 +172,7 @@ Or
 `curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X GET 'http://weather-api.madadipouya.com/v1/weather/currentbyip?fahrenheit=false'`
 
 ## <a name="deployment">Deploy your own Eris instance</a>
-To run and deploy the project on your local or any desired server, first clone the project and the follow the below instruction.
+To run and deploy the project on your local or any desired server, first clone the project and then follow the below instructions.
 
 - Add Open Weather Map API key to `apikey.properties` that located under `resource` folder.
 - Compile and run the API using Maven
@@ -182,7 +182,7 @@ To run and deploy the project on your local or any desired server, first clone t
         $ java -jar neat-geo-ip-1.0-SNAPSHOT.jar
 
 ## <a name="freeinstance">Free public Eris instance</a>
-We have deployed a free public instance of Eris to Open Shift which is available from the following link:
+We have a free running public instance of Eris hosted on Open Shift. The instance is available from the following link:
 
 [http://weather-api.madadipouya.com/](http://weather-api.madadipouya.com/)
 
@@ -198,7 +198,7 @@ Anyone is welcome to contribute to this project.
 
 ## <a name="contact">Support/Contact</a>
 Facing any problems, found bugs or having any inquiries? Just drop an email to
-kasra@madadipouya.com
+<kasra@madadipouya.com>
 
 ## <a name="license">License</a>
 <p>
