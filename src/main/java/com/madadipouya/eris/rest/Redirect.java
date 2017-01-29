@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 public class Redirect {
 
-    private static final String DOC_URL = "://blog.madadipouya.com";
+    private static final String DOC_URL = "://eris.madadipouya.com";
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView redirectToDocPage(HttpServletRequest request) {
