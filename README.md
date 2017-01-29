@@ -43,7 +43,7 @@ To access the APIs need to perform `get` at the following URLs:
 - [/v1/weather/currentbyip](#currentbyip)
 
 ### <a name="current">/v1/weather/current</a>
-To use this API three parameters are required which two are compulsory and another one is optional.
+To use this API three URL parameters are required which two are compulsory and another one is optional.
 
 The list of parameters with their description can be found below table
 
@@ -52,6 +52,12 @@ Parameter | Type | Compulsory
 lat | Decimal | &#10004;
 lon | Decimal | &#10004;
 fahrenheit | Boolean | &#10008;
+
+The JSON response of the call is something similar to below:
+
+`
+
+`
 
 ### <a name="currentbyip">/v1/weather/currentbyip</a>
 
