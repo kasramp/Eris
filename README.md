@@ -10,6 +10,7 @@ Quick access:
     - [/v1/weather/currentbyip](#currentbyip)
     - [Examples](#examples)
 - [Deploy your own Eris instance](#deployment)
+- [Free public Eris instance](#freeinstance)
 - [Authors and Contributors](#author)
 - [Support/Contact](#contact)
 - [License](#license)
@@ -36,7 +37,7 @@ Eris has two APIs which both do the same thing, getting the current weather cond
 
 Each API designed for its own use case, though both gives the same response.
 
-To access the APIs need to use `get` to call the service at the following URLs:
+To access the APIs need to perform `get` at the following URLs:
 
 - [/v1/weather/current](#current)
 - [/v1/weather/currentbyip](#currentbyip)
@@ -64,6 +65,16 @@ To run and deploy the project on your local or any desired server, first clone t
         $ maven clean install
         $ cd target
         $ java -jar neat-geo-ip-1.0-SNAPSHOT.jar
+
+## <a name="freeinstance">Free public Eris instance</a>
+We have deployed a free public instance of Eris to Open Shift which is available from the following link:
+
+[http://weather-api.madadipouya.com/](http://weather-api.madadipouya.com/)
+
+API URLs:
+
+- [http://weather-api.madadipouya.com/v1/weather/current](http://weather-api.madadipouya.com/v1/weather/current)
+- [http://weather-api.madadipouya.com/v1/weather/currentbyip](http://weather-api.madadipouya.com/v1/weather/currentbyip)
 
 ## <a name="author">Authors and Contributors</a>
 This API is developed and maintained by [Kasra Madadipouya](http://blog.madadipouya.com) ([@kasramp](https://github.com/kasramp)).
