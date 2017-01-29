@@ -5,7 +5,10 @@ Quick access:
 
 - [Details](#details)
 - [Dependencies](#dependencies)
-- [Call Eris APIs](#apicall)
+- [API docuentation](#apicall)
+    - [/v1/weather/current](#current)
+    - [/v1/weather/currentbyip](#currentbyip)
+    - [Examples](#examples)
 - [Deploy your own Eris instance](#deployment)
 - [Authors and Contributors](#author)
 - [Support/Contact](#contact)
@@ -20,10 +23,10 @@ Eris is a simple Spring Boot Java API that is developed as a consolidation of th
 - [IP API](http://ip-api.com/)
 
 The technology stack solely consists of [Spring Boot](http://projects.spring.io/spring-boot/) framework only.
-
 The live version of the API service is hosted on [Red Hat OpenShift](https://www.openshift.com/).
+The service can be hosted in any platform that supports Spring Boot.
 
-The service can be hosted in any platform that supports Spring Boot. Feel free to fork it and create your private API.
+Feel free to fork the project and create your own private API instance.
 
 ## <a name="dependencies">Dependencies</a>
 All the project dependencies exist in pom.xml file and once your run the project, all dependencies will be downloaded.
@@ -33,7 +36,24 @@ Eris has two APIs which both do the same thing, getting the current weather cond
 
 Each API designed for its own use case, though both gives the same response.
 
+To access the APIs need to use `get` to call the service at the following URLs:
 
+- [/v1/weather/current](#current)
+- [/v1/weather/currentbyip](#currentbyip)
+
+### <a name="current">/v1/weather/current</a>
+To use this API three parameters are required which two are compulsory and another one is optional.
+
+The list of parameters with their description can be found below table
+
+- lat (compulsory)
+- lon (compulsory)
+- fahrenheit (optional)
+
+### <a name="currentbyip">/v1/weather/currentbyip</a>
+
+
+### <a name="examples">Examples</a>
 
 ## <a name="deployment">Deploy your own Eris instance</a>
 To run and deploy the project on your local or any desired server, first clone the project and the follow the below instruction.
