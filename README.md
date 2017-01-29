@@ -1,5 +1,6 @@
 # Welcome to Eris
 Eris is an open source weather API for getting the current weather condition across the globe.
+
 Quick access:
 
 - [Details](#details)
@@ -19,7 +20,9 @@ Eris is a simple Spring Boot Java API that is developed as a consolidation of th
 - [IP API](http://ip-api.com/)
 
 The technology stack solely consists of [Spring Boot](http://projects.spring.io/spring-boot/) framework only.
+
 The live version of the API service is hosted on [Red Hat OpenShift](https://www.openshift.com/).
+
 The service can be hosted in any platform that supports Spring Boot. Feel free to fork it and create your private API.
 
 ## <a name="dependencies">Dependencies</a>
@@ -27,7 +30,9 @@ All the project dependencies exist in pom.xml file and once your run the project
 
 ## <a name="apicall">Call Eris APIs</a>
 Eris has two APIs which both do the same thing, getting the current weather condition.
+
 Each API designed for its own use case, though both gives the same response.
+
 
 
 ## <a name="deployment">Deploy your own Eris instance</a>
