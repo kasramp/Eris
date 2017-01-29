@@ -43,7 +43,7 @@ To access the APIs need to perform `get` at the following URLs:
 - [/v1/weather/currentbyip](#currentbyip)
 
 ### <a name="current">/v1/weather/current</a>
-This API is suitable for the case that coordinates (latitude, longitude) are available.
+This endpoint is suitable for the case that coordinates (latitude, longitude) are available.
 To use this API three URL parameters are required which two are compulsory and another one is optional.
 
 The list of parameters with their description can be found below table
@@ -52,7 +52,7 @@ Parameter | Description |Type | Compulsory
 :---: | :---: | :---: | :---:
 lat | Latitude | Decimal | &#10004;
 lon | Longitude | Decimal | &#10004;
-fahrenheit | Temperature scale, supported Fahrenheit (true) and Celsius(false, default) | Boolean | &#10008;
+fahrenheit | Temperature scale, supported Fahrenheit (true) and Celsius (false, default) | Boolean | &#10008;
 
 The JSON response of the call is something similar to below:
 
@@ -63,9 +63,7 @@ The JSON response of the call is something similar to below:
    "temperature":22.54,
    "icon":"http://openweathermap.org/img/w/04n.png",
    "iconName":"04n",
-   "errors":[
-
-   ],
+   "errors":[],
    "apiVersion":"v1.0",
    "coord":{
       "lat":"3.1569485999999998",
@@ -113,10 +111,49 @@ The JSON response of the call is something similar to below:
 }
 ```
 
-### <a name="currentbyip">/v1/weather/currentbyip</a>
+If none numeric `lat` and `lon` given to the endpoint, instead of throwing `400 Bad Request`,
+the API returns the following response,
 
+```
+{
+   "country":null,
+   "geoLocation":null,
+   "temperature":null,
+   "icon":null,
+   "iconName":null,
+   "errors":["Invalid latitude and/or longitude provided!"],
+   "apiVersion":"v1.0",
+   "coord":null,
+   "weather":null,
+   "base":null,
+   "main":null,
+   "visibility":null,
+   "wind":null,
+   "clouds":null,
+   "dt":null,
+   "sys":null,
+   "id":null,
+   "name":null,
+   "cod":null
+}
+```
+
+### <a name="currentbyip">/v1/weather/currentbyip</a>
+This point suits when no coordinates are available. As a result, the weather condition retrieved via called IP address.
+Obviously, compare with the `/current`, this endpoint has lower accuracy.
+The reason for that is because coordinates acquired based on IP address which is usually not the same with the user's location.
+In most cases, the location of the IP is the nearest ISP center that the user is connected to.
+The API parameters are as follows:
+
+Parameter | Description |Type | Compulsory
+:---: | :---: | :---: | :---:
+fahrenheit | Temperature scale, supported Fahrenheit (true) and Celsius (false, default) | Boolean | &#10008;
+
+The IP addressed retrieved automatically from request header and as it can be seen, no parameter is defined to manually determine IP address.
+The response of this endpoint is identical with the `/current` one.
 
 ### <a name="examples">Examples</a>
+To call the endpoints, you need to send `get` request with appropriate URL parameters.
 
 ## <a name="deployment">Deploy your own Eris instance</a>
 To run and deploy the project on your local or any desired server, first clone the project and the follow the below instruction.
