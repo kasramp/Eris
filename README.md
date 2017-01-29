@@ -43,21 +43,75 @@ To access the APIs need to perform `get` at the following URLs:
 - [/v1/weather/currentbyip](#currentbyip)
 
 ### <a name="current">/v1/weather/current</a>
+This API is suitable for the case that coordinates (latitude, longitude) are available.
 To use this API three URL parameters are required which two are compulsory and another one is optional.
 
 The list of parameters with their description can be found below table
 
-Parameter | Type | Compulsory
-:---: | :---: | :---:
-lat | Decimal | &#10004;
-lon | Decimal | &#10004;
-fahrenheit | Boolean | &#10008;
+Parameter | Description |Type | Compulsory
+:---: | :---: | :---: | :---:
+lat | Latitude | Decimal | &#10004;
+lon | Longitude | Decimal | &#10004;
+fahrenheit | Temperature scale, supported Fahrenheit (true) and Celsius(false, default) | Boolean | &#10008;
 
 The JSON response of the call is something similar to below:
 
-`
+```
+{
+   "country":"Malaysia",
+   "geoLocation":"Suria KLCC, KLCC-Bukit Bintang Pedestrian Walkway, Bukit Bintang, Sentul, KL, 50540, Malaysia",
+   "temperature":22.54,
+   "icon":"http://openweathermap.org/img/w/04n.png",
+   "iconName":"04n",
+   "errors":[
 
-`
+   ],
+   "apiVersion":"v1.0",
+   "coord":{
+      "lat":"3.1569485999999998",
+      "lon":"101.71230299999999"
+   },
+   "weather":[
+      {
+         "id":803,
+         "main":"Clouds",
+         "description":"broken clouds",
+         "icon":"04n"
+      }
+   ],
+   "base":"stations",
+   "main":{
+      "temp":22.54,
+      "pressure":997.14,
+      "humidity":89,
+      "temp_min":22.54,
+      "temp_max":22.54,
+      "sea_level":1026.06,
+      "grnd_level":997.14
+   },
+   "visibility":null,
+   "wind":{
+      "speed":0.56,
+      "deg":228.002
+   },
+   "clouds":{
+      "all":68
+   },
+   "dt":1485705488,
+   "sys":{
+      "countryNameFull":"Malaysia",
+      "type":0,
+      "id":0,
+      "message":0.0075,
+      "country":"MY",
+      "sunrise":1485646018,
+      "sunset":1485689156
+   },
+   "id":1735162,
+   "name":"Setapak",
+   "cod":200
+}
+```
 
 ### <a name="currentbyip">/v1/weather/currentbyip</a>
 
