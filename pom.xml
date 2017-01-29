@@ -10,7 +10,7 @@
 
 	<name>Eris</name>
 	<description>Eris Weather API</description>
-	<url>http://www.madadipouya.com</url>
+	<url>http://eris.madadipouya.com</url>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
