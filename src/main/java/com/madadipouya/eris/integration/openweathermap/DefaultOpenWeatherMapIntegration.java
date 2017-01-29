@@ -28,7 +28,7 @@ public class DefaultOpenWeatherMapIntegration implements OpenWeatherMapIntegrati
 
     private static final String API_URL = "http://api.openweathermap.org/data/2.5/weather?appid=%s"
             +"&units=%s&lat=%s&lon=%s";
-    
+
     private static final String TEMPERATURE_UNIT_METRIC = "metric";
 
     private static final String TEMPERATURE_UNIT_IMPERIAL = "imperial";

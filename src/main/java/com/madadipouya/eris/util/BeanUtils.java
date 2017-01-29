@@ -5,6 +5,23 @@ import com.madadipouya.eris.integration.openweathermap.remote.response.OpenWeath
 import com.madadipouya.eris.service.ipgeolocation.model.Coordinates;
 import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
 
+/*
+* This file is part of Eris Weather API.
+*
+* Eris Weather API is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License version 3
+* as published by the Free Software Foundation.
+*
+* Eris Weather API is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.  <http://www.gnu.org/licenses/>
+*
+* Author(s):
+*
+* © 2017 Kasra Madadipouya <kasra@madadipouya.com>
+*/
+
 public class BeanUtils extends org.springframework.beans.BeanUtils {
 
     private static final String ICON_URL = "http://openweathermap.org/img/w/%s.png";
