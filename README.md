@@ -1,6 +1,7 @@
 # Welcome to Eris
 Eris is an open source weather API for getting the current weather condition across the globe.
 Quick access:
+
 - [Details](#details)
 - [Dependencies](#dependencies)
 - [Call Eris APIs](#apicall)
@@ -11,6 +12,7 @@ Quick access:
 
 ## <a name="details">Details</a>
 Eris is a simple Spring Boot Java API that is developed as a consolidation of the following services:
+
 - [Open Weather Map](https://openweathermap.org/)
 - [Open Street Map](http://openstreetmap.org/)
 - [Group Kt](http://www.groupkt.com/post/f2129b88/services.htm)
@@ -30,6 +32,7 @@ Each API designed for its own use case, though both gives the same response.
 
 ## <a name="deployment">Deploy your own Eris instance</a>
 To run and deploy the project on your local or any desired server, first clone the project and the follow the below instruction.
+
 - Add Open Weather Map API key to `apikey.properties` that located under `resource` folder.
 - Compile and run the API using Maven
 
@@ -38,7 +41,7 @@ To run and deploy the project on your local or any desired server, first clone t
         $ java -jar neat-geo-ip-1.0-SNAPSHOT.jar
 
 ## <a name="author">Authors and Contributors</a>
-This API is developed and maintained by [Kasra Madadipouya](blog.madadipouya.com) ([@kasramp](https://github.com/kasramp)).
+This API is developed and maintained by [Kasra Madadipouya](http://blog.madadipouya.com) ([@kasramp](https://github.com/kasramp)).
 Anyone is welcome to contribute to this project.
 
 
