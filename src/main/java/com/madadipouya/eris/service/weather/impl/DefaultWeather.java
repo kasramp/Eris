@@ -1,9 +1,11 @@
-package com.madadipouya.eris.service;
+package com.madadipouya.eris.service.weather.impl;
 
 import com.madadipouya.eris.integration.groupkt.GroupktCountryNameIntegration;
 import com.madadipouya.eris.integration.openstreetmap.OpenStreetMapIntegration;
 import com.madadipouya.eris.integration.openweathermap.OpenWeatherMapIntegration;
 import com.madadipouya.eris.integration.openweathermap.remote.response.OpenWeatherMapCurrentWeatherResponse;
+import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
+import com.madadipouya.eris.service.weather.Weather;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

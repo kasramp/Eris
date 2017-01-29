@@ -21,7 +21,7 @@ import org.springframework.web.client.RestTemplate;
 * © 2017 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
-@Service("openWeatherMapIntegration")
+@Service("ipApiIntegration")
 public class DefaultIpApiIntegration implements IpApiIntegration {
 
     private static final String API_URL = "http://ip-api.com/json/%s";

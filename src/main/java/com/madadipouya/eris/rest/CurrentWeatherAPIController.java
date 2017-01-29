@@ -1,8 +1,8 @@
 package com.madadipouya.eris.rest;
 
 import com.google.common.collect.Lists;
-import com.madadipouya.eris.service.CurrentWeatherCondition;
-import com.madadipouya.eris.service.Weather;
+import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
+import com.madadipouya.eris.service.weather.Weather;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

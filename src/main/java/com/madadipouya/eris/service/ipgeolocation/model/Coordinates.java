@@ -1,4 +1,4 @@
-package com.madadipouya.eris.service;
+package com.madadipouya.eris.service.ipgeolocation.model;
 
 /*
 * This file is part of Eris Weather API.
@@ -17,7 +17,25 @@ package com.madadipouya.eris.service;
 * © 2017 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
-public interface Weather {
+public class Coordinates {
 
-    CurrentWeatherCondition getCurrent(String latitude, String longitude, boolean fahrenheit);
+    private String latitude;
+
+    private String longitude;
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
 }

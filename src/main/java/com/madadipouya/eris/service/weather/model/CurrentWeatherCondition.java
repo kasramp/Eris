@@ -1,4 +1,4 @@
-package com.madadipouya.eris.service;
+package com.madadipouya.eris.service.weather.model;
 
 import com.google.common.collect.ImmutableList;
 import com.madadipouya.eris.integration.openweathermap.remote.response.OpenWeatherMapCurrentWeatherResponse;

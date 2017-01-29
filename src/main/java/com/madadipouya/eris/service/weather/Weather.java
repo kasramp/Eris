@@ -1,6 +1,6 @@
-package com.madadipouya.eris.integration.ipapi;
+package com.madadipouya.eris.service.weather;
 
-import com.madadipouya.eris.integration.ipapi.remote.response.IpApiResponse;
+import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
 
 /*
 * This file is part of Eris Weather API.
@@ -19,7 +19,7 @@ import com.madadipouya.eris.integration.ipapi.remote.response.IpApiResponse;
 * © 2017 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
-public interface IpApiIntegration {
+public interface Weather {
 
-    IpApiResponse getCoordinatesFromIp(String ipAddress);
+    CurrentWeatherCondition getCurrent(String latitude, String longitude, boolean fahrenheit);
 }
