@@ -1,6 +1,8 @@
 package com.madadipouya.eris.integration.openweathermap;
 
 import com.madadipouya.eris.integration.openweathermap.remote.response.OpenWeatherMapCurrentWeatherResponse;
+import com.madadipouya.eris.util.PropertyUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -26,17 +28,18 @@ public class DefaultOpenWeatherMapIntegration implements OpenWeatherMapIntegrati
 
     private static final String API_URL = "http://api.openweathermap.org/data/2.5/weather?appid=%s"
             +"&units=%s&lat=%s&lon=%s";
-
-    private static final String API_KEY = "c15e2598880e57fad011a64061948fac";
-
+    
     private static final String TEMPERATURE_UNIT_METRIC = "metric";
 
     private static final String TEMPERATURE_UNIT_IMPERIAL = "imperial";
 
+    @Autowired
+    PropertyUtils propertyUtils;
+
     @Override
     public OpenWeatherMapCurrentWeatherResponse getCurrentWeatherCondition(String latitude, String longitude, boolean fahrenheit) {
         return adjustCoordinates(new RestTemplate().getForObject(
-                String.format(API_URL, API_KEY, getTemperatureUnit(fahrenheit), latitude, longitude),
+                String.format(API_URL, propertyUtils.getOpenWeatherMapApiKey(), getTemperatureUnit(fahrenheit), latitude, longitude),
                 OpenWeatherMapCurrentWeatherResponse.class), latitude, longitude);
     }
 

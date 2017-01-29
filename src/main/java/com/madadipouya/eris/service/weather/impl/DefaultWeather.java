@@ -4,10 +4,14 @@ import com.madadipouya.eris.integration.groupkt.GroupktCountryNameIntegration;
 import com.madadipouya.eris.integration.openstreetmap.OpenStreetMapIntegration;
 import com.madadipouya.eris.integration.openweathermap.OpenWeatherMapIntegration;
 import com.madadipouya.eris.integration.openweathermap.remote.response.OpenWeatherMapCurrentWeatherResponse;
+import com.madadipouya.eris.service.ipgeolocation.IpGeoLocation;
+import com.madadipouya.eris.service.ipgeolocation.model.Coordinates;
 import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
 import com.madadipouya.eris.service.weather.Weather;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletRequest;
 
 import static com.madadipouya.eris.util.BeanUtils.copyProperties;
 
@@ -39,6 +43,15 @@ public class DefaultWeather implements Weather {
 
     @Autowired
     private GroupktCountryNameIntegration groupktCountryNameIntegration;
+
+    @Autowired
+    private IpGeoLocation ipGeoLocation;
+
+    @Override
+    public CurrentWeatherCondition getCurrent(HttpServletRequest request, boolean fahrenheit) {
+        Coordinates coordinates = ipGeoLocation.getCoordinates(request);
+        return getCurrent(coordinates.getLatitude(), coordinates.getLongitude(), fahrenheit);
+    }
 
     @Override
     public CurrentWeatherCondition getCurrent(String latitude, String longitude, boolean fahrenheit) {

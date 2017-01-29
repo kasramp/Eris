@@ -2,6 +2,8 @@ package com.madadipouya.eris.service.ipgeolocation;
 
 import com.madadipouya.eris.service.ipgeolocation.model.Coordinates;
 
+import javax.servlet.http.HttpServletRequest;
+
 /*
 * This file is part of Eris Weather API.
 *
@@ -21,5 +23,7 @@ import com.madadipouya.eris.service.ipgeolocation.model.Coordinates;
 
 public interface IpGeoLocation {
 
-    Coordinates getCoordinatesByIp(String ipAddress);
+    Coordinates getCoordinates(HttpServletRequest request);
+
+    Coordinates getCoordinates(String ipAddress);
 }

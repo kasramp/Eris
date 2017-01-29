@@ -2,6 +2,8 @@ package com.madadipouya.eris.service.weather;
 
 import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
 
+import javax.servlet.http.HttpServletRequest;
+
 /*
 * This file is part of Eris Weather API.
 *
@@ -20,6 +22,8 @@ import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
 */
 
 public interface Weather {
+
+    CurrentWeatherCondition getCurrent(HttpServletRequest request, boolean fahrenheit);
 
     CurrentWeatherCondition getCurrent(String latitude, String longitude, boolean fahrenheit);
 }

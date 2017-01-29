@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import static org.apache.commons.lang3.StringUtils.isNotEmpty;
+import javax.servlet.http.HttpServletRequest;
+
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static org.apache.commons.lang3.math.NumberUtils.isCreatable;
 
 /*
@@ -38,20 +40,32 @@ public class CurrentWeatherAPIController {
     @Autowired
     private Weather weather;
 
-    @RequestMapping("/current")
+    /*
+    *
+    * "/current" is kept for backward compatibility, will be deprecated soon
+    *
+    * */
+    @RequestMapping(value = {"v1/weather/current", "/current"})
     public CurrentWeatherCondition getCurrent(@RequestParam(value = "lat") String latitude, @RequestParam(value = "lon") String longitude,
                                               @RequestParam(value = "fahrenheit", required = false, defaultValue = "false") boolean fahrenheit) {
-        if(!isLatitudeLongitudeExist(latitude, longitude)) {
+        if (!isLatitudeLongitudeExist(latitude, longitude)) {
             return new CurrentWeatherCondition(Lists.newArrayList(ERR_NO_LATITUDE_LONGITUDE_PROVIDED));
-        } else if(!isLatitudeLongitudeValid(latitude, longitude)) {
+        } else if (!isLatitudeLongitudeValid(latitude, longitude)) {
             return new CurrentWeatherCondition(Lists.newArrayList(ERR_INVALID_LATITUDE_LONGITUDE_PROVIDED));
         } else {
             return weather.getCurrent(latitude, longitude, fahrenheit);
         }
     }
 
+    @RequestMapping("v1/weather/currentbyip")
+    public CurrentWeatherCondition getCurrentByIp(@RequestParam(value = "fahrenheit",
+            required = false, defaultValue = "false") boolean fahrenheit, HttpServletRequest request) {
+
+        return weather.getCurrent(request, fahrenheit);
+    }
+
     private boolean isLatitudeLongitudeExist(String latitude, String longitude) {
-        return (isNotEmpty(latitude) || isNotEmpty(longitude));
+        return (isNotBlank(latitude) || isNotBlank(longitude));
     }
 
     private boolean isLatitudeLongitudeValid(String latitude, String longitude) {

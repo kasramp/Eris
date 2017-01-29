@@ -4,8 +4,12 @@ import com.madadipouya.eris.integration.ipapi.IpApiIntegration;
 import com.madadipouya.eris.service.ipgeolocation.model.Coordinates;
 import com.madadipouya.eris.service.ipgeolocation.IpGeoLocation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletRequest;
 
 import static com.madadipouya.eris.util.BeanUtils.copyProperties;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 /*
 * This file is part of Eris Weather API.
@@ -24,13 +28,25 @@ import static com.madadipouya.eris.util.BeanUtils.copyProperties;
 * © 2017 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
+@Service("ipGeoLocation")
 public class DefaultIpGeoLocation implements IpGeoLocation {
 
     @Autowired
     private IpApiIntegration ipApiIntegration;
 
     @Override
-    public Coordinates getCoordinatesByIp(String ipAddress) {
+    public Coordinates getCoordinates(HttpServletRequest request) {
+        return getCoordinates(getRequestIpAddress(request));
+    }
+
+    @Override
+    public Coordinates getCoordinates(String ipAddress) {
         return copyProperties(ipApiIntegration.getCoordinatesFromIp(ipAddress), new Coordinates());
+    }
+
+    private String getRequestIpAddress(HttpServletRequest request) {
+        // Support Reverse Proxy
+        String ipAddress = request.getHeader("X-FORWARDED-FOR");
+        return isBlank(ipAddress) ? request.getRemoteAddr(): ipAddress;
     }
 }

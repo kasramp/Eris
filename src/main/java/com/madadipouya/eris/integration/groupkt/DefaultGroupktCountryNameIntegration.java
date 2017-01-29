@@ -4,7 +4,7 @@ import com.madadipouya.eris.integration.groupkt.remote.response.GroupktCountryNa
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import static org.apache.commons.lang3.StringUtils.isEmpty;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 /*
 * This file is part of Eris Weather API.
@@ -35,7 +35,7 @@ public class DefaultGroupktCountryNameIntegration implements GroupktCountryNameI
 
     @Override
     public GroupktCountryNameResponse getCountryDetails(String countryCode) {
-        return isEmpty(countryCode) ? new GroupktCountryNameResponse() :
+        return isBlank(countryCode) ? new GroupktCountryNameResponse() :
                 new RestTemplate().getForObject(String.format(API_URL, countryCode), GroupktCountryNameResponse.class);
     }
 }
