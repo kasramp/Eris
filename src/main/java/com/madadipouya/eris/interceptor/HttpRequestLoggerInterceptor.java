@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static org.apache.commons.lang3.StringUtils.trimToEmpty;
+
 /*
 * This file is part of Eris Weather API.
 *
@@ -34,16 +36,19 @@ import java.util.stream.Collectors;
 public class HttpRequestLoggerInterceptor implements HandlerInterceptor {
 
     private static final Logger logger = LoggerFactory.getLogger(HttpRequestLoggerInterceptor.class);
-    private static final String MESSAGE = "Serving request for IP: %s, with parameters: %s";
+    private static final String MESSAGE = "Serving request for IP: %s with parameters: %s - @ %s";
     @Autowired
     IpGeoLocation ipGeoLocation;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
         try {
-            logger.info(String.format(MESSAGE, getRequestIp(request), beautifyRequestParameters(request.getParameterMap())));
+            logger.info(String.format(MESSAGE, getRequestIp(request),
+                    beautifyRequestParameters(request.getParameterMap()), trimToEmpty(request.getRequestURI())));
             return true;
-        } catch(Exception ex) {}
+        } catch(Exception ex) {
+            // Don't disturb the request, suppress any error occurs while logging the request
+        }
 
         return true;
     }
