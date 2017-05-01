@@ -59,15 +59,10 @@ public class DefaultWeather implements Weather {
     }
 
     private CurrentWeatherCondition getCurrentWeatherCondition(String latitude, String longitude, boolean fahrenheit) {
-        try {
-            return setGeoLocation(
-                    setCountryFullName(
-                            convertBean(openWeatherMapIntegration.getCurrentWeatherCondition(latitude, longitude, fahrenheit))
-                    ));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return null;
+        return setGeoLocation(
+                setCountryFullName(
+                        convertBean(openWeatherMapIntegration.getCurrentWeatherCondition(latitude, longitude, fahrenheit))
+                ));
     }
 
     private CurrentWeatherCondition convertBean(OpenWeatherMapCurrentWeatherResponse openWeatherMapCurrentWeatherResponse) {
