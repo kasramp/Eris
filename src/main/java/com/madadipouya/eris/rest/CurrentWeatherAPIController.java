@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
 import com.madadipouya.eris.service.weather.Weather;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,22 +47,22 @@ public class CurrentWeatherAPIController {
     *
     * */
     @RequestMapping(value = {"v1/weather/current", "/current"})
-    public CurrentWeatherCondition getCurrent(@RequestParam(value = "lat") String latitude, @RequestParam(value = "lon") String longitude,
-                                              @RequestParam(value = "fahrenheit", required = false, defaultValue = "false") boolean fahrenheit) {
+    public ResponseEntity<CurrentWeatherCondition> getCurrent(@RequestParam(value = "lat") String latitude, @RequestParam(value = "lon") String longitude,
+                                                              @RequestParam(value = "fahrenheit", required = false, defaultValue = "false") boolean fahrenheit) {
         if (!isLatitudeLongitudeExist(latitude, longitude)) {
-            return new CurrentWeatherCondition(Lists.newArrayList(ERR_NO_LATITUDE_LONGITUDE_PROVIDED));
+            return ResponseEntity.badRequest().body(createErrorResponse(ERR_NO_LATITUDE_LONGITUDE_PROVIDED));
         } else if (!isLatitudeLongitudeValid(latitude, longitude)) {
-            return new CurrentWeatherCondition(Lists.newArrayList(ERR_INVALID_LATITUDE_LONGITUDE_PROVIDED));
+            return ResponseEntity.badRequest().body(createErrorResponse(ERR_INVALID_LATITUDE_LONGITUDE_PROVIDED));
         } else {
-            return weather.getCurrent(latitude, longitude, fahrenheit);
+            return ResponseEntity.ok(weather.getCurrent(latitude, longitude, fahrenheit));
         }
     }
 
     @RequestMapping("v1/weather/currentbyip")
-    public CurrentWeatherCondition getCurrentByIp(@RequestParam(value = "fahrenheit",
+    public ResponseEntity<CurrentWeatherCondition> getCurrentByIp(@RequestParam(value = "fahrenheit",
             required = false, defaultValue = "false") boolean fahrenheit, HttpServletRequest request) {
 
-        return weather.getCurrent(request, fahrenheit);
+        return ResponseEntity.ok(weather.getCurrent(request, fahrenheit));
     }
 
     private boolean isLatitudeLongitudeExist(String latitude, String longitude) {
@@ -70,5 +71,9 @@ public class CurrentWeatherAPIController {
 
     private boolean isLatitudeLongitudeValid(String latitude, String longitude) {
         return (isCreatable(latitude) && isCreatable(longitude));
+    }
+
+    private CurrentWeatherCondition createErrorResponse(String... errorMessage) {
+        return new CurrentWeatherCondition(Lists.newArrayList(errorMessage));
     }
 }

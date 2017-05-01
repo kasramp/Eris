@@ -4,6 +4,8 @@ import com.madadipouya.eris.integration.ipapi.remote.response.IpApiResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import static org.apache.commons.lang3.StringUtils.trim;
+
 /*
 * This file is part of Eris Weather API.
 *
@@ -29,6 +31,6 @@ public class DefaultIpApiIntegration implements IpApiIntegration {
     @Override
     public IpApiResponse getCoordinatesFromIp(String ipAddress) {
         return new RestTemplate().getForObject(
-                String.format(API_URL, ipAddress), IpApiResponse.class);
+                String.format(API_URL, trim(ipAddress)), IpApiResponse.class);
     }
 }

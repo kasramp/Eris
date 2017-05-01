@@ -26,4 +26,8 @@ public interface IpGeoLocation {
     Coordinates getCoordinates(HttpServletRequest request);
 
     Coordinates getCoordinates(String ipAddress);
+
+    String getRequestIpAddress(HttpServletRequest request);
+
+    String getRequestIpAddressSimple(HttpServletRequest request);
 }

@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import static com.madadipouya.eris.util.BeanUtils.copyProperties;
 import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.apache.commons.lang3.StringUtils.split;
+import static org.apache.commons.lang3.StringUtils.trim;
 
 /*
 * This file is part of Eris Weather API.
@@ -44,7 +46,14 @@ public class DefaultIpGeoLocation implements IpGeoLocation {
         return copyProperties(ipApiIntegration.getCoordinatesFromIp(ipAddress), new Coordinates());
     }
 
-    private String getRequestIpAddress(HttpServletRequest request) {
+    @Override
+    public String getRequestIpAddress(HttpServletRequest request) {
+        String ipAddress = getRequestIpAddressSimple(request);
+        return ipAddress.contains(",") ? trim(split(trim(ipAddress), ",")[1]) : ipAddress;
+    }
+
+    @Override
+    public String getRequestIpAddressSimple(HttpServletRequest request) {
         // Support Reverse Proxy
         String ipAddress = request.getHeader("X-FORWARDED-FOR");
         return isBlank(ipAddress) ? request.getRemoteAddr(): ipAddress;
