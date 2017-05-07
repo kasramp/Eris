@@ -48,42 +48,52 @@ public class CurrentWeatherCondition extends OpenWeatherMapCurrentWeatherRespons
 
     private String apiVersion;
 
+    @Deprecated
     public String getCountry() {
         return country;
     }
 
+    @Deprecated
     public void setCountry(String country) {
         this.country = country;
     }
 
+    @Deprecated
     public String getGeoLocation() {
         return geoLocation;
     }
 
+    @Deprecated
     public void setGeoLocation(String geoLocation) {
         this.geoLocation = geoLocation;
     }
 
+    @Deprecated
     public BigDecimal getTemperature() {
         return temperature;
     }
 
+    @Deprecated
     public void setTemperature(BigDecimal temperature) {
         this.temperature = temperature;
     }
 
+    @Deprecated
     public String getIcon() {
         return icon;
     }
 
+    @Deprecated
     public void setIcon(String icon) {
         this.icon = icon;
     }
 
+    @Deprecated
     public String getIconName() {
         return iconName;
     }
 
+    @Deprecated
     public void setIconName(String iconName) {
         this.iconName = iconName;
     }
