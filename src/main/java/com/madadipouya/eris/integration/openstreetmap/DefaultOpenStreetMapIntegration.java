@@ -57,7 +57,7 @@ public class DefaultOpenStreetMapIntegration implements OpenStreetMapIntegration
         try {
             return cacheMechanism.get(latitude, longitude);
         } catch (ExecutionException cacheException) {
-            logger.debug(format("Failed to get data from cache for latitude : %s, longitude : %s"), latitude, longitude);
+            logger.warn(format("Failed to get data from cache for latitude : %s, longitude : %s"), latitude, longitude);
             return getRemote(latitude, longitude);
         }
     }
