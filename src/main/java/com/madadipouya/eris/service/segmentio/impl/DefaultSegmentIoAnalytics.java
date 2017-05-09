@@ -1,6 +1,5 @@
 package com.madadipouya.eris.service.segmentio.impl;
 
-import com.google.common.collect.ImmutableMap;
 import com.madadipouya.eris.service.segmentio.SegmentIoAnalytics;
 import com.madadipouya.eris.util.PropertyUtils;
 import com.segment.analytics.Analytics;
