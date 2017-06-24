@@ -1,4 +1,7 @@
 # Eris
+
+![](https://jenkins-jenkinsinstances.1d35.starter-us-east-1.openshiftapps.com/job/maven/badge/iconi)
+
 Eris is an open source weather API to get the current weather condition across the globe.
 
 ## Description
@@ -46,5 +49,3 @@ Author(s):
 
 © 2017 Kasra Madadipouya <kasra@madadipouya.com>
 
-
-Test
