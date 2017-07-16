@@ -28,11 +28,22 @@ public class PropertyUtils {
     @Value("${openweathermap.api.key}")
     private String openWeatherMapApiKey;
 
+    @Value("${segmentio.write.api.key}")
+    private String segmentIoWriteApiKey;
+
     public String getOpenWeatherMapApiKey() {
         return openWeatherMapApiKey;
     }
 
     public void setOpenWeatherMapApiKey(String openWeatherMapApiKey) {
         this.openWeatherMapApiKey = openWeatherMapApiKey;
+    }
+
+    public String getSegmentIoWriteApiKey() {
+        return segmentIoWriteApiKey;
+    }
+
+    public void setSegmentIoWriteApiKey(String segmentIoWriteApiKey) {
+        this.segmentIoWriteApiKey = segmentIoWriteApiKey;
     }
 }

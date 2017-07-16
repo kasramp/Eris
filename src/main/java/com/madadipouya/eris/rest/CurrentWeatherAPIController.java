@@ -48,7 +48,8 @@ public class CurrentWeatherAPIController {
     * */
     @RequestMapping(value = {"v1/weather/current", "/current"})
     public ResponseEntity<CurrentWeatherCondition> getCurrent(@RequestParam(value = "lat") String latitude, @RequestParam(value = "lon") String longitude,
-                                                              @RequestParam(value = "fahrenheit", required = false, defaultValue = "false") boolean fahrenheit) {
+                                                              @RequestParam(value = "fahrenheit", required = false, defaultValue = "false") boolean fahrenheit,
+                                                              HttpServletRequest request) {
         if (!isLatitudeLongitudeExist(latitude, longitude)) {
             return ResponseEntity.badRequest().body(createErrorResponse(ERR_NO_LATITUDE_LONGITUDE_PROVIDED));
         } else if (!isLatitudeLongitudeValid(latitude, longitude)) {

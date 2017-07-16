@@ -37,6 +37,7 @@ public class HttpRequestLoggerInterceptor implements HandlerInterceptor {
 
     private static final Logger logger = LoggerFactory.getLogger(HttpRequestLoggerInterceptor.class);
     private static final String MESSAGE = "Serving request for IP: %s with parameters: %s - @ %s";
+
     @Autowired
     IpGeoLocation ipGeoLocation;
 
