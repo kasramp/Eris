@@ -4,6 +4,7 @@ import com.madadipouya.eris.integration.groupkt.GroupktCountryNameIntegration;
 import com.madadipouya.eris.integration.openstreetmap.OpenStreetMapIntegration;
 import com.madadipouya.eris.integration.openweathermap.OpenWeatherMapIntegration;
 import com.madadipouya.eris.integration.openweathermap.remote.response.OpenWeatherMapCurrentWeatherResponse;
+import com.madadipouya.eris.service.feelslike.FeelsLikeService;
 import com.madadipouya.eris.service.ipgeolocation.IpGeoLocation;
 import com.madadipouya.eris.service.ipgeolocation.model.Coordinates;
 import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
@@ -47,6 +48,9 @@ public class DefaultWeather implements Weather {
     @Autowired
     private IpGeoLocation ipGeoLocation;
 
+    @Autowired
+    private FeelsLikeService feelsLikeService;
+
     @Override
     public CurrentWeatherCondition getCurrent(HttpServletRequest request, boolean fahrenheit) {
         Coordinates coordinates = ipGeoLocation.getCoordinates(request);
@@ -61,8 +65,13 @@ public class DefaultWeather implements Weather {
     private CurrentWeatherCondition getCurrentWeatherCondition(String latitude, String longitude, boolean fahrenheit) {
         return setGeoLocation(
                 setCountryFullName(
-                        convertBean(openWeatherMapIntegration.getCurrentWeatherCondition(latitude, longitude, fahrenheit))
-                ));
+                        setFeelsLike(
+                                convertBean(
+                                        openWeatherMapIntegration.getCurrentWeatherCondition(
+                                                latitude, longitude, fahrenheit))
+                                , fahrenheit)
+                )
+        );
     }
 
     private CurrentWeatherCondition convertBean(OpenWeatherMapCurrentWeatherResponse openWeatherMapCurrentWeatherResponse) {
@@ -86,6 +95,15 @@ public class DefaultWeather implements Weather {
                         currentWeatherCondition.getCoordinates().getLatitude(),
                         currentWeatherCondition.getCoordinates().getLongitude())
         );
+        return currentWeatherCondition;
+    }
+
+    private CurrentWeatherCondition setFeelsLike(CurrentWeatherCondition currentWeatherCondition, boolean fahrenheit) {
+        currentWeatherCondition.setFeelsLike(feelsLikeService.getFeelsLike(
+                currentWeatherCondition.getMain().getTemperature().doubleValue(),
+                currentWeatherCondition.getWind().getSpeed().doubleValue(),
+                currentWeatherCondition.getMain().getHumidity().doubleValue(),
+                fahrenheit));
         return currentWeatherCondition;
     }
 }

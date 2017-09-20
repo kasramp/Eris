@@ -44,6 +44,8 @@ public class CurrentWeatherCondition extends OpenWeatherMapCurrentWeatherRespons
 
     private String iconName;  //For backward compatibility
 
+    private double feelsLike;
+
     private List<String> errors;
 
     private String apiVersion;
@@ -96,6 +98,14 @@ public class CurrentWeatherCondition extends OpenWeatherMapCurrentWeatherRespons
     @Deprecated
     public void setIconName(String iconName) {
         this.iconName = iconName;
+    }
+
+    public double getFeelsLike() {
+        return feelsLike;
+    }
+
+    public void setFeelsLike(double feelsLike) {
+        this.feelsLike = feelsLike;
     }
 
     public List<String> getErrors() {
