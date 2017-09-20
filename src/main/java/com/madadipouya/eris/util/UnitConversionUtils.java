@@ -25,12 +25,10 @@ public class UnitConversionUtils {
 
     public static double FahrenheitToCelsius(double fahrenheit) {
         return Measure.valueOf(fahrenheit, NonSI.FAHRENHEIT).to(SI.CELSIUS).getValue();
-        //return (fahrenheit - 32) * 5 / 9;
     }
 
     public static double CelsiusToFahrenheit(double celsius) {
         return Measure.valueOf(celsius, SI.CELSIUS).to(NonSI.FAHRENHEIT).getValue();
-        //return celsius * 9 / 5 + 32;
     }
 
     public static double MeterPerSecondToMilePerHour(double meterPerSecond) {
