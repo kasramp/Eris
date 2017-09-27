@@ -1,9 +1,11 @@
 package com.madadipouya.eris.integration.ipapi;
 
 import com.madadipouya.eris.integration.ipapi.remote.response.IpApiResponse;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import static com.madadipouya.eris.configuration.CacheConfiguration.IP_API_CACHE;
 import static org.apache.commons.lang3.StringUtils.trim;
 
 /*
@@ -29,6 +31,7 @@ public class DefaultIpApiIntegration implements IpApiIntegration {
     private static final String API_URL = "http://ip-api.com/json/%s";
 
     @Override
+    @Cacheable(IP_API_CACHE)
     public IpApiResponse getCoordinatesFromIp(String ipAddress) {
         return new RestTemplate().getForObject(
                 String.format(API_URL, trim(ipAddress)), IpApiResponse.class);

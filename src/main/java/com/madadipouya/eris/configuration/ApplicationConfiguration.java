@@ -26,7 +26,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 @ComponentScan("com.madadipouya.eris.interceptor")
-public class AppConfig extends WebMvcConfigurerAdapter {
+public class ApplicationConfiguration extends WebMvcConfigurerAdapter {
 
     @Autowired
     HandlerInterceptor handlerInterceptor;
