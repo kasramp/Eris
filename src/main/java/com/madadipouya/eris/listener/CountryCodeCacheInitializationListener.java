@@ -3,17 +3,19 @@ package com.madadipouya.eris.listener;
 import com.google.common.collect.ImmutableMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.Cache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.ApplicationListener;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.InputStreamReader;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -43,6 +45,9 @@ public class CountryCodeCacheInitializationListener implements ApplicationListen
 
     private static final String COUNTRY_CODE_FILE_NAME = "countryCode.csv";
 
+    @Value("classpath:" + COUNTRY_CODE_FILE_NAME)
+    private Resource countryCodeFile;
+
     @Autowired
     CacheManager cacheManager;
 
@@ -56,14 +61,16 @@ public class CountryCodeCacheInitializationListener implements ApplicationListen
     }
 
     private Map<String, String> getCountryCodeFileContent() {
-        try {
-            return Files.lines(Paths.get(new ClassPathResource(COUNTRY_CODE_FILE_NAME).getURI()))
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(countryCodeFile.getInputStream()))) {
+            return reader.lines()
                     .map(element -> element.split("[,]"))
                     .filter(element -> element.length == 2)
                     .collect(Collectors.toMap(element -> element[0].trim(), element -> element[1].trim()));
         } catch (IOException ioException) {
             logger.warn("Failed to open the country code file, the cache will be empty", ioException);
         }
+
         return ImmutableMap.of();
     }
 
