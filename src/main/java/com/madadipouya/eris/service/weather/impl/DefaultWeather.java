@@ -10,7 +10,6 @@ import com.madadipouya.eris.service.ipgeolocation.model.Coordinates;
 import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
 import com.madadipouya.eris.service.weather.Weather;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,9 +50,6 @@ public class DefaultWeather implements Weather {
 
     @Autowired
     private FeelsLikeService feelsLikeService;
-
-    @Autowired
-    private CacheManager cacheManager;
 
     @Override
     public CurrentWeatherCondition getCurrent(HttpServletRequest request, boolean fahrenheit) {
