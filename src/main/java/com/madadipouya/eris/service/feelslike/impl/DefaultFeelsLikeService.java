@@ -33,8 +33,8 @@ public class DefaultFeelsLikeService implements FeelsLikeService {
 
     @Override
     public double getFeelsLike(double temperature, double windSpeed, double humidity, boolean fahrenheit) {
-        return fahrenheit ? getFeelsLikeFahrenheit(temperature, windSpeed, humidity)
-                : getFeelsLikeCelsius(temperature, windSpeed, humidity);
+        return fahrenheit ? Math.round(getFeelsLikeFahrenheit(temperature, windSpeed, humidity) * 100.0) / 100.0
+                : Math.round(getFeelsLikeCelsius(temperature, windSpeed, humidity) * 100.0) / 100.0;
     }
 
     private double getFeelsLikeCelsius(double temperature, double windSpeed, double humidity) {
