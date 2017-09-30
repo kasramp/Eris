@@ -1,4 +1,3 @@
-DDD
 # Eris [![Build Status](https://travis-ci.org/kasramp/Eris.svg?branch=develop)](https://travis-ci.org/kasramp/Eris)
 
 Eris is an open source weather API to get the current weather condition across the globe.
