@@ -119,7 +119,7 @@ If none numeric or empty `lat` and/or `lon` given to the endpoint, the API retur
 
 ```
 {
-country": null,
+  "country": null,
   "geoLocation": null,
   "temperature": null,
   "icon": null,
