@@ -204,8 +204,20 @@ Anyone is welcome to contribute to this project.
 
 
 ## <a name="contact">Support/Contact</a>
-Facing any problems, found bugs or having any inquiries? Just drop an email to
-<kasra@madadipouya.com>
+Running and mainining a free public API instance 24/7 bears some costs, besides time dedication, even though the service is deployed to a lowcost PaaS such as Heroku.
+
+In order to maintain a high quality free service that is publicly available to everyone, any amount of montary donation or hosting offer is highly appreciated.
+
+If you are interested to donate money, click on the Paypal donate button in below
+
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="C68PYFWLT332S">
+<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form>
+
+For help, inquiries, bug report, or hosting offer, just drop an email to: <kasra@madadipouya.com>
 
 ## <a name="license">License</a>
 <p>
