@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import static com.madadipouya.eris.util.UnitConversionUtils.CelsiusToFahrenheit;
 import static com.madadipouya.eris.util.UnitConversionUtils.FahrenheitToCelsius;
-import static com.madadipouya.eris.util.UnitConversionUtils.MeterPerSecondToMilePerHour;
+import static com.madadipouya.eris.util.UnitConversionUtils.KiloMeterPerHourToMilePerHour;
 
 /*
 * This file is part of Eris Weather API.
@@ -39,7 +39,7 @@ public class DefaultFeelsLikeService implements FeelsLikeService {
 
     private double getFeelsLikeCelsius(double temperature, double windSpeed, double humidity) {
         return FahrenheitToCelsius(getFeelsLikeFahrenheit(CelsiusToFahrenheit(temperature),
-                MeterPerSecondToMilePerHour(windSpeed), humidity));
+                KiloMeterPerHourToMilePerHour(windSpeed), humidity));
     }
 
     private double getFeelsLikeFahrenheit(double temperature, double windSpeed, double humidity) {

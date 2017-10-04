@@ -39,7 +39,7 @@ public class OpenWeatherMapCurrentWeatherResponse {
     private Main main;
 
     @JsonProperty("visibility")
-    private String visibility;
+    private double visibility;
 
     @JsonProperty("wind")
     private Wind wind;
@@ -94,11 +94,11 @@ public class OpenWeatherMapCurrentWeatherResponse {
         this.main = main;
     }
 
-    public String getVisibility() {
+    public double getVisibility() {
         return visibility;
     }
 
-    public void setVisibility(String visibility) {
+    public void setVisibility(double visibility) {
         this.visibility = visibility;
     }
 

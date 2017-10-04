@@ -31,11 +31,15 @@ public class UnitConversionUtils {
         return Measure.valueOf(celsius, SI.CELSIUS).to(NonSI.FAHRENHEIT).getValue();
     }
 
-    public static double MeterPerSecondToMilePerHour(double meterPerSecond) {
-        return Measure.valueOf(meterPerSecond, SI.METERS_PER_SECOND).to(NonSI.MILES_PER_HOUR).getValue();
+    public static double KiloMeterPerHourToMilePerHour(double kiloMeterPerHour) {
+        return Measure.valueOf(kiloMeterPerHour, NonSI.KILOMETERS_PER_HOUR).to(NonSI.MILES_PER_HOUR).getValue();
     }
 
-    public static double MilePerHourToMeterPerSecond(double milePerHour) {
-        return Measure.valueOf(milePerHour, NonSI.MILES_PER_HOUR).to(SI.METERS_PER_SECOND).getValue();
+    public static double MeterToMile(double meter) {
+        return Measure.valueOf(meter, SI.METER).to(NonSI.MILE).getValue();
+    }
+
+    public static double MeterPerSecondToKiloMeterPerHour(double meterPerSecond) {
+        return Measure.valueOf(meterPerSecond, SI.METERS_PER_SECOND).to(NonSI.KILOMETERS_PER_HOUR).getValue();
     }
 }
