@@ -9,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
 import java.math.BigDecimal;
 
 import static com.madadipouya.eris.util.UnitConversionUtils.MeterPerSecondToKiloMeterPerHour;
+import static com.madadipouya.eris.util.UnitConversionUtils.MeterToKiloMeter;
 import static com.madadipouya.eris.util.UnitConversionUtils.MeterToMile;
 
 /*
@@ -59,13 +60,15 @@ public class DefaultOpenWeatherMapIntegration implements OpenWeatherMapIntegrati
         if (fahrenheit) {
             openWeatherMapCurrentWeatherResponse
                     .setVisibility(Math.round(MeterToMile(openWeatherMapCurrentWeatherResponse.getVisibility()) * 100.0) / 100.0);
-            
+
         } else {
             openWeatherMapCurrentWeatherResponse.getWind().setSpeed(
-                    new BigDecimal(MeterPerSecondToKiloMeterPerHour(openWeatherMapCurrentWeatherResponse
+                    new BigDecimal(Math.round(MeterPerSecondToKiloMeterPerHour(openWeatherMapCurrentWeatherResponse
                             .getWind()
                             .getSpeed()
-                            .doubleValue())));
+                            .doubleValue()) * 100.0) / 100.0));
+            openWeatherMapCurrentWeatherResponse
+                    .setVisibility(Math.round(MeterToKiloMeter(openWeatherMapCurrentWeatherResponse.getVisibility()) * 100.0) / 100.0);
         }
         return openWeatherMapCurrentWeatherResponse;
     }

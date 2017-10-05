@@ -42,4 +42,8 @@ public class UnitConversionUtils {
     public static double MeterPerSecondToKiloMeterPerHour(double meterPerSecond) {
         return Measure.valueOf(meterPerSecond, SI.METERS_PER_SECOND).to(NonSI.KILOMETERS_PER_HOUR).getValue();
     }
+
+    public static double MeterToKiloMeter(double meter) {
+        return Measure.valueOf(meter, SI.METER).to(SI.KILOMETER).getValue();
+    }
 }
