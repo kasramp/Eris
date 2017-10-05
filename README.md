@@ -52,7 +52,7 @@ Parameter | Description |Type | Compulsory
 :---: | :---: | :---: | :---:
 lat | Latitude | Decimal | &#10004;
 lon | Longitude | Decimal | &#10004;
-fahrenheit | Temperature scale, supported Fahrenheit (`true`) and Celsius (`false`, default). If Fahrenheit sets to `true`, the wind speed unit will be changed to miles/hour, otherwise meter/sec | Boolean | &#10008;
+fahrenheit | Temperature scale, supported Fahrenheit (`true`) and Celsius (`false`, default). If Fahrenheit sets to `true`, the distance unit will be changed to mile, otherwise kilometer | Boolean | &#10008;
 
 The JSON response of the call is something similar to below:
 
@@ -154,7 +154,7 @@ The API parameters are as follows:
 
 Parameter | Description |Type | Compulsory
 :---: | :---: | :---: | :---:
-fahrenheit | Temperature scale, supported Fahrenheit (`true`) and Celsius (`false`, default). If Fahrenheit sets to `true`, the wind speed unit will be changed to miles/hour, otherwise meter/sec | Boolean | &#10008;
+fahrenheit | Temperature scale, supported Fahrenheit (`true`) and Celsius (`false`, default). If Fahrenheit sets to `true`, the distance unit will be changed to mile, otherwise kilometer | Boolean | &#10008;
 
 The IP address retrieved automatically from request header and as it can be seen, no parameter is defined to manually determine it.
 The response of this endpoint is identical with the `/current` one.
