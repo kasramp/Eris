@@ -24,7 +24,7 @@ import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
 
 public class BeanUtils extends org.springframework.beans.BeanUtils {
 
-    private static final String ICON_URL = "http://openweathermap.org/img/w/%s.png";
+    public static final String ICON_URL = "http://openweathermap.org/img/w/%s.png";
 
     public static CurrentWeatherCondition copyProperties(OpenWeatherMapCurrentWeatherResponse source, CurrentWeatherCondition target) {
         org.springframework.beans.BeanUtils.copyProperties(source, target);

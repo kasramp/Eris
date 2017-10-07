@@ -160,10 +160,13 @@ public class OpenWeatherMapCurrentWeatherResponse {
 
 
     public static class Coordinates {
-
         public Coordinates() {
-            latitude = "0";
-            longitude = "0";
+            this("0", "0");
+        }
+
+        public Coordinates(String latitude, String longitude) {
+            this.latitude = latitude;
+            this.longitude = longitude;
         }
 
         @JsonProperty("lat")
@@ -190,12 +193,15 @@ public class OpenWeatherMapCurrentWeatherResponse {
     }
 
     public static class Weather {
-
         public Weather() {
-            id = new Integer(0);
-            main = "";
-            description = "";
-            icon = "";
+            this(0, "", "", "");
+        }
+
+        public Weather(Integer id, String main, String description, String icon) {
+            this.id = id;
+            this.main = main;
+            this.description = description;
+            this.icon = icon;
         }
 
         @JsonProperty("id")
@@ -336,8 +342,12 @@ public class OpenWeatherMapCurrentWeatherResponse {
     public static class Wind {
 
         public Wind() {
-            speed = new BigDecimal(0);
-            degree = new BigDecimal(0);
+            this(new BigDecimal(0), new BigDecimal(0));
+        }
+
+        public Wind(BigDecimal speed, BigDecimal degree) {
+            this.speed = speed;
+            this.degree = degree;
         }
 
         @JsonProperty("speed")
@@ -364,9 +374,12 @@ public class OpenWeatherMapCurrentWeatherResponse {
     }
 
     public static class Clouds {
-
         public Clouds() {
-            all = new BigDecimal(0);
+            this(new BigDecimal(0));
+        }
+
+        public Clouds(BigDecimal all) {
+            this.all = all;
         }
 
         @JsonProperty("all")
@@ -380,6 +393,7 @@ public class OpenWeatherMapCurrentWeatherResponse {
             this.all = all;
         }
     }
+
     public static class Sys {
 
         public Sys() {
