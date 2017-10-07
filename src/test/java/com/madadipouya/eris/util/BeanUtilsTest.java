@@ -26,13 +26,22 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 
 @RunWith(MockitoJUnitRunner.class)
 public class BeanUtilsTest {
+
+    @Test
+    public void testBeanUtilsHasPrivateConstructor() throws NoSuchMethodException {
+        Constructor<BeanUtils> constructor = BeanUtils.class.getDeclaredConstructor();
+        assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+    }
 
     @Test
     public void testCopyPropertiesForOpenWeather() {

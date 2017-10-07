@@ -26,6 +26,10 @@ public class BeanUtils extends org.springframework.beans.BeanUtils {
 
     public static final String ICON_URL = "http://openweathermap.org/img/w/%s.png";
 
+    private BeanUtils() {
+
+    }
+
     public static CurrentWeatherCondition copyProperties(OpenWeatherMapCurrentWeatherResponse source, CurrentWeatherCondition target) {
         org.springframework.beans.BeanUtils.copyProperties(source, target);
         return setBackwardCompatibilityProperties(target);

@@ -4,8 +4,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
+
 import static com.madadipouya.eris.util.UnitConversionUtils.*;
 import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /*
 * This file is part of Eris Weather API.
@@ -26,6 +31,12 @@ import static junit.framework.TestCase.assertEquals;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UnitConversionUtilsTest {
+
+    @Test
+    public void testUnitConversionUtilsHasPrivateConstructor() throws NoSuchMethodException {
+        Constructor<UnitConversionUtils> constructor = UnitConversionUtils.class.getDeclaredConstructor();
+        assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+    }
 
     @Test
     public void testFahrenheitToCelsius() {
