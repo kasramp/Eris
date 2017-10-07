@@ -63,7 +63,7 @@ public class DefaultOpenWeatherMapIntegration implements OpenWeatherMapIntegrati
 
         } else {
             openWeatherMapCurrentWeatherResponse.getWind().setSpeed(
-                    new BigDecimal(Math.round(MeterPerSecondToKiloMeterPerHour(openWeatherMapCurrentWeatherResponse
+                    BigDecimal.valueOf(Math.round(MeterPerSecondToKiloMeterPerHour(openWeatherMapCurrentWeatherResponse
                             .getWind()
                             .getSpeed()
                             .doubleValue()) * 100.0) / 100.0));
