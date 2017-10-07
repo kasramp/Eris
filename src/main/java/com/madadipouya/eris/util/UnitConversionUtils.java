@@ -23,27 +23,31 @@ import javax.measure.unit.SI;
 
 public class UnitConversionUtils {
 
-    public static double FahrenheitToCelsius(double fahrenheit) {
+    private UnitConversionUtils() {
+
+    }
+
+    public static double fahrenheitToCelsius(double fahrenheit) {
         return Measure.valueOf(fahrenheit, NonSI.FAHRENHEIT).to(SI.CELSIUS).getValue();
     }
 
-    public static double CelsiusToFahrenheit(double celsius) {
+    public static double celsiusToFahrenheit(double celsius) {
         return Measure.valueOf(celsius, SI.CELSIUS).to(NonSI.FAHRENHEIT).getValue();
     }
 
-    public static double KiloMeterPerHourToMilePerHour(double kiloMeterPerHour) {
+    public static double kiloMeterPerHourToMilePerHour(double kiloMeterPerHour) {
         return Measure.valueOf(kiloMeterPerHour, NonSI.KILOMETERS_PER_HOUR).to(NonSI.MILES_PER_HOUR).getValue();
     }
 
-    public static double MeterToMile(double meter) {
+    public static double meterToMile(double meter) {
         return Measure.valueOf(meter, SI.METER).to(NonSI.MILE).getValue();
     }
 
-    public static double MeterPerSecondToKiloMeterPerHour(double meterPerSecond) {
+    public static double meterPerSecondToKiloMeterPerHour(double meterPerSecond) {
         return Measure.valueOf(meterPerSecond, SI.METERS_PER_SECOND).to(NonSI.KILOMETERS_PER_HOUR).getValue();
     }
 
-    public static double MeterToKiloMeter(double meter) {
+    public static double meterToKiloMeter(double meter) {
         return Measure.valueOf(meter, SI.METER).to(SI.KILOMETER).getValue();
     }
 }

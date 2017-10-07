@@ -3,9 +3,9 @@ package com.madadipouya.eris.service.feelslike.impl;
 import com.madadipouya.eris.service.feelslike.FeelsLikeService;
 import org.springframework.stereotype.Service;
 
-import static com.madadipouya.eris.util.UnitConversionUtils.CelsiusToFahrenheit;
-import static com.madadipouya.eris.util.UnitConversionUtils.FahrenheitToCelsius;
-import static com.madadipouya.eris.util.UnitConversionUtils.KiloMeterPerHourToMilePerHour;
+import static com.madadipouya.eris.util.UnitConversionUtils.celsiusToFahrenheit;
+import static com.madadipouya.eris.util.UnitConversionUtils.fahrenheitToCelsius;
+import static com.madadipouya.eris.util.UnitConversionUtils.kiloMeterPerHourToMilePerHour;
 
 /*
 * This file is part of Eris Weather API.
@@ -38,8 +38,8 @@ public class DefaultFeelsLikeService implements FeelsLikeService {
     }
 
     private double getFeelsLikeCelsius(double temperature, double windSpeed, double humidity) {
-        return FahrenheitToCelsius(getFeelsLikeFahrenheit(CelsiusToFahrenheit(temperature),
-                KiloMeterPerHourToMilePerHour(windSpeed), humidity));
+        return fahrenheitToCelsius(getFeelsLikeFahrenheit(celsiusToFahrenheit(temperature),
+                kiloMeterPerHourToMilePerHour(windSpeed), humidity));
     }
 
     private double getFeelsLikeFahrenheit(double temperature, double windSpeed, double humidity) {

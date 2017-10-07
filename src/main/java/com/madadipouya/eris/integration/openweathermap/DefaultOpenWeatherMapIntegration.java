@@ -8,9 +8,9 @@ import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 
-import static com.madadipouya.eris.util.UnitConversionUtils.MeterPerSecondToKiloMeterPerHour;
-import static com.madadipouya.eris.util.UnitConversionUtils.MeterToKiloMeter;
-import static com.madadipouya.eris.util.UnitConversionUtils.MeterToMile;
+import static com.madadipouya.eris.util.UnitConversionUtils.meterPerSecondToKiloMeterPerHour;
+import static com.madadipouya.eris.util.UnitConversionUtils.meterToKiloMeter;
+import static com.madadipouya.eris.util.UnitConversionUtils.meterToMile;
 
 /*
 * This file is part of Eris Weather API.
@@ -59,16 +59,16 @@ public class DefaultOpenWeatherMapIntegration implements OpenWeatherMapIntegrati
         openWeatherMapCurrentWeatherResponse.getCoordinates().setLongitude(longitude);
         if (fahrenheit) {
             openWeatherMapCurrentWeatherResponse
-                    .setVisibility(Math.round(MeterToMile(openWeatherMapCurrentWeatherResponse.getVisibility()) * 100.0) / 100.0);
+                    .setVisibility(Math.round(meterToMile(openWeatherMapCurrentWeatherResponse.getVisibility()) * 100.0) / 100.0);
 
         } else {
             openWeatherMapCurrentWeatherResponse.getWind().setSpeed(
-                    BigDecimal.valueOf(Math.round(MeterPerSecondToKiloMeterPerHour(openWeatherMapCurrentWeatherResponse
+                    BigDecimal.valueOf(Math.round(meterPerSecondToKiloMeterPerHour(openWeatherMapCurrentWeatherResponse
                             .getWind()
                             .getSpeed()
                             .doubleValue()) * 100.0) / 100.0));
             openWeatherMapCurrentWeatherResponse
-                    .setVisibility(Math.round(MeterToKiloMeter(openWeatherMapCurrentWeatherResponse.getVisibility()) * 100.0) / 100.0);
+                    .setVisibility(Math.round(meterToKiloMeter(openWeatherMapCurrentWeatherResponse.getVisibility()) * 100.0) / 100.0);
         }
         return openWeatherMapCurrentWeatherResponse;
     }

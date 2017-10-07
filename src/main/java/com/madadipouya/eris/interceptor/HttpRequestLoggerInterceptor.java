@@ -46,22 +46,24 @@ public class HttpRequestLoggerInterceptor implements HandlerInterceptor {
         try {
             logger.info(String.format(MESSAGE, getRequestIp(request),
                     beautifyRequestParameters(request.getParameterMap()), trimToEmpty(request.getRequestURI())));
-            return true;
         } catch(Exception ex) {
             // Don't disturb the request, suppress any error occurs while logging the request
         }
-
         return true;
     }
 
     @Override
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
-
+        /*
+        * No implementation needed at this stage
+        * */
     }
 
     @Override
     public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
-
+        /*
+        * No implementation needed at this stage
+        * */
     }
 
     private String getRequestIp(HttpServletRequest httpServletRequest) {

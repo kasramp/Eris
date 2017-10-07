@@ -29,31 +29,31 @@ public class UnitConversionUtilsTest {
 
     @Test
     public void testFahrenheitToCelsius() {
-        assertEquals(FahrenheitToCelsius(104), 40, 0.0001);
+        assertEquals(40, fahrenheitToCelsius(104), 0.0001);
     }
 
     @Test
     public void testCelsiusToFahrenheit() {
-        assertEquals(CelsiusToFahrenheit(40), 104, 0.0001);
+        assertEquals(104, celsiusToFahrenheit(40), 0.0001);
     }
 
     @Test
     public void testKiloMeterPerHourToMilePerHour() {
-        assertEquals(KiloMeterPerHourToMilePerHour(100), 62.1371, 0.0001);
+        assertEquals(62.1371, kiloMeterPerHourToMilePerHour(100), 0.0001);
     }
 
     @Test
     public void testMeterToMile() {
-        assertEquals(MeterToMile(100), 0.0621371, 0.0000001);
+        assertEquals(0.0621371, meterToMile(100), 0.0000001);
     }
 
     @Test
     public void testMeterPerSecondToKiloMeterPerHour() {
-        assertEquals(MeterPerSecondToKiloMeterPerHour(100), 360, 0.0001);
+        assertEquals(360, meterPerSecondToKiloMeterPerHour(100), 0.0001);
     }
 
     @Test
     public void testMeterToKiloMeter() {
-        assertEquals(MeterToKiloMeter(1000), 1, 0.0001);
+        assertEquals(1, meterToKiloMeter(1000), 0.0001);
     }
 }

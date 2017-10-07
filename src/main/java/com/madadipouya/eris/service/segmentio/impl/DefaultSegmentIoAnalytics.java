@@ -36,7 +36,7 @@ public class DefaultSegmentIoAnalytics implements SegmentIoAnalytics {
     PropertyUtils propertyUtils;
 
     @PostConstruct
-    public void afterPropertiesSet() throws Exception{
+    public void afterPropertiesSet() {
         analytics = Analytics.builder(propertyUtils.getSegmentIoWriteApiKey()).build();
     }
 
