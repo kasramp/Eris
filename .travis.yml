@@ -6,6 +6,8 @@ addons:
     organization: "kasramp-github"
     token:
       secure: "WKRLdM+fdpkzinM/bleGmgRRcd9vEMOmdITSiMGsptC+NMnrDfeNb/pOmUlvVc0cltvLfu96LEbUbY7qoYpTVqcOFKLKkxAweW+B694LivSyld6sLVMSUCSMmJUyWOSrcUAgc0pDvo+s2S8Z2S3JQdv1RL+e4+hQW+2hTl+zf1PquSxOF4fSfiz45NXY+cPNNdtxxVCcFBXwk2cFwbU25vzGCHKpE8srtXFIq2rdy9uUgKhpuOAy/L5ScdfV8f3I8STWqNFUfJZoOT+ROYvs82E6redZNIf078Ia7guFP96LiYoimFv3cvOzZuBxC/KJ4JWtLFWfnt2fpNA6D1sleHZ7f47ErDfsojx8uqKzCUeGLcd0blVgv2CnK2rkcxWGi9GMfI0eJ32cKPbvP6gfIWDJfmm/dBJy0V4bhyMh8pa0EJzTzd0jsE0fIZyhtaDCw2R2HtF0Hr6wSovnMAUYWy3gvIz5EMoTQW1t0RPCFgfU2vPhngGMbwuu9Lj/thQMq8oIcgvLDKfx/HT0Ae4S/R/0exUiR7eBBAVvUsBtmlszF0EGbDYfrebbIiS+wOguJmnOOGK5zZRcvnpCfJZtPg1v8CNuBWRB57MlwwxEesi2FmLycVadmFekkuh5B9yaOCvGGQXSLidVxmaT3AM7r33ZkX/9+Jl31BID5q6caEM="
+    branches:
+      - develop
 jdk:
   - oraclejdk8
 script:
