@@ -62,7 +62,7 @@ public class BeanUtilsTest {
         assertEquals(new BigDecimal(29.5), target.getMain().getTemperature());
         assertEquals(new BigDecimal(31.12), target.getMain().getTemperatureMax());
         assertEquals(new BigDecimal(27.56), target.getMain().getTemperatureMin());
-        assertEquals(1000, target.getVisibility(), 0.001);
+        assertEquals(1000.000, target.getVisibility(), 0.001);
         assertEquals(new BigDecimal(4.5), target.getWind().getSpeed());
         assertEquals(new BigDecimal(2.7), target.getWind().getDegree());
         assertEquals(new BigDecimal(30), target.getClouds().getAll());

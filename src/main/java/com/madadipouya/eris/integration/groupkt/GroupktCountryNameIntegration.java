@@ -1,7 +1,5 @@
 package com.madadipouya.eris.integration.groupkt;
 
-import com.madadipouya.eris.integration.groupkt.remote.response.GroupktCountryNameResponse;
-
 /*
 * This file is part of Eris Weather API.
 *
