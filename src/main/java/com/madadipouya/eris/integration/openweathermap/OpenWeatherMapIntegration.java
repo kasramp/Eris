@@ -19,7 +19,18 @@ import com.madadipouya.eris.integration.openweathermap.remote.response.OpenWeath
 * © 2017 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
+/**
+ * This service retrieves the current weather condition of a geographical location
+ * */
 public interface OpenWeatherMapIntegration {
 
+    /**
+     * Gets the current location of a geographical point
+     * by calling @see <a href="api.openweathermap.org">OpenWeatherMap</a>
+     * @param latitude Latitude of the point
+     * @param longitude Longitude of the point
+     * @param fahrenheit Unit of measurement of weather. {@code true} means Imperial, {@code false} means Metric
+     * @return {@link OpenWeatherMapCurrentWeatherResponse} The current weather condition details
+    * */
     OpenWeatherMapCurrentWeatherResponse getCurrentWeatherCondition(String latitude, String longitude, boolean fahrenheit);
 }

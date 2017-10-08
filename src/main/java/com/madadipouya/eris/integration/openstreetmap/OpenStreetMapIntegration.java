@@ -19,9 +19,24 @@ import com.madadipouya.eris.integration.openstreetmap.remote.response.OpenStreet
 * © 2017 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
+/**
+ * This service is responsible to get physical address of a geographical location
+* */
 public interface OpenStreetMapIntegration {
 
+    /**
+     * Gets physical address of a geographical location
+     * @param latitude Latitude of location to get the address for
+     * @param longitude Longitude of location to get the address for
+     * @return Physical address of the location contains the full address
+    * */
     String getAddressByCoordinates(String latitude, String longitude);
 
+    /**
+     * Gets physical address of a geographical location
+     * @param latitude Latitude of location to get the address for
+     * @param longitude Longitude of location to get the address for
+     * @return {@link OpenStreetMapLocationResponse} The physical address of the location
+     * */
     OpenStreetMapLocationResponse getReverseGeocoding(String latitude, String longitude);
 }

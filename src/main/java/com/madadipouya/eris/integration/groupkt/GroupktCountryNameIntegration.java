@@ -19,9 +19,16 @@ import com.madadipouya.eris.integration.groupkt.remote.response.GroupktCountryNa
 * © 2017 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
+/**
+* This service is responsible to resolve a ISO 3166-1 alpha-2 country code to a full country name
+* */
 public interface GroupktCountryNameIntegration {
 
+    /**
+    * Retrieves a country full name based on the provided ISO 3166-1 alpha-2
+    * First attempts to resolve the country name from cache {@link com.madadipouya.eris.configuration.CacheConfiguration}
+    * @param countryCode ISO 3166-1 alpha-2 country code
+    * @return a country full name
+    * */
     String getCountryFullName(String countryCode);
-
-    GroupktCountryNameResponse getCountryDetails(String countryCode);
 }

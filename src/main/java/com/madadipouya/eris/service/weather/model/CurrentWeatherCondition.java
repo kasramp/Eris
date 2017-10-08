@@ -50,51 +50,91 @@ public class CurrentWeatherCondition extends OpenWeatherMapCurrentWeatherRespons
 
     private String apiVersion;
 
+    /**
+     * @deprecated  As of /v1/ API, replaced by {@link Sys#getCountry()}
+     * Available for backward compatibility only
+     */
     @Deprecated
     public String getCountry() {
         return country;
     }
 
+    /**
+     * @deprecated  As of /v1/ API, replaced by {@link Sys#setCountry(String)}
+     * Available for backward compatibility only
+     */
     @Deprecated
     public void setCountry(String country) {
         this.country = country;
     }
 
+    /**
+     * @deprecated  As of /v1/ API, replaced by {@link Coordinates#getCoordinates()}
+     * Available for backward compatibility only
+     */
     @Deprecated
     public String getGeoLocation() {
         return geoLocation;
     }
 
+    /**
+     * @deprecated  As of /v1/ API, replaced by {@link Coordinates#setCoordinates(Coordinates)}
+     * Available for backward compatibility only
+     */
     @Deprecated
     public void setGeoLocation(String geoLocation) {
         this.geoLocation = geoLocation;
     }
 
+    /**
+     * @deprecated  As of /v1/ API, replaced by {@link Main#getTemperature()}
+     * Available for backward compatibility only
+     */
     @Deprecated
     public BigDecimal getTemperature() {
         return temperature;
     }
 
+    /**
+     * @deprecated  As of /v1/ API, replaced by {@link Main#setTemperature(BigDecimal)}
+     * Available for backward compatibility only
+     */
     @Deprecated
     public void setTemperature(BigDecimal temperature) {
         this.temperature = temperature;
     }
 
+    /**
+     * @deprecated  As of /v1/ API, functionality will be removed
+     * Available for backward compatibility only
+     */
     @Deprecated
     public String getIcon() {
         return icon;
     }
 
+    /**
+     * @deprecated  As of /v1/ API, functionality will be removed
+     * Available for backward compatibility only
+     */
     @Deprecated
     public void setIcon(String icon) {
         this.icon = icon;
     }
 
+    /**
+     * @deprecated  As of /v1/ API, replaced by {@link Weather#getIcon()}
+     * Available for backward compatibility only
+     */
     @Deprecated
     public String getIconName() {
         return iconName;
     }
 
+    /**
+     * @deprecated  As of /v1/ API, replaced by {@link Weather#setIcon(String)}
+     * Available for backward compatibility only
+     */
     @Deprecated
     public void setIconName(String iconName) {
         this.iconName = iconName;

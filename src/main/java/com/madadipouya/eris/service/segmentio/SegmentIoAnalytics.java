@@ -21,6 +21,10 @@ import java.util.Map;
 
 import static org.apache.commons.lang3.StringUtils.contains;
 
+/**
+ * This service is responsible to send usage analytics of the {@link com.madadipouya.eris.service.weather.model.CurrentWeatherCondition}
+ * API to @see <a href="segment.io">Segment.io</a>
+* */
 public interface SegmentIoAnalytics {
 
     enum EventType {
@@ -32,5 +36,10 @@ public interface SegmentIoAnalytics {
         }
     }
 
+    /**
+     * Sends an event to @see <a href="segment.io">Segment.io</a>
+     * @param eventType Type of event. Value can be {@link EventType#CURRENT} or {@link EventType#CURRENT_BY_IP}
+     * @param data The data that want to send
+    * */
     void fireEvent(EventType eventType, String id, Map<String, String> data);
 }

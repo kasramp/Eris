@@ -37,8 +37,7 @@ public class DefaultGroupktCountryNameIntegration implements GroupktCountryNameI
         return getCountryDetails(countryCode).getRestResponse().getResult().getName();
     }
 
-    @Override
-    public GroupktCountryNameResponse getCountryDetails(String countryCode) {
+    private GroupktCountryNameResponse getCountryDetails(String countryCode) {
         return isBlank(countryCode) ? new GroupktCountryNameResponse() :
                 new RestTemplate().getForObject(String.format(API_URL, countryCode), GroupktCountryNameResponse.class);
     }

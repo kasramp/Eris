@@ -17,7 +17,18 @@ package com.madadipouya.eris.service.feelslike;
 * © 2017 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
+/**
+ * This service calculates @see <a href="https://www.accuweather.com/en/weather-news/what-is-accuweather-realfeel/7198202">Feels Like</a>.
+* */
 public interface FeelsLikeService {
 
+    /**
+     * Gets feels like of the current weather based on temperature, wind speed, humidity
+     * @param temperature The weather temperature, 100 F
+     * @param windSpeed The wind speed, can be Mph, km/h
+     * @param humidity The level of humidity, e.g., 75%
+     * @param fahrenheit Unit of measurement of weather. {@code true} means Imperial, {@code false} means Metric
+     * @return The feels like value
+    * */
     double getFeelsLike(double temperature, double windSpeed, double humidity, boolean fahrenheit);
 }

@@ -19,7 +19,19 @@ import com.madadipouya.eris.integration.ipapi.remote.response.IpApiResponse;
 * © 2017 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
+/**
+ * This service is responsible to approximately
+ * retrieve latitude and longitude of a given ipAddress
+ * with other information such as country code, see {@link IpApiResponse}
+ * */
 public interface IpApiIntegration {
 
+    /**
+     * Retrieves information related to a given IP Address
+     * by calling @see <a href="ip-api.com">IP API</a> service
+     * @param ipAddress IP Address that needed to extract related information
+     * @return {@link IpApiResponse} contains information about the IP,
+     * most importantly latitude and longitude
+    * */
     IpApiResponse getCoordinatesFromIp(String ipAddress);
 }
