@@ -2,7 +2,7 @@ package com.madadipouya.eris.util;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
@@ -28,7 +28,7 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class PropertyUtilsTest {
 
-    @Mock
+    @Spy
     PropertyUtils propertyUtils;
 
     @Test
@@ -38,8 +38,20 @@ public class PropertyUtilsTest {
     }
 
     @Test
+    public void testSetOpenWeatherMapApiKey() {
+        propertyUtils.setOpenWeatherMapApiKey("OpenWeatherMapKey");
+        assertEquals("OpenWeatherMapKey", propertyUtils.getOpenWeatherMapApiKey());
+    }
+
+    @Test
     public void testGetSegmentIoWriteApiKey() {
         when(propertyUtils.getSegmentIoWriteApiKey()).thenReturn("SegmentIoApiKey");
+        assertEquals("SegmentIoApiKey", propertyUtils.getSegmentIoWriteApiKey());
+    }
+
+    @Test
+    public void testSetSegmentIoWriteApiKey() {
+        propertyUtils.setSegmentIoWriteApiKey("SegmentIoApiKey");
         assertEquals("SegmentIoApiKey", propertyUtils.getSegmentIoWriteApiKey());
     }
 }
