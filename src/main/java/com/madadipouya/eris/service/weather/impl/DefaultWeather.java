@@ -74,22 +74,22 @@ public class DefaultWeather implements Weather {
         );
     }
 
-    private CurrentWeatherCondition convertBean(OpenWeatherMapCurrentWeatherResponse openWeatherMapCurrentWeatherResponse) {
+    CurrentWeatherCondition convertBean(OpenWeatherMapCurrentWeatherResponse openWeatherMapCurrentWeatherResponse) {
         return copyProperties(openWeatherMapCurrentWeatherResponse, new CurrentWeatherCondition());
     }
 
-    private String getCountryCode(CurrentWeatherCondition currentWeatherCondition) {
+    String getCountryCode(CurrentWeatherCondition currentWeatherCondition) {
         return currentWeatherCondition.getSys().getCountry();
     }
 
-    private CurrentWeatherCondition setCountryFullName(CurrentWeatherCondition currentWeatherCondition) {
+    CurrentWeatherCondition setCountryFullName(CurrentWeatherCondition currentWeatherCondition) {
         String countryFullName = groupktCountryNameIntegration.getCountryFullName(getCountryCode(currentWeatherCondition));
         currentWeatherCondition.getSys().setCountryNameFull(countryFullName);
         currentWeatherCondition.setCountry(countryFullName);
         return currentWeatherCondition;
     }
 
-    private CurrentWeatherCondition setGeoLocation(CurrentWeatherCondition currentWeatherCondition) {
+    CurrentWeatherCondition setGeoLocation(CurrentWeatherCondition currentWeatherCondition) {
         currentWeatherCondition.setGeoLocation(
                 openStreetMapIntegration.getAddressByCoordinates(
                         currentWeatherCondition.getCoordinates().getLatitude(),
@@ -98,7 +98,7 @@ public class DefaultWeather implements Weather {
         return currentWeatherCondition;
     }
 
-    private CurrentWeatherCondition setFeelsLike(CurrentWeatherCondition currentWeatherCondition, boolean fahrenheit) {
+    CurrentWeatherCondition setFeelsLike(CurrentWeatherCondition currentWeatherCondition, boolean fahrenheit) {
         currentWeatherCondition.setFeelsLike(feelsLikeService.getFeelsLike(
                 currentWeatherCondition.getMain().getTemperature().doubleValue(),
                 currentWeatherCondition.getWind().getSpeed().doubleValue(),

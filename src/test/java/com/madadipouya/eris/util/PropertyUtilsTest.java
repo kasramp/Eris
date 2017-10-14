@@ -29,7 +29,7 @@ import static org.mockito.Mockito.when;
 public class PropertyUtilsTest {
 
     @Spy
-    PropertyUtils propertyUtils;
+    private PropertyUtils propertyUtils;
 
     @Test
     public void testGetOpenWeatherMapApiKey() {
