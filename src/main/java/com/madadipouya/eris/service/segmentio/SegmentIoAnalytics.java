@@ -38,6 +38,7 @@ public interface SegmentIoAnalytics {
     /**
      * Sends an event to @see <a href="segment.io">Segment.io</a>
      * @param eventType Type of event. Value can be {@link EventType#CURRENT} or {@link EventType#CURRENT_BY_IP}
+     * @param id Identifier in Segment platform, here is IP address
      * @param data The data that want to send
     * */
     void fireEvent(EventType eventType, String id, Map<String, String> data);
