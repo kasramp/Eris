@@ -30,7 +30,6 @@ public interface SegmentIoAnalytics {
     enum EventType {
         CURRENT,
         CURRENT_BY_IP;
-
         public static EventType getEventType(String event) {
             return contains(event, "ByIp") ? CURRENT_BY_IP : CURRENT;
         }

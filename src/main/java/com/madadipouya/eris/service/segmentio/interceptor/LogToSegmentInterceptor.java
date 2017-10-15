@@ -58,25 +58,24 @@ public class LogToSegmentInterceptor {
     }
 
     private Map<String, String> constructSegmentEvent(CurrentWeatherCondition currentWeatherCondition, String ip) {
-        ImmutableMap.Builder result = ImmutableMap.<String, String> builder();
+        ImmutableMap.Builder result = ImmutableMap.<String, String>builder();
         List<String> errors = currentWeatherCondition.getErrors();
-        if(!hasError(errors)) {
+        if (!hasError(errors)) {
             result.put("COUNTRY", currentWeatherCondition.getSys().getCountryNameFull())
                     .put("LATITUDE", currentWeatherCondition.getCoordinates().getLatitude())
                     .put("LONGITUDE", currentWeatherCondition.getCoordinates().getLongitude())
                     .put("TEMPERATURE", currentWeatherCondition.getMain().getTemperature().toString());
         }
-        return result.put("IP", ip)
-                .put("ERROR", getError(errors)).build();
+        return result.put("IP", ip).put("ERROR", getError(errors)).build();
     }
 
     private SegmentIoAnalytics.EventType getEvent(String methodName) {
-       return SegmentIoAnalytics.EventType.getEventType(methodName);
+        return SegmentIoAnalytics.EventType.getEventType(methodName);
     }
 
     private String getIp(JoinPoint joinPoint) {
         int argsNumber = joinPoint.getArgs().length;
-        return ipGeoLocation.getRequestIpAddress((HttpServletRequest) joinPoint.getArgs()[argsNumber-1]);
+        return ipGeoLocation.getRequestIpAddress((HttpServletRequest) joinPoint.getArgs()[argsNumber - 1]);
     }
 
     private String getError(List<String> errors) {
