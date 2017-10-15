@@ -30,10 +30,10 @@ import java.util.Map;
 @Service("segmentIoAnalytics")
 public class DefaultSegmentIoAnalytics implements SegmentIoAnalytics {
 
-    private Analytics analytics;
+    Analytics analytics;
 
     @Autowired
-    PropertyUtils propertyUtils;
+    private PropertyUtils propertyUtils;
 
     @PostConstruct
     public void afterPropertiesSet() {
