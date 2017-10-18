@@ -40,6 +40,12 @@ public class DefaultFeelsLikeServiceTest {
     }
 
     @Test
+    public void testGetFeelsLikeFahrenheitHeatIndexLessThanRealTemperature() {
+        double result = service.getFeelsLike(80.6, 13.04, 10, true);
+        assertEquals(80.6, result, 0.0001);
+    }
+
+    @Test
     public void testGetFeelsLikeFahrenheitWindChill() {
         double result = service.getFeelsLike(50, 4, 82, true);
         assertEquals(48.87, result, 0.0001);
@@ -55,6 +61,12 @@ public class DefaultFeelsLikeServiceTest {
     public void testGetFeelsLikeCelsiusHeatIndex() {
         double result = service.getFeelsLike(29, 4.32, 74, false);
         assertEquals(33.49, result, 0.0001);
+    }
+
+    @Test
+    public void testGetFeelsLikeCelsiusHeatIndexLessThanRealTemperature() {
+        double result = service.getFeelsLike(27, 21, 10, false);
+        assertEquals(27, result, 0.0001);
     }
 
     @Test
