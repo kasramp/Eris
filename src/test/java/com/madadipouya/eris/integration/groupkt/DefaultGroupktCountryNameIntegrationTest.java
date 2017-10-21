@@ -57,6 +57,6 @@ public class DefaultGroupktCountryNameIntegrationTest {
     public void testGetCountryFullNameWhenCountryCodeIsEmpty() {
         String countryFullName = groupktIntegration.getCountryFullName(" ");
         verify(restTemplate, times(0)).getForObject(anyString(), any());
-        assertEquals(isBlank(countryFullName), true);
+        assertEquals(true, isBlank(countryFullName));
     }
 }
