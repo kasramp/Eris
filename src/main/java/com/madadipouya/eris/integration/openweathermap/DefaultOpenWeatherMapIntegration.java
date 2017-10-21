@@ -42,9 +42,12 @@ public class DefaultOpenWeatherMapIntegration implements OpenWeatherMapIntegrati
     @Autowired
     PropertyUtils propertyUtils;
 
+    @Autowired
+    RestTemplate restTemplate;
+
     @Override
     public OpenWeatherMapCurrentWeatherResponse getCurrentWeatherCondition(String latitude, String longitude, boolean fahrenheit) {
-        return adjustResult(new RestTemplate().getForObject(
+        return adjustResult(restTemplate.getForObject(
                 String.format(API_URL, propertyUtils.getOpenWeatherMapApiKey(), getTemperatureUnit(fahrenheit), latitude, longitude),
                 OpenWeatherMapCurrentWeatherResponse.class), latitude, longitude, fahrenheit);
     }
