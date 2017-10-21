@@ -40,10 +40,10 @@ public class DefaultOpenWeatherMapIntegration implements OpenWeatherMapIntegrati
     private static final String TEMPERATURE_UNIT_IMPERIAL = "imperial";
 
     @Autowired
-    PropertyUtils propertyUtils;
+    private PropertyUtils propertyUtils;
 
     @Autowired
-    RestTemplate restTemplate;
+    private RestTemplate restTemplate;
 
     @Override
     public OpenWeatherMapCurrentWeatherResponse getCurrentWeatherCondition(String latitude, String longitude, boolean fahrenheit) {

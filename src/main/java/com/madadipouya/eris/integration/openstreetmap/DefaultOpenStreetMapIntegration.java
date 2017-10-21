@@ -1,6 +1,7 @@
 package com.madadipouya.eris.integration.openstreetmap;
 
 import com.madadipouya.eris.integration.openstreetmap.remote.response.OpenStreetMapLocationResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -29,6 +30,9 @@ import static java.lang.String.format;
 public class DefaultOpenStreetMapIntegration implements OpenStreetMapIntegration {
     private static final String API_URL = "http://nominatim.openstreetmap.org/reverse?format=json&lat=%s&lon=%s&zoom=18&addressdetails=1";
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     @Override
     @Cacheable(value=OPEN_STREET_CACHE, key="{ #latitude, #longitude }")
     public String getAddressByCoordinates(String latitude, String longitude) {
@@ -37,7 +41,7 @@ public class DefaultOpenStreetMapIntegration implements OpenStreetMapIntegration
 
     @Override
     public OpenStreetMapLocationResponse getReverseGeocoding(String latitude, String longitude) {
-        return new RestTemplate().getForObject(
+        return restTemplate.getForObject(
                 format(API_URL, latitude, longitude), OpenStreetMapLocationResponse.class);
     }
 }
