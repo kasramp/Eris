@@ -73,10 +73,14 @@ public class GroupktCountryNameResponse {
 
     public static class Result {
 
+        public Result(String name, String alpha2Code, String alpha3Code) {
+            this.name = name;
+            this.alpha2Code = alpha2Code;
+            this.alpha3Code = alpha3Code;
+        }
+
         public Result() {
-            name = "";
-            alpha2Code = "";
-            alpha3Code = "";
+            this("", "", "");
         }
 
         @JsonProperty("name")
