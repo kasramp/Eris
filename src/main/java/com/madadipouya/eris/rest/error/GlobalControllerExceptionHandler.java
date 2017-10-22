@@ -1,5 +1,6 @@
 package com.madadipouya.eris.rest.error;
 
+import com.google.common.collect.ImmutableList;
 import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,8 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import java.util.Arrays;
 
 import static org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace;
 
@@ -41,6 +40,6 @@ public class GlobalControllerExceptionHandler {
     public ResponseEntity<CurrentWeatherCondition> unknownException(Exception ex) {
         logger.error(getStackTrace(ex));
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
-                new CurrentWeatherCondition(Arrays.asList(ERR_UNABLE_TO_PROCESS_REQUEST)));
+                new CurrentWeatherCondition(ImmutableList.of(ERR_UNABLE_TO_PROCESS_REQUEST)));
     }
 }
