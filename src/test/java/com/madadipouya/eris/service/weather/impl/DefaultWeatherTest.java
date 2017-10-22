@@ -113,6 +113,7 @@ public class DefaultWeatherTest {
         Mockito.verify(groupktCountryNameIntegration, times(1)).getCountryFullName(countryCode);
         assertEquals(countryFullName, weatherConditionWithFullCountryName.getSys().getCountryNameFull());
         assertEquals(countryFullName, weatherConditionWithFullCountryName.getCountry());
+        assertEquals("v1.0", currentWeatherCondition.getApiVersion());
     }
 
     @Test
@@ -126,6 +127,7 @@ public class DefaultWeatherTest {
         CurrentWeatherCondition weatherConditionWithFullAddress = weatherService.setGeoLocation(weatherCondition);
         Mockito.verify(openStreetMapIntegration, times(1)).getAddressByCoordinates(anyString(), anyString());
         assertEquals(fullGeoLocationAddress, weatherConditionWithFullAddress.getGeoLocation());
+        assertEquals("v1.0", weatherCondition.getApiVersion());
     }
 
     @Test
@@ -141,6 +143,7 @@ public class DefaultWeatherTest {
         CurrentWeatherCondition weatherConditionWithFeelsLike = weatherService.setFeelsLike(currentWeather, false);
         Mockito.verify(feelsLikeService, times(1)).getFeelsLike(anyDouble(), anyDouble(), anyDouble(), anyBoolean());
         assertEquals(37.123456, weatherConditionWithFeelsLike.getFeelsLike(), 0.00001);
+        assertEquals("v1.0", currentWeather.getApiVersion());
     }
 
     @Test

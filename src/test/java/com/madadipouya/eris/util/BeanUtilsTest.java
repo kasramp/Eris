@@ -22,6 +22,7 @@ import com.madadipouya.eris.integration.ipapi.remote.response.IpApiResponse;
 import com.madadipouya.eris.integration.openweathermap.remote.response.OpenWeatherMapCurrentWeatherResponse;
 import com.madadipouya.eris.service.ipgeolocation.model.Coordinates;
 import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
+import junit.framework.TestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -76,6 +77,7 @@ public class BeanUtilsTest {
         assertEquals(String.format(BeanUtils.ICON_URL, target.getWeather().get(0).getIcon()), target.getIcon());
         assertEquals(target.getWeather().get(0).getIcon(), target.getIconName());
         assertEquals(target.getMain().getTemperature(), target.getTemperature());
+        TestCase.assertEquals("v1.0", target.getApiVersion());
     }
 
     @Test

@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.Map;
 
+import static junit.framework.TestCase.assertEquals;
 import static org.hamcrest.Matchers.hasKey;
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
@@ -119,6 +120,7 @@ public class LogToSegmentInterceptorTest {
         assertEquals("27.50", result.get("TEMPERATURE"));
         assertEquals("192.168.0.1", result.get("IP"));
         assertEquals("", result.get("ERROR"));
+        assertEquals("v1.0", currentWeather.getApiVersion());
     }
 
     @Test
@@ -148,5 +150,6 @@ public class LogToSegmentInterceptorTest {
         logToSegmentInterceptor.logAnalytics(joinPoint, responseEntity);
         verify(ipGeoLocation, times(1)).getRequestIpAddress(any(HttpServletRequest.class));
         verify(segmentIoAnalytics, times(1)).fireEvent(any(SegmentIoAnalytics.EventType.class), anyString(), anyMap());
+        assertEquals("v1.0", currentWeather.getApiVersion());
     }
 }
