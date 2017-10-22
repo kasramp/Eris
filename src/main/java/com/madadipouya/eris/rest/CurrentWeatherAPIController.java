@@ -67,7 +67,7 @@ public class CurrentWeatherAPIController {
     }
 
     private boolean isLatitudeLongitudeExist(String latitude, String longitude) {
-        return (isNotBlank(latitude) || isNotBlank(longitude));
+        return (isNotBlank(latitude) && isNotBlank(longitude));
     }
 
     private boolean isLatitudeLongitudeValid(String latitude, String longitude) {
