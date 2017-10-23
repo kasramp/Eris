@@ -58,7 +58,7 @@ public class LogToSegmentInterceptor {
     }
 
     Map<String, String> constructSegmentEvent(CurrentWeatherCondition currentWeatherCondition, String ip) {
-        ImmutableMap.Builder result = ImmutableMap.<String, String>builder();
+        ImmutableMap.Builder<String, String> result = ImmutableMap.builder();
         List<String> errors = currentWeatherCondition.getErrors();
         if (!hasError(errors)) {
             result.put("COUNTRY", currentWeatherCondition.getSys().getCountryNameFull())

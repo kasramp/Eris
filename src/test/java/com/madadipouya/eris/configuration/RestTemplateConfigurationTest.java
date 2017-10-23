@@ -7,7 +7,7 @@ import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.web.client.RestTemplate;
 
-import static junit.framework.Assert.assertNotSame;
+import static junit.framework.TestCase.assertNotSame;
 import static junit.framework.TestCase.assertNotNull;
 
 /*

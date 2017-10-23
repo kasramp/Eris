@@ -24,7 +24,8 @@ import java.util.Map;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.hamcrest.Matchers.hasKey;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
@@ -149,7 +150,7 @@ public class LogToSegmentInterceptorTest {
         when(ipGeoLocation.getRequestIpAddress(any(HttpServletRequest.class))).thenReturn("192.168.0.1");
         logToSegmentInterceptor.logAnalytics(joinPoint, responseEntity);
         verify(ipGeoLocation, times(1)).getRequestIpAddress(any(HttpServletRequest.class));
-        verify(segmentIoAnalytics, times(1)).fireEvent(any(SegmentIoAnalytics.EventType.class), anyString(), anyMap());
+        verify(segmentIoAnalytics, times(1)).fireEvent(any(SegmentIoAnalytics.EventType.class), anyString(), anyMapOf(String.class, String.class));
         assertEquals("v1.0", currentWeather.getApiVersion());
     }
 }
