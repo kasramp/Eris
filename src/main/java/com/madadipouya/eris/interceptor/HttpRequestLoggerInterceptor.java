@@ -42,7 +42,7 @@ public class HttpRequestLoggerInterceptor implements HandlerInterceptor {
     IpGeoLocation ipGeoLocation;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) {
         try {
             logger.info(String.format(MESSAGE, getRequestIp(request),
                     beautifyRequestParameters(request.getParameterMap()), trimToEmpty(request.getRequestURI())));
