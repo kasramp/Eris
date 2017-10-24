@@ -135,7 +135,7 @@ public class OpenStreetMapLocationResponse {
         this.boundingBox = boundingBox;
     }
 
-    private class Address {
+    public static class Address {
 
         public Address() {
             this.country = "";
