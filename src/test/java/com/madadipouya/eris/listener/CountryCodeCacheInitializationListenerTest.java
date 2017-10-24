@@ -103,6 +103,17 @@ public class CountryCodeCacheInitializationListenerTest {
     }
 
     @Test
+    public void testGetCountryCodeFileContentWhenEntriesNotCommaSeparated() throws IOException {
+        when(resource.getInputStream()).thenReturn(new ByteArrayInputStream("DE-Germany \n AU-Australia".getBytes()));
+        Map<String, String> fileContent = listener.getCountryCodeFileContent();
+        verify(resource, times(1)).getInputStream();
+        assertNotNull(fileContent);
+        assertEquals(0, fileContent.size());
+        assertNull(fileContent.get("DE"));
+        assertNull(fileContent.get("AU"));
+    }
+
+    @Test
     public void testGetCountryCodeFileContentThrowException() throws IOException {
         when(resource.getInputStream()).thenThrow(IOException.class);
         Map<String, String> fileContent = listener.getCountryCodeFileContent();
