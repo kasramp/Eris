@@ -59,7 +59,7 @@ public class CountryCodeCacheInitializationListener implements ApplicationListen
         return cacheManager.getCache(COUNTRY_CODE_CACHE);
     }
 
-    private Map<String, String> getCountryCodeFileContent() {
+    Map<String, String> getCountryCodeFileContent() {
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(countryCodeFile.getInputStream()))) {
             return reader.lines()
@@ -73,7 +73,7 @@ public class CountryCodeCacheInitializationListener implements ApplicationListen
         return ImmutableMap.of();
     }
 
-    private void populateCountryCodeCache(Cache cache, Map<String, String> content) {
+    void populateCountryCodeCache(Cache cache, Map<String, String> content) {
         content.forEach(cache::put);
     }
 }
