@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 */
 
 @Component
-@PropertySource(value = "apikey.properties")
+@PropertySource(value = "classpath:apikey.properties")
 public class PropertyUtils {
 
     @Value("${openweathermap.api.key}")
