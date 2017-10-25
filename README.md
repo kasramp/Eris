@@ -9,7 +9,7 @@ Eris is a simple Spring Boot Java API that is developed as a consolidation of th
 - [Group Kt](http://www.groupkt.com/post/f2129b88/services.htm)
 - [IP API](http://ip-api.com/)
 
-The technology stack consists of Spring Boot framework only. The free version of the service is also hosted on Red Hat OpenShift. Though the API can be hosted in any platform that supports Spring Boot. Feel free to fork it and create your private API.
+The technology stack consists of Spring Boot framework only. The free version of the service is also hosted on Heroku. Though the API can be hosted in any platform that supports Spring Boot. Feel free to fork it and create your private API.
 
 ## Dependencies
 All the project dependencies exist in pom.xml file and once your run the project, all dependencies will be downloaded.
