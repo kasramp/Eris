@@ -42,6 +42,8 @@ To access the APIs need to perform `get` request on the following URLs:
 - [/v1/weather/current](#current)
 - [/v1/weather/currentbyip](#currentbyip)
 
+API documentation as well as interaction with APIs can be found at `/apidocs/` which implemented with Swagger.
+
 ### <a name="current">/v1/weather/current</a>
 This endpoint is suitable for the case that coordinates (latitude, longitude) are available.
 To use this API three URL parameters are required which two are compulsory and another one is optional.
