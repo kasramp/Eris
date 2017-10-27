@@ -44,4 +44,10 @@ public class RedirectTest {
         ModelAndView page = redirectController.redirectToDocPage(request);
         assertEquals("redirect:http://eris.madadipouya.com", page.getViewName());
     }
+
+    @Test
+    public void testRedirectToApiDocs() {
+        ModelAndView page = redirectController.redirectToApiPage();
+        assertEquals("redirect:/swagger-ui.html", page.getViewName());
+    }
 }

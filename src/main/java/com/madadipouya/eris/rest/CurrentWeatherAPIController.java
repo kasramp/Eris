@@ -1,11 +1,15 @@
 package com.madadipouya.eris.rest;
 
 import com.google.common.collect.Lists;
-import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
 import com.madadipouya.eris.service.weather.Weather;
+import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,7 +50,9 @@ public class CurrentWeatherAPIController {
     * "/current" is kept for backward compatibility, will be deprecated soon
     *
     * */
-    @RequestMapping(value = {"v1/weather/current", "/current"})
+    @ApiOperation(value = "Get current weather condition based on latitude and longitude", response = CurrentWeatherCondition.class, tags = "Get weather by latitude, longitude")
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Successfully retrieve weather condition"), @ApiResponse(code = 400, message = "Failed to get weather condition")})
+    @RequestMapping(value = {"v1/weather/current", "/current"}, method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<CurrentWeatherCondition> getCurrent(@RequestParam(value = "lat") String latitude, @RequestParam(value = "lon") String longitude,
                                                               @RequestParam(value = "fahrenheit", required = false, defaultValue = "false") boolean fahrenheit,
                                                               HttpServletRequest request) {
@@ -59,7 +65,9 @@ public class CurrentWeatherAPIController {
         }
     }
 
-    @RequestMapping("v1/weather/currentbyip")
+    @ApiOperation(value = "Get current weather condition based on requester IP address", response = CurrentWeatherCondition.class, tags = "Get weather by requester IP address")
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "Successfully retrieve weather condition"), @ApiResponse(code = 400, message = "Failed to get weather condition")})
+    @RequestMapping(value = {"v1/weather/currentbyip"}, method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<CurrentWeatherCondition> getCurrentByIp(@RequestParam(value = "fahrenheit",
             required = false, defaultValue = "false") boolean fahrenheit, HttpServletRequest request) {
 

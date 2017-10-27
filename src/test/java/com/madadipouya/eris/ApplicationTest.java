@@ -26,8 +26,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @TestPropertySource(locations = {"classpath:test.properties"}
-        , properties = {"spring.mvc.throw-exception-if-no-handler-found=true",
-        "spring.resources.add-mappings=false"})
+        , properties = {"spring.mvc.throw-exception-if-no-handler-found=true"})
 @SpringBootTest(classes = Application.class)
 public class ApplicationTest {
 
