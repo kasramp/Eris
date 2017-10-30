@@ -33,6 +33,6 @@ public class ApplicationConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(handlerInterceptor);
+        registry.addInterceptor(handlerInterceptor).addPathPatterns("/v1/weather/**");
     }
 }

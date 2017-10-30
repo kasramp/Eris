@@ -7,11 +7,10 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 /*
 * This file is part of Eris Weather API.
@@ -42,6 +41,7 @@ public class ApplicationConfigurationTest {
     @Test
     public void testAddInterceptors() {
         InterceptorRegistry interceptorRegistry = mock(InterceptorRegistry.class);
+        when(interceptorRegistry.addInterceptor(handlerInterceptor)).thenReturn(mock(InterceptorRegistration.class));
         applicationConfiguration.addInterceptors(interceptorRegistry);
         verify(interceptorRegistry, times(1)).addInterceptor(handlerInterceptor);
     }
