@@ -33,7 +33,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 @Service("openStreetMapIntegration")
 public class DefaultOpenStreetMapIntegration implements OpenStreetMapIntegration {
-    private static final String API_URL = "http://nominatim.openstreetmap.org/reverse?format=json&lat=%s&lon=%s&zoom=18&addressdetails=1";
+    private static final String API_URL = "https://nominatim.openstreetmap.org/reverse?format=json&lat=%s&lon=%s&zoom=18&addressdetails=1";
 
     @Autowired
     private RestTemplate restTemplate;

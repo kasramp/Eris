@@ -52,7 +52,7 @@ public class DefaultOpenStreetMapIntegrationTest {
         ResponseEntity<OpenStreetMapLocationResponse> responseEntity = mock(ResponseEntity.class);
         when(mockResult.getDisplayName()).thenReturn(whiteHouseAddress);
         when(restTemplate.exchange(
-                Matchers.eq("http://nominatim.openstreetmap.org/reverse?format=json&lat=38.8977&lon=-77.0365&zoom=18&addressdetails=1"),
+                Matchers.eq("https://nominatim.openstreetmap.org/reverse?format=json&lat=38.8977&lon=-77.0365&zoom=18&addressdetails=1"),
                 Matchers.eq(HttpMethod.GET),
                 Matchers.<HttpEntity<List<Object>>>any(),
                 Matchers.<Class<OpenStreetMapLocationResponse>>any()
@@ -70,7 +70,7 @@ public class DefaultOpenStreetMapIntegrationTest {
         ResponseEntity<OpenStreetMapLocationResponse> responseEntity = mock(ResponseEntity.class);
         when(mockResult.getDisplayName()).thenReturn(whiteHouseAddress);
         when(restTemplate.exchange(
-                Matchers.eq("http://nominatim.openstreetmap.org/reverse?format=json&lat=38.8977&lon=-77.0365&zoom=18&addressdetails=1"),
+                Matchers.eq("https://nominatim.openstreetmap.org/reverse?format=json&lat=38.8977&lon=-77.0365&zoom=18&addressdetails=1"),
                 Matchers.eq(HttpMethod.GET),
                 Matchers.<HttpEntity<List<Object>>>any(),
                 Matchers.<Class<OpenStreetMapLocationResponse>>any()
