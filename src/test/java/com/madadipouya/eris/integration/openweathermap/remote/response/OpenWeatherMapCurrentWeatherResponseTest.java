@@ -1,12 +1,12 @@
 package com.madadipouya.eris.integration.openweathermap.remote.response;
 
 
-import com.google.common.collect.ImmutableList;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -35,7 +35,7 @@ public class OpenWeatherMapCurrentWeatherResponseTest {
     public void testOpenWeatherMapCurrentWeatherResponse() {
         OpenWeatherMapCurrentWeatherResponse weatherResponse = new OpenWeatherMapCurrentWeatherResponse();
         weatherResponse.setCoordinates(mockCoordinates());
-        weatherResponse.setWeather(ImmutableList.of(mockWeather(), mockWeather()));
+        weatherResponse.setWeather(List.of(mockWeather(), mockWeather()));
         weatherResponse.setBase("Base");
         weatherResponse.setMain(mockMain());
         weatherResponse.setVisibility(1000);

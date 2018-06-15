@@ -1,12 +1,11 @@
 package com.madadipouya.eris.listener;
 
-import com.google.common.collect.ImmutableMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.Cache;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.io.Resource;
@@ -70,7 +69,8 @@ public class CountryCodeCacheInitializationListener implements ApplicationListen
             logger.warn("Failed to open the country code file, the cache will be empty", ioException);
         }
 
-        return ImmutableMap.of();
+
+        return Map.of();
     }
 
     void populateCountryCodeCache(Cache cache, Map<String, String> content) {

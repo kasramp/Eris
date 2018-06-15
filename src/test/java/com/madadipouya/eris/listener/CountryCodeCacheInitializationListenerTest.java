@@ -1,6 +1,5 @@
 package com.madadipouya.eris.listener;
 
-import com.google.common.collect.ImmutableMap;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -63,7 +62,7 @@ public class CountryCodeCacheInitializationListenerTest {
     @Test
     public void testOnApplicationEvent() {
         Cache cache = spy(new ConcurrentMapCache(COUNTRY_CODE_CACHE));
-        Map<String, String> fileContent = ImmutableMap.of("DE", "Germany", "AU", "Australia");
+        Map<String, String> fileContent = Map.of("DE", "Germany", "AU", "Australia");
         doReturn(cache).when(cacheManager).getCache(COUNTRY_CODE_CACHE);
         doReturn(fileContent).when(listener).getCountryCodeFileContent();
         listener.onApplicationEvent(mock(ApplicationReadyEvent.class));
@@ -80,7 +79,7 @@ public class CountryCodeCacheInitializationListenerTest {
     @Test
     public void testPopulateCountryCodeCache() {
         Cache cache = spy(new ConcurrentMapCache(COUNTRY_CODE_CACHE));
-        Map<String, String> fileContent = ImmutableMap.of("DE", "Germany", "AU", "Australia");
+        Map<String, String> fileContent = Map.of("DE", "Germany", "AU", "Australia");
         listener.populateCountryCodeCache(cache, fileContent);
         verify(cache, times(2)).put(any(), any());
         assertEquals(COUNTRY_CODE_CACHE, cache.getName());

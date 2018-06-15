@@ -1,6 +1,5 @@
 package com.madadipouya.eris.rest;
 
-import com.google.common.collect.Lists;
 import com.madadipouya.eris.service.weather.Weather;
 import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
 import io.swagger.annotations.ApiOperation;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static org.apache.commons.lang3.math.NumberUtils.isCreatable;
@@ -83,6 +83,6 @@ public class CurrentWeatherAPIController {
     }
 
     private CurrentWeatherCondition createErrorResponse(String... errorMessage) {
-        return new CurrentWeatherCondition(Lists.newArrayList(errorMessage));
+        return new CurrentWeatherCondition(List.of(errorMessage));
     }
 }

@@ -2,7 +2,6 @@ package com.madadipouya.eris.integration.groupkt.remote.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.common.collect.ImmutableList;
 
 import java.util.List;
 
@@ -44,7 +43,7 @@ public class GroupktCountryNameResponse {
     public static class RestResponse {
 
         public RestResponse() {
-            messages = ImmutableList.of();
+            messages = List.of();
             result = new Result();
         }
 

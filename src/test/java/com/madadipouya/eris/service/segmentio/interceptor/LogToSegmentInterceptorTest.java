@@ -1,6 +1,5 @@
 package com.madadipouya.eris.service.segmentio.interceptor;
 
-import com.google.common.collect.ImmutableList;
 import com.madadipouya.eris.integration.openweathermap.remote.response.OpenWeatherMapCurrentWeatherResponse;
 import com.madadipouya.eris.service.ipgeolocation.IpGeoLocation;
 import com.madadipouya.eris.service.segmentio.SegmentIoAnalytics;
@@ -20,6 +19,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 
 import static junit.framework.TestCase.assertEquals;
@@ -86,7 +86,7 @@ public class LogToSegmentInterceptorTest {
     @Test
     public void testConstructSegmentEventWhenHasError() {
         CurrentWeatherCondition currentWeatherCondition = mock(CurrentWeatherCondition.class);
-        when(currentWeatherCondition.getErrors()).thenReturn(ImmutableList.of("Error1", "Error2"));
+        when(currentWeatherCondition.getErrors()).thenReturn(List.of("Error1", "Error2"));
         Map<String, String> result = logToSegmentInterceptor.constructSegmentEvent(currentWeatherCondition, "192.168.0.1");
         assertNotNull(result);
         assertEquals(2, result.size());

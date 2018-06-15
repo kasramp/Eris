@@ -1,6 +1,5 @@
 package com.madadipouya.eris.interceptor;
 
-import com.google.common.collect.ImmutableMap;
 import com.madadipouya.eris.service.ipgeolocation.impl.DefaultIpGeoLocation;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +10,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
@@ -44,8 +44,7 @@ public class HttpRequestLoggerInterceptorTest {
     @Test
     public void testPreHandle() {
         HttpServletRequest request = mock(HttpServletRequest.class);
-        when(request.getParameterMap()).thenReturn(ImmutableMap.<String, String[]>builder().put("latitude", new String[]{"1.00"})
-                .put("longitude", new String[]{"2.00"}).build());
+        when(request.getParameterMap()).thenReturn(Map.of("latitude", new String[]{"1.00"}, "longitude", new String[] {"2.00"}));
         when(request.getRequestURI()).thenReturn("/v1/weather/current");
         doReturn("185.86.151.11").when(ipGeoLocation).getRequestIpAddress(request);
         boolean result = interceptor.preHandle(request, mock(HttpServletResponse.class), mock(Object.class));

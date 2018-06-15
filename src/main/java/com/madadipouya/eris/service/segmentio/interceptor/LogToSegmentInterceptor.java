@@ -1,6 +1,5 @@
 package com.madadipouya.eris.service.segmentio.interceptor;
 
-import com.google.common.collect.ImmutableMap;
 import com.madadipouya.eris.service.ipgeolocation.IpGeoLocation;
 import com.madadipouya.eris.service.segmentio.SegmentIoAnalytics;
 import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
@@ -58,15 +58,20 @@ public class LogToSegmentInterceptor {
     }
 
     Map<String, String> constructSegmentEvent(CurrentWeatherCondition currentWeatherCondition, String ip) {
-        ImmutableMap.Builder<String, String> result = ImmutableMap.builder();
         List<String> errors = currentWeatherCondition.getErrors();
+        var locationData = new TreeMap<>(Map.of("IP", ip, "ERROR", getError(errors)));
+
         if (!hasError(errors)) {
-            result.put("COUNTRY", currentWeatherCondition.getSys().getCountryNameFull())
-                    .put("LATITUDE", currentWeatherCondition.getCoordinates().getLatitude())
-                    .put("LONGITUDE", currentWeatherCondition.getCoordinates().getLongitude())
-                    .put("TEMPERATURE", currentWeatherCondition.getMain().getTemperature().toString());
+            locationData.putAll(
+                    Map.of(
+                    "COUNTRY", currentWeatherCondition.getSys().getCountryNameFull(),
+                    "LATITUDE", currentWeatherCondition.getCoordinates().getLatitude(),
+                    "LONGITUDE", currentWeatherCondition.getCoordinates().getLongitude(),
+                    "TEMPERATURE", currentWeatherCondition.getMain().getTemperature().toString()
+                    )
+            );
         }
-        return result.put("IP", ip).put("ERROR", getError(errors)).build();
+        return Map.copyOf(locationData);
     }
 
     SegmentIoAnalytics.EventType getEvent(String methodName) {

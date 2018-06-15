@@ -1,9 +1,10 @@
 package com.madadipouya.eris.integration.openstreetmap.remote.response;
 
-import com.google.common.collect.ImmutableList;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -38,7 +39,7 @@ public class OpenStreetMapLocationResponseTest {
         openStreetResponse.setLatitude("1.00");
         openStreetResponse.setLongitude("2.00");
         openStreetResponse.setDisplayName("DisplayName");
-        openStreetResponse.setBoundingBox(ImmutableList.of("BoundingBox1", "BoundingBox2"));
+        openStreetResponse.setBoundingBox(List.of("BoundingBox1", "BoundingBox2"));
         OpenStreetMapLocationResponse.Address address = new OpenStreetMapLocationResponse.Address();
         address.setCountry("Australia");
         address.setCountryCode("AU");

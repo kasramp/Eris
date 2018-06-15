@@ -17,7 +17,6 @@ package com.madadipouya.eris.util;
 * © 2017 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
-import com.google.common.collect.ImmutableList;
 import com.madadipouya.eris.integration.ipapi.remote.response.IpApiResponse;
 import com.madadipouya.eris.integration.openweathermap.remote.response.OpenWeatherMapCurrentWeatherResponse;
 import com.madadipouya.eris.service.ipgeolocation.model.Coordinates;
@@ -30,10 +29,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
 
 @RunWith(MockitoJUnitRunner.class)
 public class BeanUtilsTest {
@@ -95,7 +94,7 @@ public class BeanUtilsTest {
         OpenWeatherMapCurrentWeatherResponse weatherObject =
                 new OpenWeatherMapCurrentWeatherResponse();
         weatherObject.setCoordinates(stubCoordinates("1", "2"));
-        weatherObject.setWeather(ImmutableList.of(stubWeather(10, "Main", "Description", "Icon")));
+        weatherObject.setWeather(List.of(stubWeather(10, "Main", "Description", "Icon")));
         weatherObject.setBase("Base");
         weatherObject.setMain(stubMain());
         weatherObject.setVisibility(1000);

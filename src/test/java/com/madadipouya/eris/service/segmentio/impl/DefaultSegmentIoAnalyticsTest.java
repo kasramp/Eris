@@ -1,6 +1,5 @@
 package com.madadipouya.eris.service.segmentio.impl;
 
-import com.google.common.collect.ImmutableMap;
 import com.madadipouya.eris.service.segmentio.SegmentIoAnalytics;
 import com.madadipouya.eris.util.PropertyUtils;
 import com.segment.analytics.Analytics;
@@ -11,6 +10,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.Map;
 
 import static org.mockito.Mockito.*;
 
@@ -51,7 +52,7 @@ public class DefaultSegmentIoAnalyticsTest {
     @Test
     public void testFireEvent() {
         segmentIoAnalytics.analytics = mock(Analytics.class);
-        segmentIoAnalytics.fireEvent(SegmentIoAnalytics.EventType.CURRENT, "1", ImmutableMap.of());
+        segmentIoAnalytics.fireEvent(SegmentIoAnalytics.EventType.CURRENT, "1", Map.of());
         verify(segmentIoAnalytics.analytics, timeout(1)).enqueue(isA(MessageBuilder.class));
     }
 }

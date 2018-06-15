@@ -1,6 +1,5 @@
 package com.madadipouya.eris.service.weather.model;
 
-import com.google.common.collect.ImmutableList;
 import com.madadipouya.eris.integration.openweathermap.remote.response.OpenWeatherMapCurrentWeatherResponse;
 
 import java.math.BigDecimal;
@@ -31,7 +30,7 @@ public class CurrentWeatherCondition extends OpenWeatherMapCurrentWeatherRespons
     }
 
     public CurrentWeatherCondition() {
-        this(ImmutableList.of());
+        this(List.of());
     }
 
     private String country;  //For backward compatibility

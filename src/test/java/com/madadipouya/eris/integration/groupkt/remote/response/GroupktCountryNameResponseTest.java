@@ -1,9 +1,10 @@
 package com.madadipouya.eris.integration.groupkt.remote.response;
 
-import com.google.common.collect.ImmutableList;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -36,7 +37,7 @@ public class GroupktCountryNameResponseTest {
         result.setAlpha2Code("CA");
         result.setAlpha3Code("CAN");
         result.setName("Canada");
-        restResponse.setMessages(ImmutableList.of("Message1", "Message2"));
+        restResponse.setMessages(List.of("Message1", "Message2"));
         restResponse.setResult(result);
         groupktResponse.setRestResponse(restResponse);
         assertNotNull(groupktResponse.getRestResponse());

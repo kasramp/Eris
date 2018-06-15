@@ -19,8 +19,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
+import java.util.List;
 
-import static com.google.common.collect.ImmutableList.of;
 import static junit.framework.TestCase.assertEquals;
 import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.*;
@@ -83,7 +83,7 @@ public class DefaultWeatherTest {
     public void testConvertBean() {
         OpenWeatherMapCurrentWeatherResponse weatherApiResponse = mock(OpenWeatherMapCurrentWeatherResponse.class);
         when(weatherApiResponse.getWeather())
-                .thenReturn(of(new OpenWeatherMapCurrentWeatherResponse.Weather(1, "Main", "Description", "Icon")));
+                .thenReturn(List.of(new OpenWeatherMapCurrentWeatherResponse.Weather(1, "Main", "Description", "Icon")));
         when(weatherApiResponse.getMain()).thenReturn(mock(OpenWeatherMapCurrentWeatherResponse.Main.class));
         when(weatherApiResponse.getMain().getTemperature()).thenReturn(new BigDecimal("30.5"));
         CurrentWeatherCondition weatherCondition = weatherService.convertBean(weatherApiResponse);
@@ -152,7 +152,7 @@ public class DefaultWeatherTest {
         String longitude = "20.22992";
         boolean isFahrenheit = false;
         OpenWeatherMapCurrentWeatherResponse response = new OpenWeatherMapCurrentWeatherResponse();
-        response.setWeather(of(new OpenWeatherMapCurrentWeatherResponse.Weather()));
+        response.setWeather(List.of(new OpenWeatherMapCurrentWeatherResponse.Weather()));
         response.setMain(new OpenWeatherMapCurrentWeatherResponse.Main());
         response.setWind(new OpenWeatherMapCurrentWeatherResponse.Wind());
         response.setSys(new OpenWeatherMapCurrentWeatherResponse.Sys());
