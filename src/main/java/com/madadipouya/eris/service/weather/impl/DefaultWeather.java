@@ -30,7 +30,7 @@ import static com.madadipouya.eris.util.BeanUtils.copyProperties;
 *
 * Author(s):
 *
-* © 2017 Kasra Madadipouya <kasra@madadipouya.com>
+* © 2017-2018 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
 @Service("weather")

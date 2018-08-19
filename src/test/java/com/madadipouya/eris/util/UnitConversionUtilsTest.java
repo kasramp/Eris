@@ -25,7 +25,7 @@ import static org.junit.Assert.assertTrue;
 *
 * Author(s):
 *
-* © 2017 Kasra Madadipouya <kasra@madadipouya.com>
+* © 2017-2018 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
 @RunWith(MockitoJUnitRunner.class)

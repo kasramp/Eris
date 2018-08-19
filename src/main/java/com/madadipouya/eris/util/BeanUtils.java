@@ -19,7 +19,7 @@ import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
 *
 * Author(s):
 *
-* © 2017 Kasra Madadipouya <kasra@madadipouya.com>
+* © 2017-2018 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
 public class BeanUtils extends org.springframework.beans.BeanUtils {
