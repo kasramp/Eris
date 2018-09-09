@@ -15,7 +15,7 @@ install:
   - mvn clean install
 script:
   - chmod +x ./util/release.sh
-  - ./utils/release.sh;
+  - ./util/release.sh;
 cache:
   directories:
   - "$HOME/.m2/repository"
