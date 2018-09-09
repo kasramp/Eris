@@ -12,7 +12,7 @@
 
     <scm>
         <connection>scm:git:https://github.com/kasramp/Eris.git</connection>
-        <developerConnection>scm:git:git@github.com:kasramp/Eris.git</developerConnection>
+        <developerConnection>scm:git:https://github.com/kasramp/Eris.git</developerConnection>
         <url>https://github.com/kasramp/Eris</url>
     </scm>
 	<parent>
