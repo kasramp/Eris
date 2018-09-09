@@ -13,6 +13,7 @@ jdk:
 - oraclejdk10
 install:
   - mvn clean install
+  - export TRAVIS_COMMIT_DESCRIPTION=`git log -n 1`
 script:
   - chmod +x ./util/release.sh
   - ./util/release.sh;
