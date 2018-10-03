@@ -5,7 +5,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /*
 * This file is part of Eris Weather API.
@@ -26,7 +26,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 @ComponentScan("com.madadipouya.eris.interceptor")
-public class ApplicationConfiguration extends WebMvcConfigurerAdapter {
+public class ApplicationConfiguration implements WebMvcConfigurer {
 
     @Autowired
     HandlerInterceptor handlerInterceptor;
