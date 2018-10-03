@@ -1,15 +1,13 @@
 package com.madadipouya.eris.integration.openweathermap.remote.response;
 
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /*
 * This file is part of Eris Weather API.
@@ -28,7 +26,6 @@ import static org.junit.Assert.assertNotNull;
 * © 2017-2018 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
-@RunWith(MockitoJUnitRunner.class)
 public class OpenWeatherMapCurrentWeatherResponseTest {
 
     @Test

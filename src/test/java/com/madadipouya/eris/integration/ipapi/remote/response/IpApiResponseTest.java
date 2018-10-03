@@ -1,10 +1,8 @@
 package com.madadipouya.eris.integration.ipapi.remote.response;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /*
 * This file is part of Eris Weather API.
@@ -23,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 * © 2017-2018 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
-@RunWith(MockitoJUnitRunner.class)
+
 public class IpApiResponseTest {
 
     @Test

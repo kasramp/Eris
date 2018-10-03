@@ -1,18 +1,19 @@
 package com.madadipouya.eris.configuration;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Spy;
-import org.mockito.internal.util.reflection.Whitebox;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 
 /*
 * This file is part of Eris Weather API.
@@ -31,7 +32,7 @@ import static org.junit.Assert.assertNotNull;
 * © 2017-2018 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class CacheConfigurationTest {
 
     @Spy
@@ -42,7 +43,7 @@ public class CacheConfigurationTest {
     public void testCacheConfiguration() {
         CacheManager cacheManager = cacheConfiguration.cacheManager();
         assertNotNull(cacheManager);
-        List<? extends Cache> caches = (List<? extends Cache>) Whitebox.getInternalState(cacheManager, "caches");
+        List<? extends Cache> caches = (List<? extends Cache>) ReflectionTestUtils.getField(cacheManager, "caches");
         assertNotNull(caches);
         assertEquals(3, caches.size());
         assertEquals("countryCodeCache", caches.get(0).getName());

@@ -2,16 +2,16 @@ package com.madadipouya.eris.integration.ipapi;
 
 
 import com.madadipouya.eris.integration.ipapi.remote.response.IpApiResponse;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.client.RestTemplate;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 /*
@@ -31,7 +31,7 @@ import static org.mockito.Mockito.*;
 * © 2017-2018 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class DefaultIpApiIntegrationTest {
 
     @Spy

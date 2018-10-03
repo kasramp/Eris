@@ -62,7 +62,7 @@ public class DefaultWeather implements Weather {
         return getCurrentWeatherCondition(latitude, longitude, fahrenheit);
     }
 
-    private CurrentWeatherCondition getCurrentWeatherCondition(String latitude, String longitude, boolean fahrenheit) {
+    CurrentWeatherCondition getCurrentWeatherCondition(String latitude, String longitude, boolean fahrenheit) {
         return setGeoLocation(
                 setCountryFullName(
                         setFeelsLike(

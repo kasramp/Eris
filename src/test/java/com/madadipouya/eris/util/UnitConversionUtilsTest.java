@@ -1,15 +1,14 @@
 package com.madadipouya.eris.util;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
+
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
 import static com.madadipouya.eris.util.UnitConversionUtils.*;
-import static junit.framework.TestCase.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /*
 * This file is part of Eris Weather API.
@@ -28,7 +27,6 @@ import static org.junit.Assert.assertTrue;
 * © 2017-2018 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
-@RunWith(MockitoJUnitRunner.class)
 public class UnitConversionUtilsTest {
 
     @Test

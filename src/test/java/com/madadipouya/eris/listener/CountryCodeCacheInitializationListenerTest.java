@@ -1,12 +1,12 @@
 package com.madadipouya.eris.listener;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -19,9 +19,9 @@ import java.io.IOException;
 import java.util.Map;
 
 import static com.madadipouya.eris.configuration.CacheConfiguration.COUNTRY_CODE_CACHE;
-import static junit.framework.TestCase.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasKey;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 /*
@@ -41,7 +41,7 @@ import static org.mockito.Mockito.*;
 * © 2017-2018 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class CountryCodeCacheInitializationListenerTest {
 
     @Spy
@@ -53,8 +53,7 @@ public class CountryCodeCacheInitializationListenerTest {
 
     private Resource resource = mock(Resource.class);
 
-
-    @Before
+    @BeforeEach
     public void setup() {
         ReflectionTestUtils.setField(listener, "countryCodeFile", resource);
     }

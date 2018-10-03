@@ -2,17 +2,17 @@ package com.madadipouya.eris.integration.openweathermap;
 
 import com.madadipouya.eris.integration.openweathermap.remote.response.OpenWeatherMapCurrentWeatherResponse;
 import com.madadipouya.eris.util.PropertyUtils;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 /*
@@ -32,7 +32,7 @@ import static org.mockito.Mockito.*;
 * © 2017-2018 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class DefaultOpenWeatherMapIntegrationTest {
 
     @Spy
@@ -73,7 +73,7 @@ public class DefaultOpenWeatherMapIntegrationTest {
                 OpenWeatherMapCurrentWeatherResponse.class)).thenReturn(response);
         OpenWeatherMapCurrentWeatherResponse result = openWeatherMapIntegration.getCurrentWeatherCondition("7.00", "10.00", true);
         verify(restTemplate, times(1)).getForObject(anyString(), any());
-        assertEquals(6.21, result.getVisibility(), 0.00);
+        assertEquals(6.21, result.getVisibility());
         assertEquals("7.00", result.getCoordinates().getLatitude());
         assertEquals("10.00", result.getCoordinates().getLongitude());
         assertEquals(new BigDecimal("3.4"), result.getWind().getSpeed());

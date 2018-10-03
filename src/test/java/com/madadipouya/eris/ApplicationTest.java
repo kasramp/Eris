@@ -1,11 +1,11 @@
 package com.madadipouya.eris;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /*
 * This file is part of Eris Weather API.
@@ -24,13 +24,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 * © 2017-2018 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @TestPropertySource(locations = {"classpath:test.properties"}
         , properties = {"spring.mvc.throw-exception-if-no-handler-found=true"})
 @SpringBootTest(classes = Application.class)
 public class ApplicationTest {
 
-    @BeforeClass
+    @BeforeAll
     public static void setup() {
         System.setProperty("OPENWEATHERMAP_API_KEY", "testKey");
         System.setProperty("SEGMENTIO_WRITE_API_KEY", "testKey");

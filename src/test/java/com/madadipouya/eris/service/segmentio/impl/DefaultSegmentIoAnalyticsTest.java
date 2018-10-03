@@ -4,12 +4,12 @@ import com.madadipouya.eris.service.segmentio.SegmentIoAnalytics;
 import com.madadipouya.eris.util.PropertyUtils;
 import com.segment.analytics.Analytics;
 import com.segment.analytics.messages.MessageBuilder;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Map;
 
@@ -32,7 +32,7 @@ import static org.mockito.Mockito.*;
 * © 2017-2018 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class DefaultSegmentIoAnalyticsTest {
 
     @Spy

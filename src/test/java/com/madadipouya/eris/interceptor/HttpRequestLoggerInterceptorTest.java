@@ -1,18 +1,18 @@
 package com.madadipouya.eris.interceptor;
 
 import com.madadipouya.eris.service.ipgeolocation.impl.DefaultIpGeoLocation;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 /*
@@ -32,7 +32,7 @@ import static org.mockito.Mockito.*;
 * © 2017-2018 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class HttpRequestLoggerInterceptorTest {
     @Spy
     @InjectMocks
@@ -58,7 +58,6 @@ public class HttpRequestLoggerInterceptorTest {
     public void testPreHandleNotThrowsException() {
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getParameterMap()).thenReturn(null);
-        when(request.getRequestURI()).thenReturn("/v1/weather/current");
         doReturn("185.86.151.11").when(ipGeoLocation).getRequestIpAddress(request);
         boolean result = interceptor.preHandle(request, mock(HttpServletResponse.class), mock(Object.class));
         assertEquals(true, result);

@@ -3,17 +3,17 @@ package com.madadipouya.eris.service.ipgeolocation.impl;
 import com.madadipouya.eris.integration.ipapi.IpApiIntegration;
 import com.madadipouya.eris.integration.ipapi.remote.response.IpApiResponse;
 import com.madadipouya.eris.service.ipgeolocation.model.Coordinates;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static junit.framework.TestCase.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 /*
@@ -33,7 +33,7 @@ import static org.mockito.Mockito.*;
 * © 2017-2018 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class DefaultIpGeoLocationTest {
 
     @Spy
@@ -42,16 +42,6 @@ public class DefaultIpGeoLocationTest {
 
     @Mock
     private IpApiIntegration ipApiIntegration;
-
-    @Test
-    public void testGetCoordinatesHttpRequest() {
-        HttpServletRequest request = mock(HttpServletRequest.class);
-        doReturn("185.86.151.11").when(ipGeoLocation).getRequestIpAddress(request);
-        doReturn(mock(Coordinates.class)).when(ipGeoLocation).getCoordinates("185.86.151.11");
-        ipGeoLocation.getCoordinates(request);
-        verify(ipGeoLocation, times(1)).getRequestIpAddress(any(HttpServletRequest.class));
-        verify(ipGeoLocation, times(1)).getCoordinates(anyString());
-    }
 
     @Test
     public void testGetCoordinatesIpAddress() {
