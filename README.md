@@ -15,20 +15,20 @@ The technology stack consists of Spring Boot framework only. The free version of
 All the project dependencies exist in pom.xml file and once your run the project, all dependencies will be downloaded.
 
 ## How to use
+
 To run and deploy the project on your local or any desired server, first clone the project and the follow the below instruction.
 - Add Open Weather Map API key to `apikey.properties` that located under `resource` folder.
 - Compile and run the API using Maven
 
         $ maven clean install
         $ cd target
-        $ java -jar eris-0.1.0-SNAPSHOT.jar
+        $ java -jar eris-[version]-SNAPSHOT.jar
 
 ## Project & API documentation
-To know more about the project structure and API documentation please refer to our Github page [documentation](http://eris.madadipouya.com/#apicall) at this link.
+To know more about the project structure and API documentation please refer to our Github page [documentation](https://eris.madadipouya.com/#apicall) at this link.
 
 ## Contact
 * kasra@madadipouya.com
-* kasra_mp@live.com
 
 ## License
 <p>
