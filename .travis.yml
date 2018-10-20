@@ -10,7 +10,7 @@ addons:
       - develop
 
 jdk:
-- oraclejdk10
+- oraclejdk11
 install:
   - mvn clean install
   - export TRAVIS_COMMIT_DESCRIPTION=`git log -n 1`
