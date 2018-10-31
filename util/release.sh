@@ -8,5 +8,5 @@ if [[ "$TRAVIS_COMMIT_DESCRIPTION" != *"maven-release-plugin"* ]];then
     git show-ref --head
     git symbolic-ref HEAD refs/heads/$TRAVIS_BRANCH
     git symbolic-ref HEAD
-    mvn -B clean org.jacoco:jacoco-maven-plugin:prepare-agent release:clean release:prepare -Dusername=$GITHUB_USERNAME -Dpassword=$GITHUB_PASSWORD sonar:sonar
+    mvn -B clean release:clean release:prepare -Dusername=$GITHUB_USERNAME -Dpassword=$GITHUB_PASSWORD
 fi
