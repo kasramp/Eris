@@ -12,7 +12,7 @@ addons:
 jdk:
 - oraclejdk11
 install:
-  - mvn clean install
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
   - export TRAVIS_COMMIT_DESCRIPTION=`git log -n 1`
 script:
   - chmod +x ./util/release.sh
