@@ -34,7 +34,7 @@ public class SwaggerConfigurationTest {
         assertEquals("https://github.com/kasramp/Eris/blob/develop/LICENSE", apiInfo.getLicenseUrl());
         assertEquals(0, apiInfo.getVendorExtensions().size());
         assertEquals("Kasra Madadipouya", contact.getName());
-        assertEquals("http://eris.madadipouya.com", contact.getUrl());
+        assertEquals("https://eris.madadipouya.com", contact.getUrl());
         assertEquals("kasra@madadipouya.com", contact.getEmail());
     }
 

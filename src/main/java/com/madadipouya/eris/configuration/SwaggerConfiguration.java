@@ -50,7 +50,7 @@ public class SwaggerConfiguration {
                 "Documentation for Eris weather API",
                 "v1",
                 "Free of charge",
-                new Contact("Kasra Madadipouya", "http://eris.madadipouya.com", "kasra@madadipouya.com"),
+                new Contact("Kasra Madadipouya", "https://eris.madadipouya.com", "kasra@madadipouya.com"),
                 "GNU General Public License v3.0",
                 "https://github.com/kasramp/Eris/blob/develop/LICENSE", Collections.emptyList());
     }
