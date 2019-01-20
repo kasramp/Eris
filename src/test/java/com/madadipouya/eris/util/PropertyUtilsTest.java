@@ -54,4 +54,28 @@ public class PropertyUtilsTest {
         propertyUtils.setSegmentIoWriteApiKey("SegmentIoApiKey");
         assertEquals("SegmentIoApiKey", propertyUtils.getSegmentIoWriteApiKey());
     }
+
+    @Test
+    public void testGetHealthUsername() {
+        when(propertyUtils.getHealthUsername()).thenReturn("username");
+        assertEquals("username", propertyUtils.getHealthUsername());
+    }
+
+    @Test
+    public void testSetHealthUsername() {
+        propertyUtils.setHealthUsername("username");
+        assertEquals("username", propertyUtils.getHealthUsername());
+    }
+
+    @Test
+    public void testGetHealthPassword() {
+        when(propertyUtils.getHealthPassword()).thenReturn("password");
+        assertEquals("password", propertyUtils.getHealthPassword());
+    }
+
+    @Test
+    public void testSetHealthPassword() {
+        propertyUtils.setHealthPassword("password");
+        assertEquals("password", propertyUtils.getHealthPassword());
+    }
 }

@@ -31,6 +31,12 @@ public class PropertyUtils {
     @Value("${segmentio.write.api.key}")
     private String segmentIoWriteApiKey;
 
+    @Value("${health.username}")
+    private String healthUsername;
+
+    @Value("${health.password}")
+    private String healthPassword;
+
     public String getOpenWeatherMapApiKey() {
         return openWeatherMapApiKey;
     }
@@ -45,5 +51,21 @@ public class PropertyUtils {
 
     public void setSegmentIoWriteApiKey(String segmentIoWriteApiKey) {
         this.segmentIoWriteApiKey = segmentIoWriteApiKey;
+    }
+
+    public String getHealthUsername() {
+        return healthUsername;
+    }
+
+    public void setHealthUsername(String healthUsername) {
+        this.healthUsername = healthUsername;
+    }
+
+    public String getHealthPassword() {
+        return healthPassword;
+    }
+
+    public void setHealthPassword(String healthPassword) {
+        this.healthPassword = healthPassword;
     }
 }
