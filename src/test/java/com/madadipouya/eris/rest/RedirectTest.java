@@ -27,7 +27,7 @@ import static org.mockito.Mockito.when;
 *
 * Author(s):
 *
-* © 2017-2018 Kasra Madadipouya <kasra@madadipouya.com>
+* © 2017-2019 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
 @ExtendWith(MockitoExtension.class)

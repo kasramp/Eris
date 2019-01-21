@@ -16,7 +16,7 @@ import com.madadipouya.eris.integration.openstreetmap.remote.response.OpenStreet
 *
 * Author(s):
 *
-* © 2017-2018 Kasra Madadipouya <kasra@madadipouya.com>
+* © 2017-2019 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
 /**

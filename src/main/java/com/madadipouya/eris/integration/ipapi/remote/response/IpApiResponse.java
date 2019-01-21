@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 *
 * Author(s):
 *
-* © 2017-2018 Kasra Madadipouya <kasra@madadipouya.com>
+* © 2017-2019 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
