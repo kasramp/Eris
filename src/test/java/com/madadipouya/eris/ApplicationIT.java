@@ -28,7 +28,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @TestPropertySource(locations = {"classpath:test.properties"}
         , properties = {"spring.mvc.throw-exception-if-no-handler-found=true"})
 @SpringBootTest(classes = Application.class)
-public class ApplicationTest {
+public class ApplicationIT {
 
     @BeforeAll
     public static void setup() {
