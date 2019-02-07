@@ -188,7 +188,7 @@ To run and deploy the project on your local or any desired server, first clone t
 
         $ maven clean install
         $ cd target
-        $ java -jar eris-0.1.0-SNAPSHOT.jar
+        $ java -jar eris-[version]-SNAPSHOT.jar
 
 ## <a name="freeinstance">Free public Eris instance</a>
 We have a free running public instance of Eris hosted on Heroku. The instance is available from the following link:
