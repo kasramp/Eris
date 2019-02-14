@@ -9,7 +9,6 @@ import com.madadipouya.eris.service.ipgeolocation.IpGeoLocation;
 import com.madadipouya.eris.service.ipgeolocation.model.Coordinates;
 import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
 import com.madadipouya.eris.service.weather.Weather;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,21 +34,25 @@ import static com.madadipouya.eris.util.BeanUtils.copyProperties;
 
 @Service("weather")
 public class DefaultWeather implements Weather {
-    
-    @Autowired
-    private OpenWeatherMapIntegration openWeatherMapIntegration;
 
-    @Autowired
-    private OpenStreetMapIntegration openStreetMapIntegration;
+    private final OpenWeatherMapIntegration openWeatherMapIntegration;
 
-    @Autowired
-    private GroupktCountryNameIntegration groupktCountryNameIntegration;
+    private final OpenStreetMapIntegration openStreetMapIntegration;
 
-    @Autowired
-    private IpGeoLocation ipGeoLocation;
+    private final GroupktCountryNameIntegration groupktCountryNameIntegration;
 
-    @Autowired
-    private FeelsLikeService feelsLikeService;
+    private final IpGeoLocation ipGeoLocation;
+
+    private final FeelsLikeService feelsLikeService;
+
+    public DefaultWeather(OpenWeatherMapIntegration openWeatherMapIntegration, OpenStreetMapIntegration openStreetMapIntegration
+    , GroupktCountryNameIntegration groupktCountryNameIntegration, IpGeoLocation ipGeoLocation, FeelsLikeService feelsLikeService) {
+        this.openWeatherMapIntegration = openWeatherMapIntegration;
+        this.openStreetMapIntegration = openStreetMapIntegration;
+        this.groupktCountryNameIntegration = groupktCountryNameIntegration;
+        this.ipGeoLocation = ipGeoLocation;
+        this.feelsLikeService = feelsLikeService;
+    }
 
     @Override
     public CurrentWeatherCondition getCurrent(HttpServletRequest request, boolean fahrenheit) {

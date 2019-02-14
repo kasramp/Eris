@@ -5,7 +5,6 @@ import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,8 +41,11 @@ public class CurrentWeatherAPIController {
 
     private static final String ERR_INVALID_LATITUDE_LONGITUDE_PROVIDED = "Invalid latitude and/or longitude provided!";
 
-    @Autowired
-    private Weather weather;
+    private final Weather weather;
+
+    public CurrentWeatherAPIController(Weather weather) {
+        this.weather = weather;
+    }
 
     /*
     *

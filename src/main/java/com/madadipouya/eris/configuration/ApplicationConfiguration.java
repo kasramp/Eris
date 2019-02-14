@@ -1,6 +1,5 @@
 package com.madadipouya.eris.configuration;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -28,8 +27,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @ComponentScan("com.madadipouya.eris.interceptor")
 public class ApplicationConfiguration implements WebMvcConfigurer {
 
-    @Autowired
-    HandlerInterceptor handlerInterceptor;
+    private final HandlerInterceptor handlerInterceptor;
+
+    public ApplicationConfiguration(HandlerInterceptor handlerInterceptor) {
+        this.handlerInterceptor = handlerInterceptor;
+    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

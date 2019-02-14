@@ -6,7 +6,6 @@ import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
@@ -39,11 +38,14 @@ import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 @Component
 public class LogToSegmentInterceptor {
 
-    @Autowired
-    SegmentIoAnalytics segmentIoAnalytics;
+    private final SegmentIoAnalytics segmentIoAnalytics;
 
-    @Autowired
-    IpGeoLocation ipGeoLocation;
+    private final IpGeoLocation ipGeoLocation;
+
+    public LogToSegmentInterceptor(SegmentIoAnalytics segmentIoAnalytics, IpGeoLocation ipGeoLocation) {
+        this.segmentIoAnalytics = segmentIoAnalytics;
+        this.ipGeoLocation = ipGeoLocation;
+    }
 
     @AfterReturning(
             value = "execution(* com.madadipouya.eris.rest.CurrentWeatherAPIController.getCurrent(..)) " +

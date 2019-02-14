@@ -1,7 +1,6 @@
 package com.madadipouya.eris.integration.groupkt;
 
 import com.madadipouya.eris.integration.groupkt.remote.response.GroupktCountryNameResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -31,8 +30,11 @@ public class DefaultGroupktCountryNameIntegration implements GroupktCountryNameI
 
     private static final String API_URL = "http://services.groupkt.com/country/get/iso2code/%s";
 
-    @Autowired
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
+
+    public DefaultGroupktCountryNameIntegration(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     @Override
     @Cacheable(COUNTRY_CODE_CACHE)

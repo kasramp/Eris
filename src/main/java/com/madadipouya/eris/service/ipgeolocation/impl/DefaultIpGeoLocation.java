@@ -3,7 +3,6 @@ package com.madadipouya.eris.service.ipgeolocation.impl;
 import com.madadipouya.eris.integration.ipapi.IpApiIntegration;
 import com.madadipouya.eris.service.ipgeolocation.model.Coordinates;
 import com.madadipouya.eris.service.ipgeolocation.IpGeoLocation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,8 +32,11 @@ import static org.apache.commons.lang3.StringUtils.trim;
 @Service("ipGeoLocation")
 public class DefaultIpGeoLocation implements IpGeoLocation {
 
-    @Autowired
-    private IpApiIntegration ipApiIntegration;
+    private final IpApiIntegration ipApiIntegration;
+
+    public DefaultIpGeoLocation(IpApiIntegration ipApiIntegration) {
+        this.ipApiIntegration = ipApiIntegration;
+    }
 
     @Override
     public Coordinates getCoordinates(HttpServletRequest request) {

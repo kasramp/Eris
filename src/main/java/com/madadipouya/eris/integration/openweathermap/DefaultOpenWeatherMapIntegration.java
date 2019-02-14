@@ -2,7 +2,6 @@ package com.madadipouya.eris.integration.openweathermap;
 
 import com.madadipouya.eris.integration.openweathermap.remote.response.OpenWeatherMapCurrentWeatherResponse;
 import com.madadipouya.eris.util.PropertyUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -39,11 +38,14 @@ public class DefaultOpenWeatherMapIntegration implements OpenWeatherMapIntegrati
 
     private static final String TEMPERATURE_UNIT_IMPERIAL = "imperial";
 
-    @Autowired
-    private PropertyUtils propertyUtils;
+    private final PropertyUtils propertyUtils;
 
-    @Autowired
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
+
+    public DefaultOpenWeatherMapIntegration(PropertyUtils propertyUtils, RestTemplate restTemplate) {
+        this.propertyUtils = propertyUtils;
+        this.restTemplate = restTemplate;
+    }
 
     @Override
     public OpenWeatherMapCurrentWeatherResponse getCurrentWeatherCondition(String latitude, String longitude, boolean fahrenheit) {

@@ -1,7 +1,6 @@
 package com.madadipouya.eris.integration.ipapi;
 
 import com.madadipouya.eris.integration.ipapi.remote.response.IpApiResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -31,8 +30,11 @@ public class DefaultIpApiIntegration implements IpApiIntegration {
 
     private static final String API_URL = "http://ip-api.com/json/%s";
 
-    @Autowired
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
+
+    public DefaultIpApiIntegration(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     @Override
     @Cacheable(IP_API_CACHE)

@@ -4,7 +4,6 @@ import com.madadipouya.eris.service.segmentio.SegmentIoAnalytics;
 import com.madadipouya.eris.util.PropertyUtils;
 import com.segment.analytics.Analytics;
 import com.segment.analytics.messages.TrackMessage;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -32,8 +31,11 @@ public class DefaultSegmentIoAnalytics implements SegmentIoAnalytics {
 
     Analytics analytics;
 
-    @Autowired
-    private PropertyUtils propertyUtils;
+    private final PropertyUtils propertyUtils;
+
+    public DefaultSegmentIoAnalytics(PropertyUtils propertyUtils) {
+        this.propertyUtils = propertyUtils;
+    }
 
     @PostConstruct
     public void afterPropertiesSet() {

@@ -1,7 +1,6 @@
 package com.madadipouya.eris.integration.openstreetmap;
 
 import com.madadipouya.eris.integration.openstreetmap.remote.response.OpenStreetMapLocationResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -36,8 +35,11 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 public class DefaultOpenStreetMapIntegration implements OpenStreetMapIntegration {
     private static final String API_URL = "https://nominatim.openstreetmap.org/reverse?format=json&lat=%s&lon=%s&zoom=18&addressdetails=1";
 
-    @Autowired
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
+
+    public DefaultOpenStreetMapIntegration(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     @Override
     @Cacheable(value = OPEN_STREET_CACHE, key = "{ #latitude, #longitude }")

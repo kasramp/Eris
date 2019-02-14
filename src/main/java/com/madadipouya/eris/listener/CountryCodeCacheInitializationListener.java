@@ -2,7 +2,6 @@ package com.madadipouya.eris.listener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.cache.Cache;
@@ -46,8 +45,11 @@ public class CountryCodeCacheInitializationListener implements ApplicationListen
     @Value("classpath:" + COUNTRY_CODE_FILE_NAME)
     private Resource countryCodeFile;
 
-    @Autowired
-    CacheManager cacheManager;
+    private final CacheManager cacheManager;
+
+    public CountryCodeCacheInitializationListener(CacheManager cacheManager) {
+        this.cacheManager = cacheManager;
+    }
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {

@@ -3,7 +3,6 @@ package com.madadipouya.eris.interceptor;
 import com.madadipouya.eris.service.ipgeolocation.IpGeoLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -38,8 +37,11 @@ public class HttpRequestLoggerInterceptor implements HandlerInterceptor {
     private static final Logger logger = LoggerFactory.getLogger(HttpRequestLoggerInterceptor.class);
     private static final String MESSAGE = "Serving request for IP: %s with parameters: %s - @ %s";
 
-    @Autowired
-    IpGeoLocation ipGeoLocation;
+    private final IpGeoLocation ipGeoLocation;
+
+    public HttpRequestLoggerInterceptor(IpGeoLocation ipGeoLocation) {
+        this.ipGeoLocation = ipGeoLocation;
+    }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) {
