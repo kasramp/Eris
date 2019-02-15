@@ -41,31 +41,15 @@ public class PropertyUtils {
         return openWeatherMapApiKey;
     }
 
-    public void setOpenWeatherMapApiKey(String openWeatherMapApiKey) {
-        this.openWeatherMapApiKey = openWeatherMapApiKey;
-    }
-
     public String getSegmentIoWriteApiKey() {
         return segmentIoWriteApiKey;
-    }
-
-    public void setSegmentIoWriteApiKey(String segmentIoWriteApiKey) {
-        this.segmentIoWriteApiKey = segmentIoWriteApiKey;
     }
 
     public String getHealthUsername() {
         return healthUsername;
     }
 
-    public void setHealthUsername(String healthUsername) {
-        this.healthUsername = healthUsername;
-    }
-
     public String getHealthPassword() {
         return healthPassword;
-    }
-
-    public void setHealthPassword(String healthPassword) {
-        this.healthPassword = healthPassword;
     }
 }

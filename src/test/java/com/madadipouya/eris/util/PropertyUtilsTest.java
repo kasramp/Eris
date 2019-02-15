@@ -2,11 +2,12 @@ package com.madadipouya.eris.util;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Spy;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
 
 /*
 * This file is part of Eris Weather API.
@@ -25,57 +26,31 @@ import static org.mockito.Mockito.when;
 * © 2017-2019 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
-@ExtendWith(MockitoExtension.class)
+@ExtendWith(SpringExtension.class)
+@TestPropertySource(locations = {"classpath:test.properties"})
+@SpringBootTest
 public class PropertyUtilsTest {
 
-    @Spy
+    @Autowired
     private PropertyUtils propertyUtils;
 
     @Test
-    public void testGetOpenWeatherMapApiKey() {
-        when(propertyUtils.getOpenWeatherMapApiKey()).thenReturn("OpenWeatherMapKey");
-        assertEquals("OpenWeatherMapKey", propertyUtils.getOpenWeatherMapApiKey());
+    void testGetOpenWeatherMapApiKey() {
+        assertEquals("testKey", propertyUtils.getOpenWeatherMapApiKey());
     }
 
     @Test
-    public void testSetOpenWeatherMapApiKey() {
-        propertyUtils.setOpenWeatherMapApiKey("OpenWeatherMapKey");
-        assertEquals("OpenWeatherMapKey", propertyUtils.getOpenWeatherMapApiKey());
+    void testGetSegmentIoWriteApiKey() {
+        assertEquals("testKey", propertyUtils.getSegmentIoWriteApiKey());
     }
 
     @Test
-    public void testGetSegmentIoWriteApiKey() {
-        when(propertyUtils.getSegmentIoWriteApiKey()).thenReturn("SegmentIoApiKey");
-        assertEquals("SegmentIoApiKey", propertyUtils.getSegmentIoWriteApiKey());
+    void testGetHealthUsername() {
+        assertEquals("testUsername", propertyUtils.getHealthUsername());
     }
 
     @Test
-    public void testSetSegmentIoWriteApiKey() {
-        propertyUtils.setSegmentIoWriteApiKey("SegmentIoApiKey");
-        assertEquals("SegmentIoApiKey", propertyUtils.getSegmentIoWriteApiKey());
-    }
-
-    @Test
-    public void testGetHealthUsername() {
-        when(propertyUtils.getHealthUsername()).thenReturn("username");
-        assertEquals("username", propertyUtils.getHealthUsername());
-    }
-
-    @Test
-    public void testSetHealthUsername() {
-        propertyUtils.setHealthUsername("username");
-        assertEquals("username", propertyUtils.getHealthUsername());
-    }
-
-    @Test
-    public void testGetHealthPassword() {
-        when(propertyUtils.getHealthPassword()).thenReturn("password");
-        assertEquals("password", propertyUtils.getHealthPassword());
-    }
-
-    @Test
-    public void testSetHealthPassword() {
-        propertyUtils.setHealthPassword("password");
-        assertEquals("password", propertyUtils.getHealthPassword());
+    void testGetHealthPassword() {
+        assertEquals("testPassword", propertyUtils.getHealthPassword());
     }
 }
