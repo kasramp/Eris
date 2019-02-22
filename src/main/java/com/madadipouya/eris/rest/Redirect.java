@@ -1,7 +1,6 @@
 package com.madadipouya.eris.rest;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,12 +28,12 @@ public class Redirect {
 
     private static final String DOC_URL = "://eris.madadipouya.com";
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @GetMapping(value = "/")
     public ModelAndView redirectToDocPage(HttpServletRequest request) {
         return new ModelAndView("redirect:" + request.getScheme() + DOC_URL);
     }
 
-    @RequestMapping(value = "/apidocs", method = RequestMethod.GET)
+    @GetMapping(value = "/apidocs")
     public ModelAndView redirectToApiPage() {
         return new ModelAndView("redirect:/swagger-ui.html");
     }
