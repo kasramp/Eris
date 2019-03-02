@@ -1,6 +1,5 @@
 package com.madadipouya.eris.integration.ipapi;
 
-
 import com.madadipouya.eris.integration.ipapi.remote.response.IpApiResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,7 +31,7 @@ import static org.mockito.Mockito.*;
 */
 
 @ExtendWith(MockitoExtension.class)
-public class DefaultIpApiIntegrationTest {
+class DefaultIpApiIntegrationTest {
 
     @Spy
     @InjectMocks
@@ -42,7 +41,7 @@ public class DefaultIpApiIntegrationTest {
     private RestTemplate restTemplate;
 
     @Test
-    public void testGetCoordinatesFromIp() {
+    void testGetCoordinatesFromIp() {
         IpApiResponse mockIpApi = mock(IpApiResponse.class);
         when(mockIpApi.getCountry()).thenReturn("Australia");
         when(restTemplate.getForObject("http://ip-api.com/json/139.130.4.5", IpApiResponse.class)).thenReturn(mockIpApi);

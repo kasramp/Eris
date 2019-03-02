@@ -33,7 +33,7 @@ import static org.mockito.Mockito.*;
 */
 
 @ExtendWith(MockitoExtension.class)
-public class DefaultOpenWeatherMapIntegrationTest {
+class DefaultOpenWeatherMapIntegrationTest {
 
     @Spy
     @InjectMocks
@@ -46,7 +46,7 @@ public class DefaultOpenWeatherMapIntegrationTest {
     private RestTemplate restTemplate;
 
     @Test
-    public void testGetCurrentWeatherConditionCelsius() {
+    void testGetCurrentWeatherConditionCelsius() {
         OpenWeatherMapCurrentWeatherResponse response = new OpenWeatherMapCurrentWeatherResponse();
         response.setCoordinates(new OpenWeatherMapCurrentWeatherResponse.Coordinates());
         response.setWind(new OpenWeatherMapCurrentWeatherResponse.Wind(new BigDecimal("1"), new BigDecimal("60")));
@@ -63,7 +63,7 @@ public class DefaultOpenWeatherMapIntegrationTest {
     }
 
     @Test
-    public void testGetCurrentWeatherConditionFahrenheit() {
+    void testGetCurrentWeatherConditionFahrenheit() {
         OpenWeatherMapCurrentWeatherResponse response = new OpenWeatherMapCurrentWeatherResponse();
         response.setCoordinates(new OpenWeatherMapCurrentWeatherResponse.Coordinates());
         response.setWind(new OpenWeatherMapCurrentWeatherResponse.Wind(new BigDecimal("3.4"), new BigDecimal("20")));

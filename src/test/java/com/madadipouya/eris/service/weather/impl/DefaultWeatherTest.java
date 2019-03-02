@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -22,7 +21,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Matchers.isA;
+import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.*;
 
 /*
@@ -43,7 +42,7 @@ import static org.mockito.Mockito.*;
 */
 
 @ExtendWith(MockitoExtension.class)
-public class DefaultWeatherTest {
+class DefaultWeatherTest {
 
     @Spy
     @InjectMocks
@@ -65,7 +64,7 @@ public class DefaultWeatherTest {
     private OpenWeatherMapIntegration openWeatherMapIntegration;
 
     @Test
-    public void testGetCurrentHttpRequest() {
+    void testGetCurrentHttpRequest() {
         HttpServletRequest request = mock(HttpServletRequest.class);
         Coordinates coordinates = stubCoordinates();
         doReturn(coordinates).when(ipGeoLocation).getCoordinates(request);
@@ -76,7 +75,7 @@ public class DefaultWeatherTest {
     }
 
     @Test
-    public void testConvertBean() {
+    void testConvertBean() {
         OpenWeatherMapCurrentWeatherResponse weatherApiResponse = mock(OpenWeatherMapCurrentWeatherResponse.class);
         when(weatherApiResponse.getWeather())
                 .thenReturn(List.of(new OpenWeatherMapCurrentWeatherResponse.Weather(1, "Main", "Description", "Icon")));
@@ -89,7 +88,7 @@ public class DefaultWeatherTest {
     }
 
     @Test
-    public void testGetCountryCode() {
+    void testGetCountryCode() {
         CurrentWeatherCondition currentWeatherCondition = mock(CurrentWeatherCondition.class);
         when(currentWeatherCondition.getSys()).thenReturn(mock(OpenWeatherMapCurrentWeatherResponse.Sys.class));
         when(currentWeatherCondition.getSys().getCountry()).thenReturn("AU");
@@ -98,7 +97,7 @@ public class DefaultWeatherTest {
     }
 
     @Test
-    public void testSetCountryFullName() {
+    void testSetCountryFullName() {
         String countryCode = "AU";
         String countryFullName = "Australia";
         CurrentWeatherCondition currentWeatherCondition = new CurrentWeatherCondition();
@@ -106,14 +105,14 @@ public class DefaultWeatherTest {
         when(weatherService.getCountryCode(currentWeatherCondition)).thenReturn(countryCode);
         when(groupktCountryNameIntegration.getCountryFullName(countryCode)).thenReturn(countryFullName);
         CurrentWeatherCondition weatherConditionWithFullCountryName = weatherService.setCountryFullName(currentWeatherCondition);
-        Mockito.verify(groupktCountryNameIntegration, times(1)).getCountryFullName(countryCode);
+        verify(groupktCountryNameIntegration, times(1)).getCountryFullName(countryCode);
         assertEquals(countryFullName, weatherConditionWithFullCountryName.getSys().getCountryNameFull());
         assertEquals(countryFullName, weatherConditionWithFullCountryName.getCountry());
         assertEquals("v1.0", currentWeatherCondition.getApiVersion());
     }
 
     @Test
-    public void testSetGeoLocation() {
+    void testSetGeoLocation() {
         String fullGeoLocationAddress = "White House, 1600, Pennsylvania Avenue Northwest, Golden Triangle, Washington, "
                 + "District of Columbia, 20500, United States of America";
         CurrentWeatherCondition weatherCondition = new CurrentWeatherCondition();
@@ -121,13 +120,13 @@ public class DefaultWeatherTest {
         when(openStreetMapIntegration.getAddressByCoordinates(weatherCondition.getCoordinates().getLatitude(),
                 weatherCondition.getCoordinates().getLongitude())).thenReturn(fullGeoLocationAddress);
         CurrentWeatherCondition weatherConditionWithFullAddress = weatherService.setGeoLocation(weatherCondition);
-        Mockito.verify(openStreetMapIntegration, times(1)).getAddressByCoordinates(anyString(), anyString());
+        verify(openStreetMapIntegration, times(1)).getAddressByCoordinates(anyString(), anyString());
         assertEquals(fullGeoLocationAddress, weatherConditionWithFullAddress.getGeoLocation());
         assertEquals("v1.0", weatherCondition.getApiVersion());
     }
 
     @Test
-    public void testSetFeelsLike() {
+    void testSetFeelsLike() {
         CurrentWeatherCondition currentWeather = new CurrentWeatherCondition();
         currentWeather.setWind(new CurrentWeatherCondition.Wind(new BigDecimal("5.45"), new BigDecimal("100.23")));
         CurrentWeatherCondition.Main weatherMain = new CurrentWeatherCondition.Main();
@@ -137,26 +136,25 @@ public class DefaultWeatherTest {
         when(feelsLikeService.getFeelsLike(weatherMain.getTemperature().doubleValue(), currentWeather.getWind().getSpeed().doubleValue()
                 , weatherMain.getHumidity().doubleValue(), false)).thenReturn(37.123456);
         CurrentWeatherCondition weatherConditionWithFeelsLike = weatherService.setFeelsLike(currentWeather, false);
-        Mockito.verify(feelsLikeService, times(1)).getFeelsLike(anyDouble(), anyDouble(), anyDouble(), anyBoolean());
+        verify(feelsLikeService, times(1)).getFeelsLike(anyDouble(), anyDouble(), anyDouble(), anyBoolean());
         assertEquals(37.123456, weatherConditionWithFeelsLike.getFeelsLike(), 0.00001);
         assertEquals("v1.0", currentWeather.getApiVersion());
     }
 
     @Test
-    public void testGetCurrentWeatherConditionByLatitudeAndLongitude() {
+    void testGetCurrentWeatherConditionByLatitudeAndLongitude() {
         String latitude = "37.987";
         String longitude = "20.22992";
-        boolean isFahrenheit = false;
         OpenWeatherMapCurrentWeatherResponse response = new OpenWeatherMapCurrentWeatherResponse();
         response.setWeather(List.of(new OpenWeatherMapCurrentWeatherResponse.Weather()));
         response.setMain(new OpenWeatherMapCurrentWeatherResponse.Main());
         response.setWind(new OpenWeatherMapCurrentWeatherResponse.Wind());
         response.setSys(new OpenWeatherMapCurrentWeatherResponse.Sys());
         response.setCoordinates(new OpenWeatherMapCurrentWeatherResponse.Coordinates());
-        when(openWeatherMapIntegration.getCurrentWeatherCondition(latitude, longitude, isFahrenheit))
+        when(openWeatherMapIntegration.getCurrentWeatherCondition(latitude, longitude, false))
                 .thenReturn(response);
-        weatherService.getCurrent(latitude, longitude, isFahrenheit);
-        verify(openWeatherMapIntegration, times(1)).getCurrentWeatherCondition(latitude, longitude, isFahrenheit);
+        weatherService.getCurrent(latitude, longitude, false);
+        verify(openWeatherMapIntegration, times(1)).getCurrentWeatherCondition(latitude, longitude, false);
         verify(weatherService, times(1)).convertBean(isA(OpenWeatherMapCurrentWeatherResponse.class));
         verify(weatherService, times(1)).setFeelsLike(isA(CurrentWeatherCondition.class), anyBoolean());
         verify(weatherService, times(1)).setCountryFullName(isA(CurrentWeatherCondition.class));

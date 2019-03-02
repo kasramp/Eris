@@ -31,14 +31,14 @@ import static org.mockito.Mockito.when;
 */
 
 @ExtendWith(MockitoExtension.class)
-public class RedirectTest {
+class RedirectTest {
 
     @Spy
     @InjectMocks
     private Redirect redirectController;
 
     @Test
-    public void testRedirectToDocPage() {
+    void testRedirectToDocPage() {
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getScheme()).thenReturn("http");
         ModelAndView page = redirectController.redirectToDocPage(request);
@@ -46,7 +46,7 @@ public class RedirectTest {
     }
 
     @Test
-    public void testRedirectToApiDocs() {
+    void testRedirectToApiDocs() {
         ModelAndView page = redirectController.redirectToApiPage();
         assertEquals("redirect:/swagger-ui.html", page.getViewName());
     }

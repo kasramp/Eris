@@ -33,7 +33,7 @@ import static org.mockito.Mockito.*;
 */
 
 @ExtendWith(MockitoExtension.class)
-public class DefaultSegmentIoAnalyticsTest {
+class DefaultSegmentIoAnalyticsTest {
 
     @Spy
     @InjectMocks
@@ -43,14 +43,14 @@ public class DefaultSegmentIoAnalyticsTest {
     private PropertyUtils propertyUtils;
 
     @Test
-    public void testAfterPropertiesSet() {
+    void testAfterPropertiesSet() {
         when(propertyUtils.getSegmentIoWriteApiKey()).thenReturn("SegmentIoAPIKey");
         segmentIoAnalytics.afterPropertiesSet();
         verify(propertyUtils, times(1)).getSegmentIoWriteApiKey();
     }
 
     @Test
-    public void testFireEvent() {
+    void testFireEvent() {
         segmentIoAnalytics.analytics = mock(Analytics.class);
         segmentIoAnalytics.fireEvent(SegmentIoAnalytics.EventType.CURRENT, "1", Map.of());
         verify(segmentIoAnalytics.analytics, timeout(1)).enqueue(isA(MessageBuilder.class));

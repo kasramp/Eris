@@ -30,7 +30,8 @@ import static org.mockito.Mockito.*;
 */
 
 @ExtendWith(MockitoExtension.class)
-public class ApplicationConfigurationTest {
+class ApplicationConfigurationTest {
+
     @Spy
     @InjectMocks
     private ApplicationConfiguration applicationConfiguration;
@@ -39,7 +40,7 @@ public class ApplicationConfigurationTest {
     private HandlerInterceptor handlerInterceptor;
 
     @Test
-    public void testAddInterceptors() {
+    void testAddInterceptors() {
         InterceptorRegistry interceptorRegistry = mock(InterceptorRegistry.class);
         when(interceptorRegistry.addInterceptor(handlerInterceptor)).thenReturn(mock(InterceptorRegistration.class));
         applicationConfiguration.addInterceptors(interceptorRegistry);

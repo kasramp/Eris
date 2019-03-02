@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 /*
@@ -33,7 +33,8 @@ import static org.mockito.Mockito.*;
 */
 
 @ExtendWith(MockitoExtension.class)
-public class HttpRequestLoggerInterceptorTest {
+class HttpRequestLoggerInterceptorTest {
+
     @Spy
     @InjectMocks
     private HttpRequestLoggerInterceptor interceptor;
@@ -42,25 +43,25 @@ public class HttpRequestLoggerInterceptorTest {
     private DefaultIpGeoLocation ipGeoLocation;
 
     @Test
-    public void testPreHandle() {
+    void testPreHandle() {
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getParameterMap()).thenReturn(Map.of("latitude", new String[]{"1.00"}, "longitude", new String[] {"2.00"}));
         when(request.getRequestURI()).thenReturn("/v1/weather/current");
         doReturn("185.86.151.11").when(ipGeoLocation).getRequestIpAddress(request);
         boolean result = interceptor.preHandle(request, mock(HttpServletResponse.class), mock(Object.class));
-        assertEquals(true, result);
+        assertTrue(result);
         verify(request, times(1)).getParameterMap();
         verify(request, times(1)).getRequestURI();
         verify(ipGeoLocation, times(1)).getRequestIpAddress(any(HttpServletRequest.class));
     }
 
     @Test
-    public void testPreHandleNotThrowsException() {
+    void testPreHandleNotThrowsException() {
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getParameterMap()).thenReturn(null);
         doReturn("185.86.151.11").when(ipGeoLocation).getRequestIpAddress(request);
         boolean result = interceptor.preHandle(request, mock(HttpServletResponse.class), mock(Object.class));
-        assertEquals(true, result);
+        assertTrue(result);
         verify(request, times(1)).getParameterMap();
         verify(request, times(0)).getRequestURI();
         verify(ipGeoLocation, times(1)).getRequestIpAddress(any(HttpServletRequest.class));

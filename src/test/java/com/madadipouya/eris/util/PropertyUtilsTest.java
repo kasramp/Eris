@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ExtendWith(SpringExtension.class)
 @TestPropertySource(locations = {"classpath:test.properties"})
 @SpringBootTest
-public class PropertyUtilsTest {
+class PropertyUtilsTest {
 
     @Autowired
     private PropertyUtils propertyUtils;

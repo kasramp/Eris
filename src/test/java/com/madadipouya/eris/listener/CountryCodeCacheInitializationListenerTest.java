@@ -42,7 +42,7 @@ import static org.mockito.Mockito.*;
 */
 
 @ExtendWith(MockitoExtension.class)
-public class CountryCodeCacheInitializationListenerTest {
+class CountryCodeCacheInitializationListenerTest {
 
     @Spy
     @InjectMocks
@@ -54,12 +54,12 @@ public class CountryCodeCacheInitializationListenerTest {
     private Resource resource = mock(Resource.class);
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         ReflectionTestUtils.setField(listener, "countryCodeFile", resource);
     }
 
     @Test
-    public void testOnApplicationEvent() {
+    void testOnApplicationEvent() {
         Cache cache = spy(new ConcurrentMapCache(COUNTRY_CODE_CACHE));
         Map<String, String> fileContent = Map.of("DE", "Germany", "AU", "Australia");
         doReturn(cache).when(cacheManager).getCache(COUNTRY_CODE_CACHE);
@@ -76,7 +76,7 @@ public class CountryCodeCacheInitializationListenerTest {
     }
 
     @Test
-    public void testPopulateCountryCodeCache() {
+    void testPopulateCountryCodeCache() {
         Cache cache = spy(new ConcurrentMapCache(COUNTRY_CODE_CACHE));
         Map<String, String> fileContent = Map.of("DE", "Germany", "AU", "Australia");
         listener.populateCountryCodeCache(cache, fileContent);
@@ -88,7 +88,7 @@ public class CountryCodeCacheInitializationListenerTest {
     }
 
     @Test
-    public void testGetCountryCodeFileContent() throws IOException {
+    void testGetCountryCodeFileContent() throws IOException {
         when(resource.getInputStream()).thenReturn(new ByteArrayInputStream("DE, Germany \n AU, Australia".getBytes()));
         Map<String, String> fileContent = listener.getCountryCodeFileContent();
         verify(resource, times(1)).getInputStream();
@@ -101,7 +101,7 @@ public class CountryCodeCacheInitializationListenerTest {
     }
 
     @Test
-    public void testGetCountryCodeFileContentWhenEntriesNotCommaSeparated() throws IOException {
+    void testGetCountryCodeFileContentWhenEntriesNotCommaSeparated() throws IOException {
         when(resource.getInputStream()).thenReturn(new ByteArrayInputStream("DE-Germany \n AU-Australia".getBytes()));
         Map<String, String> fileContent = listener.getCountryCodeFileContent();
         verify(resource, times(1)).getInputStream();
@@ -112,7 +112,7 @@ public class CountryCodeCacheInitializationListenerTest {
     }
 
     @Test
-    public void testGetCountryCodeFileContentThrowException() throws IOException {
+    void testGetCountryCodeFileContentThrowException() throws IOException {
         when(resource.getInputStream()).thenThrow(IOException.class);
         Map<String, String> fileContent = listener.getCountryCodeFileContent();
         verify(resource, times(1)).getInputStream();

@@ -28,16 +28,16 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @TestPropertySource(locations = {"classpath:test.properties"}
         , properties = {"spring.mvc.throw-exception-if-no-handler-found=true"})
 @SpringBootTest(classes = Application.class)
-public class ApplicationIT {
+class ApplicationIT {
 
     @BeforeAll
-    public static void setup() {
+    static void setup() {
         System.setProperty("OPENWEATHERMAP_API_KEY", "testKey");
         System.setProperty("SEGMENTIO_WRITE_API_KEY", "testKey");
     }
 
     @Test
-    public void testApplicationBootstrap() {
+    void testApplicationBootstrap() {
         Application.main(new String[]{"--spring.main.web-environment=false"});
     }
 }

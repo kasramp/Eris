@@ -26,7 +26,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasKey;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Matchers.any;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 /*
@@ -47,7 +47,7 @@ import static org.mockito.Mockito.*;
 */
 
 @ExtendWith(MockitoExtension.class)
-public class LogToSegmentInterceptorTest {
+class LogToSegmentInterceptorTest {
 
     @Spy
     @InjectMocks
@@ -60,7 +60,7 @@ public class LogToSegmentInterceptorTest {
     SegmentIoAnalytics segmentIoAnalytics;
 
     @Test
-    public void testGetIp() {
+    void testGetIp() {
         JoinPoint joinPoint = mock(JoinPoint.class);
         when(joinPoint.getArgs()).thenReturn(new Object[]{new MockHttpServletResponse(), new MockHttpServletRequest()});
         when(ipGeoLocation.getRequestIpAddress(any(HttpServletRequest.class))).thenReturn("192.168.0.1");
@@ -71,7 +71,7 @@ public class LogToSegmentInterceptorTest {
     }
 
     @Test
-    public void testGetEvent() {
+    void testGetEvent() {
         SegmentIoAnalytics.EventType eventType;
         eventType = logToSegmentInterceptor.getEvent("ByIp");
         assertEquals(SegmentIoAnalytics.EventType.CURRENT_BY_IP, eventType);
@@ -84,7 +84,7 @@ public class LogToSegmentInterceptorTest {
     }
 
     @Test
-    public void testConstructSegmentEventWhenHasError() {
+    void testConstructSegmentEventWhenHasError() {
         CurrentWeatherCondition currentWeatherCondition = mock(CurrentWeatherCondition.class);
         when(currentWeatherCondition.getErrors()).thenReturn(List.of("Error1", "Error2"));
         Map<String, String> result = logToSegmentInterceptor.constructSegmentEvent(currentWeatherCondition, "192.168.0.1");
@@ -97,7 +97,7 @@ public class LogToSegmentInterceptorTest {
     }
 
     @Test
-    public void testConstructSegmentEventWhenNoError() {
+    void testConstructSegmentEventWhenNoError() {
         CurrentWeatherCondition currentWeather = new CurrentWeatherCondition();
         OpenWeatherMapCurrentWeatherResponse.Sys sys = new OpenWeatherMapCurrentWeatherResponse.Sys();
         sys.setCountryNameFull("Germany");
@@ -125,13 +125,13 @@ public class LogToSegmentInterceptorTest {
     }
 
     @Test
-    public void testLogAnalyticsWhenReturnValueNotResponseEntity() {
+    void testLogAnalyticsWhenReturnValueNotResponseEntity() {
         logToSegmentInterceptor.logAnalytics(mock(JoinPoint.class), "String");
         verify(segmentIoAnalytics, times(0)).fireEvent(any(), any(), any());
     }
 
     @Test
-    public void testLogAnalytics() {
+    void testLogAnalytics() {
         CurrentWeatherCondition currentWeather = new CurrentWeatherCondition();
         OpenWeatherMapCurrentWeatherResponse.Sys sys = new OpenWeatherMapCurrentWeatherResponse.Sys();
         sys.setCountryNameFull("Germany");
@@ -150,7 +150,7 @@ public class LogToSegmentInterceptorTest {
         when(ipGeoLocation.getRequestIpAddress(any(HttpServletRequest.class))).thenReturn("192.168.0.1");
         logToSegmentInterceptor.logAnalytics(joinPoint, responseEntity);
         verify(ipGeoLocation, times(1)).getRequestIpAddress(any(HttpServletRequest.class));
-        verify(segmentIoAnalytics, times(1)).fireEvent(any(SegmentIoAnalytics.EventType.class), anyString(), anyMapOf(String.class, String.class));
+        verify(segmentIoAnalytics, times(1)).fireEvent(any(SegmentIoAnalytics.EventType.class), anyString(), anyMap());
         assertEquals("v1.0", currentWeather.getApiVersion());
     }
 }

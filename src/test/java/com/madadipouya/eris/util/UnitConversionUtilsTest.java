@@ -1,6 +1,5 @@
 package com.madadipouya.eris.util;
 
-
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Constructor;
@@ -27,41 +26,41 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 * © 2017-2019 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
-public class UnitConversionUtilsTest {
+class UnitConversionUtilsTest {
 
     @Test
-    public void testUnitConversionUtilsHasPrivateConstructor() throws NoSuchMethodException {
+    void testUnitConversionUtilsHasPrivateConstructor() throws NoSuchMethodException {
         Constructor<UnitConversionUtils> constructor = UnitConversionUtils.class.getDeclaredConstructor();
         assertTrue(Modifier.isPrivate(constructor.getModifiers()));
     }
 
     @Test
-    public void testFahrenheitToCelsius() {
+    void testFahrenheitToCelsius() {
         assertEquals(40, fahrenheitToCelsius(104), 0.0001);
     }
 
     @Test
-    public void testCelsiusToFahrenheit() {
+    void testCelsiusToFahrenheit() {
         assertEquals(104, celsiusToFahrenheit(40), 0.0001);
     }
 
     @Test
-    public void testKiloMeterPerHourToMilePerHour() {
+    void testKiloMeterPerHourToMilePerHour() {
         assertEquals(62.1371, kiloMeterPerHourToMilePerHour(100), 0.0001);
     }
 
     @Test
-    public void testMeterToMile() {
+    void testMeterToMile() {
         assertEquals(0.0621371, meterToMile(100), 0.0000001);
     }
 
     @Test
-    public void testMeterPerSecondToKiloMeterPerHour() {
+    void testMeterPerSecondToKiloMeterPerHour() {
         assertEquals(360, meterPerSecondToKiloMeterPerHour(100), 0.0001);
     }
 
     @Test
-    public void testMeterToKiloMeter() {
+    void testMeterToKiloMeter() {
         assertEquals(1, meterToKiloMeter(1000), 0.0001);
     }
 }

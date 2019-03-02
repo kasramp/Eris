@@ -34,7 +34,7 @@ import static org.mockito.Mockito.*;
 */
 
 @ExtendWith(MockitoExtension.class)
-public class DefaultIpGeoLocationTest {
+class DefaultIpGeoLocationTest {
 
     @Spy
     @InjectMocks
@@ -44,7 +44,7 @@ public class DefaultIpGeoLocationTest {
     private IpApiIntegration ipApiIntegration;
 
     @Test
-    public void testGetCoordinatesIpAddress() {
+    void testGetCoordinatesIpAddress() {
         IpApiResponse ipApiResponse = mock(IpApiResponse.class);
         when(ipApiResponse.getLatitude()).thenReturn("1.00");
         when(ipApiResponse.getLongitude()).thenReturn("2.00");
@@ -57,7 +57,7 @@ public class DefaultIpGeoLocationTest {
     }
 
     @Test
-    public void testGetRequestIpAddressNoSubnet() {
+    void testGetRequestIpAddressNoSubnet() {
         HttpServletRequest request = mock(HttpServletRequest.class);
         doReturn("185.86.151.11").when(ipGeoLocation).getRequestIpAddressSimple(request);
         String ipAddress = ipGeoLocation.getRequestIpAddress(request);
@@ -67,7 +67,7 @@ public class DefaultIpGeoLocationTest {
     }
 
     @Test
-    public void testGetRequestIpAddressWithOneSubnet() {
+    void testGetRequestIpAddressWithOneSubnet() {
         HttpServletRequest request = mock(HttpServletRequest.class);
         doReturn("192.168.0.1 , 185.86.151.11").when(ipGeoLocation).getRequestIpAddressSimple(request);
         String ipAddress = ipGeoLocation.getRequestIpAddress(request);
@@ -77,7 +77,7 @@ public class DefaultIpGeoLocationTest {
     }
 
     @Test
-    public void testGetRequestIpAddressSimpleNoProxy() {
+    void testGetRequestIpAddressSimpleNoProxy() {
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getHeader("X-FORWARDED-FOR")).thenReturn("185.86.151.11");
         String ipAddress = ipGeoLocation.getRequestIpAddressSimple(request);
@@ -87,7 +87,7 @@ public class DefaultIpGeoLocationTest {
     }
 
     @Test
-    public void testGetRequestIpAddressSimpleWithProxy() {
+    void testGetRequestIpAddressSimpleWithProxy() {
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(request.getHeader("X-FORWARDED-FOR")).thenReturn(null);
         when(request.getRemoteAddr()).thenReturn("185.86.151.11");

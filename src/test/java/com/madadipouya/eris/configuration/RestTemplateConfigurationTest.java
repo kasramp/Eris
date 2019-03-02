@@ -29,13 +29,14 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 */
 
 @ExtendWith(MockitoExtension.class)
-public class RestTemplateConfigurationTest {
+class RestTemplateConfigurationTest {
+
     @Spy
     @InjectMocks
     private RestTemplateConfiguration restTemplateConfiguration;
 
     @Test
-    public void testConfiguringRestTemplate() {
+    void testConfiguringRestTemplate() {
         RestTemplate restTemplate = restTemplateConfiguration.restTemplate();
         assertNotNull(restTemplate);
         RestTemplate restTemplate1 = restTemplateConfiguration.restTemplate();

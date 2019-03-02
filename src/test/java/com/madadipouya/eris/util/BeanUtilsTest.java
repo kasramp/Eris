@@ -1,5 +1,19 @@
 package com.madadipouya.eris.util;
 
+import com.madadipouya.eris.integration.ipapi.remote.response.IpApiResponse;
+import com.madadipouya.eris.integration.openweathermap.remote.response.OpenWeatherMapCurrentWeatherResponse;
+import com.madadipouya.eris.service.ipgeolocation.model.Coordinates;
+import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
+import org.junit.jupiter.api.Test;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
+import java.math.BigDecimal;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 /*
 * This file is part of Eris Weather API.
 *
@@ -17,36 +31,22 @@ package com.madadipouya.eris.util;
 * © 2017-2019 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
-import com.madadipouya.eris.integration.ipapi.remote.response.IpApiResponse;
-import com.madadipouya.eris.integration.openweathermap.remote.response.OpenWeatherMapCurrentWeatherResponse;
-import com.madadipouya.eris.service.ipgeolocation.model.Coordinates;
-import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
-import org.junit.jupiter.api.Test;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Modifier;
-import java.math.BigDecimal;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-public class BeanUtilsTest {
+class BeanUtilsTest {
 
     @Test
-    public void testBeanUtilsHasPrivateConstructor() throws NoSuchMethodException {
+    void testBeanUtilsHasPrivateConstructor() throws NoSuchMethodException {
         Constructor<BeanUtils> constructor = BeanUtils.class.getDeclaredConstructor();
         assertTrue(Modifier.isPrivate(constructor.getModifiers()));
     }
 
     @Test
-    public void testCopyPropertiesForOpenWeather() {
+    void testCopyPropertiesForOpenWeather() {
         CurrentWeatherCondition target = new CurrentWeatherCondition();
         BeanUtils.copyProperties(stubOpenWeatherObject(), target);
         assertEquals("1", target.getCoordinates().getLatitude());
         assertEquals("2", target.getCoordinates().getLongitude());
         assertEquals(1, target.getWeather().size());
-        assertEquals(new Integer(10), target.getWeather().get(0).getId());
+        assertEquals(Integer.valueOf(10), target.getWeather().get(0).getId());
         assertEquals("Main", target.getWeather().get(0).getMain());
         assertEquals("Description", target.getWeather().get(0).getDescription());
         assertEquals("Icon", target.getWeather().get(0).getIcon());
@@ -76,7 +76,7 @@ public class BeanUtilsTest {
     }
 
     @Test
-    public void testCopyPropertiesForCoordinateObject() {
+    void testCopyPropertiesForCoordinateObject() {
         Coordinates target = new Coordinates();
         IpApiResponse source = new IpApiResponse();
         source.setLatitude("10.11");
@@ -108,11 +108,11 @@ public class BeanUtilsTest {
         return new OpenWeatherMapCurrentWeatherResponse.Coordinates(latitude, longitude);
     }
 
-    public OpenWeatherMapCurrentWeatherResponse.Weather stubWeather(Integer id, String main, String description, String icon) {
+    private OpenWeatherMapCurrentWeatherResponse.Weather stubWeather(Integer id, String main, String description, String icon) {
         return new OpenWeatherMapCurrentWeatherResponse.Weather(id, main, description, icon);
     }
 
-    public OpenWeatherMapCurrentWeatherResponse.Main stubMain() {
+    private OpenWeatherMapCurrentWeatherResponse.Main stubMain() {
         OpenWeatherMapCurrentWeatherResponse.Main main = new OpenWeatherMapCurrentWeatherResponse.Main();
         main.setGroundLevel(new BigDecimal(10));
         main.setHumidity(new BigDecimal(60));
@@ -124,15 +124,15 @@ public class BeanUtilsTest {
         return main;
     }
 
-    public OpenWeatherMapCurrentWeatherResponse.Wind stubWind() {
+    private OpenWeatherMapCurrentWeatherResponse.Wind stubWind() {
         return new OpenWeatherMapCurrentWeatherResponse.Wind(new BigDecimal(4.5), new BigDecimal(2.7));
     }
 
-    public OpenWeatherMapCurrentWeatherResponse.Clouds stubCloud() {
+    private OpenWeatherMapCurrentWeatherResponse.Clouds stubCloud() {
         return new OpenWeatherMapCurrentWeatherResponse.Clouds(new BigDecimal(30));
     }
 
-    public OpenWeatherMapCurrentWeatherResponse.Sys stubSys() {
+    private OpenWeatherMapCurrentWeatherResponse.Sys stubSys() {
         OpenWeatherMapCurrentWeatherResponse.Sys sys = new OpenWeatherMapCurrentWeatherResponse.Sys();
         sys.setCountry("MY");
         sys.setCountryNameFull("Malaysia");

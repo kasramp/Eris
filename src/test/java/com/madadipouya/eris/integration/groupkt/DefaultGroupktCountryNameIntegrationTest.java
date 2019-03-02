@@ -1,6 +1,5 @@
 package com.madadipouya.eris.integration.groupkt;
 
-
 import com.madadipouya.eris.integration.groupkt.remote.response.GroupktCountryNameResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,8 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.client.RestTemplate;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 /*
@@ -33,7 +31,7 @@ import static org.mockito.Mockito.*;
 */
 
 @ExtendWith(MockitoExtension.class)
-public class DefaultGroupktCountryNameIntegrationTest {
+class DefaultGroupktCountryNameIntegrationTest {
 
     @Spy
     @InjectMocks
@@ -43,7 +41,7 @@ public class DefaultGroupktCountryNameIntegrationTest {
     private RestTemplate restTemplate;
 
     @Test
-    public void testGetCountryFullName() {
+    void testGetCountryFullName() {
         GroupktCountryNameResponse response = new GroupktCountryNameResponse();
         response.getRestResponse().setResult(new GroupktCountryNameResponse.Result("Germany", "DE", "DEU"));
         when(restTemplate.getForObject("http://services.groupkt.com/country/get/iso2code/DE", GroupktCountryNameResponse.class)).thenReturn(response);
@@ -54,9 +52,9 @@ public class DefaultGroupktCountryNameIntegrationTest {
     }
 
     @Test
-    public void testGetCountryFullNameWhenCountryCodeIsEmpty() {
+    void testGetCountryFullNameWhenCountryCodeIsEmpty() {
         String countryFullName = groupktIntegration.getCountryFullName(" ");
         verify(restTemplate, times(0)).getForObject(anyString(), any());
-        assertEquals(true, isBlank(countryFullName));
+        assertTrue(isBlank(countryFullName));
     }
 }

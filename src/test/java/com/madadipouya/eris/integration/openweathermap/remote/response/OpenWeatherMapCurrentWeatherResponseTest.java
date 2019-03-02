@@ -1,6 +1,5 @@
 package com.madadipouya.eris.integration.openweathermap.remote.response;
 
-
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -26,10 +25,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 * © 2017-2019 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
-public class OpenWeatherMapCurrentWeatherResponseTest {
+class OpenWeatherMapCurrentWeatherResponseTest {
 
     @Test
-    public void testOpenWeatherMapCurrentWeatherResponse() {
+    void testOpenWeatherMapCurrentWeatherResponse() {
         OpenWeatherMapCurrentWeatherResponse weatherResponse = new OpenWeatherMapCurrentWeatherResponse();
         weatherResponse.setCoordinates(mockCoordinates());
         weatherResponse.setWeather(List.of(mockWeather(), mockWeather()));
@@ -58,7 +57,7 @@ public class OpenWeatherMapCurrentWeatherResponseTest {
     }
 
     @Test
-    public void testSys() {
+    void testSys() {
         OpenWeatherMapCurrentWeatherResponse.Sys sys = mockSys();
         assertNotNull(sys);
         assertEquals("0", sys.getType().toString());
@@ -71,14 +70,14 @@ public class OpenWeatherMapCurrentWeatherResponseTest {
     }
 
     @Test
-    public void testClouds() {
+    void testClouds() {
         OpenWeatherMapCurrentWeatherResponse.Clouds clouds = mockClouds();
         assertNotNull(clouds);
         assertEquals("10", clouds.getAll().toString());
     }
 
     @Test
-    public void testWind() {
+    void testWind() {
         OpenWeatherMapCurrentWeatherResponse.Wind wind = mockWind();
         assertNotNull(wind);
         assertEquals("10", wind.getSpeed().toString());
@@ -86,7 +85,7 @@ public class OpenWeatherMapCurrentWeatherResponseTest {
     }
 
     @Test
-    public void testMain() {
+    void testMain() {
         OpenWeatherMapCurrentWeatherResponse.Main main = mockMain();
         assertNotNull(main);
         assertEquals("27.50", main.getTemperature().toString());
@@ -99,17 +98,17 @@ public class OpenWeatherMapCurrentWeatherResponseTest {
     }
 
     @Test
-    public void testWeather() {
+    void testWeather() {
         OpenWeatherMapCurrentWeatherResponse.Weather weather = mockWeather();
         assertNotNull(weather);
-        assertEquals(new Integer(0), weather.getId());
+        assertEquals(Integer.valueOf(0), weather.getId());
         assertEquals("Main", weather.getMain());
         assertEquals("Description", weather.getDescription());
         assertEquals("Icon", weather.getIcon());
     }
 
     @Test
-    public void testCoordinates() {
+    void testCoordinates() {
         OpenWeatherMapCurrentWeatherResponse.Coordinates coordinates = mockCoordinates();
         assertNotNull(coordinates);
         assertEquals("1.00", coordinates.getLatitude());

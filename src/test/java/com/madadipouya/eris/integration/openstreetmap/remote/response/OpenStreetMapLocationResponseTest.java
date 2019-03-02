@@ -25,10 +25,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 * © 2017-2019 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
-public class OpenStreetMapLocationResponseTest {
+class OpenStreetMapLocationResponseTest {
 
     @Test
-    public void testOpenStreetMapLocationResponse() {
+    void testOpenStreetMapLocationResponse() {
         OpenStreetMapLocationResponse openStreetResponse = new OpenStreetMapLocationResponse();
         openStreetResponse.setPlaceId("10");
         openStreetResponse.setLicense("License");

@@ -1,6 +1,5 @@
 package com.madadipouya.eris.service.feelslike.impl;
 
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -28,56 +27,56 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 */
 
 @ExtendWith(MockitoExtension.class)
-public class DefaultFeelsLikeServiceTest {
+class DefaultFeelsLikeServiceTest {
 
     @Spy
     @InjectMocks
     private DefaultFeelsLikeService service;
 
     @Test
-    public void testGetFeelsLikeFahrenheitHeatIndex() {
+    void testGetFeelsLikeFahrenheitHeatIndex() {
         double result = service.getFeelsLike(84, 2.68, 74, true);
         assertEquals(91.81, result, 0.0001);
     }
 
     @Test
-    public void testGetFeelsLikeFahrenheitHeatIndexLessThanRealTemperature() {
+    void testGetFeelsLikeFahrenheitHeatIndexLessThanRealTemperature() {
         double result = service.getFeelsLike(80.6, 13.04, 10, true);
         assertEquals(80.6, result, 0.0001);
     }
 
     @Test
-    public void testGetFeelsLikeFahrenheitWindChill() {
+    void testGetFeelsLikeFahrenheitWindChill() {
         double result = service.getFeelsLike(50, 4, 82, true);
         assertEquals(48.87, result, 0.0001);
     }
 
     @Test
-    public void testGetFeelsLikeFahrenheitLinearRollOff() {
+    void testGetFeelsLikeFahrenheitLinearRollOff() {
         double result = service.getFeelsLike(56, 9, 64, true);
         assertEquals(55.63, result, 0.0001);
     }
 
     @Test
-    public void testGetFeelsLikeCelsiusHeatIndex() {
+    void testGetFeelsLikeCelsiusHeatIndex() {
         double result = service.getFeelsLike(29, 4.32, 74, false);
         assertEquals(33.49, result, 0.0001);
     }
 
     @Test
-    public void testGetFeelsLikeCelsiusHeatIndexLessThanRealTemperature() {
+    void testGetFeelsLikeCelsiusHeatIndexLessThanRealTemperature() {
         double result = service.getFeelsLike(27, 21, 10, false);
         assertEquals(27, result, 0.0001);
     }
 
     @Test
-    public void testGetFeelsLikeCelsiusWindChill() {
+    void testGetFeelsLikeCelsiusWindChill() {
         double result = service.getFeelsLike(10, 6, 82, false);
         assertEquals(9.48, result, 0.0001);
     }
 
     @Test
-    public void testGetFeelsLikeCelsiusLinearRollOff() {
+    void testGetFeelsLikeCelsiusLinearRollOff() {
         double result = service.getFeelsLike(14, 13, 63, false);
         assertEquals(14.00, result, 0.0001);
     }

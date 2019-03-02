@@ -31,14 +31,14 @@ import static org.mockito.Mockito.mock;
 */
 
 @ExtendWith(MockitoExtension.class)
-public class GlobalControllerExceptionHandlerTest {
+class GlobalControllerExceptionHandlerTest {
 
     @Spy
     @InjectMocks
     private GlobalControllerExceptionHandler exceptionHandler;
 
     @Test
-    public void testUnknownException() {
+    void testUnknownException() {
         ResponseEntity<CurrentWeatherCondition> response = exceptionHandler.unknownException(mock(RuntimeException.class));
         assertNotNull(response);
         assertEquals(HttpStatus.NOT_IMPLEMENTED, response.getStatusCode());

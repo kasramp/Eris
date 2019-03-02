@@ -25,10 +25,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 * © 2017-2019 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
-public class GroupktCountryNameResponseTest {
+class GroupktCountryNameResponseTest {
 
     @Test
-    public void testGroupktCountryNameResponse() {
+    void testGroupktCountryNameResponse() {
         GroupktCountryNameResponse groupktResponse = new GroupktCountryNameResponse();
         GroupktCountryNameResponse.RestResponse restResponse = new GroupktCountryNameResponse.RestResponse();
         GroupktCountryNameResponse.Result result = new GroupktCountryNameResponse.Result();

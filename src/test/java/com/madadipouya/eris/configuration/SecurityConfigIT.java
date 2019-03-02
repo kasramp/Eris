@@ -45,7 +45,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @TestPropertySource(locations = {"classpath:test.properties"}
         , properties = {"spring.mvc.throw-exception-if-no-handler-found=true"})
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class SecurityConfigIT {
+class SecurityConfigIT {
 
     private static final String BASE_ACTUATOR_URL = "/actuator/%s";
 
@@ -88,106 +88,106 @@ public class SecurityConfigIT {
     private TestRestTemplate restTemplate;
 
     @PostConstruct
-    public void afterPropertiesSet() {
+    void afterPropertiesSet() {
         bai = new BasicAuthenticationInterceptor(propertyUtils.getHealthUsername(), propertyUtils.getHealthPassword());
         restTemplate.getRestTemplate().setInterceptors(List.of(bai));
     }
 
     @Nested
     @DisplayName("Unauthorized access to Spring Actuators endpoints")
-    public class UnauthorizedAccessToActuatorEndpoints {
+    class UnauthorizedAccessToActuatorEndpoints {
 
         @BeforeEach
-        public void beforeEach() {
+        void beforeEach() {
             restTemplate.getRestTemplate().getInterceptors().remove(bai);
         }
 
         @Test
-        public void testUnauthorizedAccessToHealthEndpoint() {
+        void testUnauthorizedAccessToHealthEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(HEALTH_URL, String.class);
             assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
         }
 
         @Test
-        public void testUnauthorizedAccessToEnvEndpoint() {
+        void testUnauthorizedAccessToEnvEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(ENV_URL, String.class);
             assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
         }
 
         @Test
-        public void testUnauthorizedAccessToAuditEventEndpoint() {
+        void testUnauthorizedAccessToAuditEventEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(AUDIT_EVENTS_URL, String.class);
             assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
         }
 
         @Test
-        public void testUnauthorizedAccessToBeansEndpoint() {
+        void testUnauthorizedAccessToBeansEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(BEANS_URL, String.class);
             assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
         }
 
         @Test
-        public void testUnauthorizedAccessToCachesEndpoint() {
+        void testUnauthorizedAccessToCachesEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(CACHES_URL, String.class);
             assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
         }
 
         @Test
-        public void testUnauthorizedAccessToConditionsEndpoint() {
+        void testUnauthorizedAccessToConditionsEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(CONDITIONS_URL, String.class);
             assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
         }
 
         @Test
-        public void testUnauthorizedAccessToConfigPropsEndpoint() {
+        void testUnauthorizedAccessToConfigPropsEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(CONFIG_PROPS_URL, String.class);
             assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
         }
 
         @Test
-        public void testUnauthorizedAccessToHttpTraceEndpoint() {
+        void testUnauthorizedAccessToHttpTraceEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(HTTP_TRACE_URL, String.class);
             assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
         }
 
         @Test
-        public void testUnauthorizedAccessToInfoEndpoint() {
+        void testUnauthorizedAccessToInfoEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(INFO_URL, String.class);
             assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
         }
 
         @Test
-        public void testUnauthorizedAccessToLoggersEndpoint() {
+        void testUnauthorizedAccessToLoggersEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(LOGGERS_URL, String.class);
             assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
         }
 
         @Test
-        public void testUnauthorizedAccessToMetricsEndpoint() {
+        void testUnauthorizedAccessToMetricsEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(METRICS_URL, String.class);
             assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
         }
 
         @Test
-        public void testUnauthorizedAccessToMappingsEndpoint() {
+        void testUnauthorizedAccessToMappingsEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(MAPPINGS_URL, String.class);
             assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
         }
 
         @Test
-        public void testUnauthorizedAccessToScheduledTasksEndpoint() {
+        void testUnauthorizedAccessToScheduledTasksEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(SCHEDULED_TASKS_URL, String.class);
             assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
         }
 
         @Test
-        public void testUnauthorizedAccessToThreadDumpEndpoint() {
+        void testUnauthorizedAccessToThreadDumpEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(THREAD_DUMP_URL, String.class);
             assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
         }
 
         @Test
-        public void testUnauthorizedAccessToHeapDumpEndpoint() {
+        void testUnauthorizedAccessToHeapDumpEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(HEAP_DUMP_URL, String.class);
             assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
         }
@@ -195,100 +195,100 @@ public class SecurityConfigIT {
 
     @Nested
     @DisplayName("Authorized access to Spring Actuators endpoints")
-    public class AuthorizedAccessToActuatorEndpoints {
+    class AuthorizedAccessToActuatorEndpoints {
 
         @BeforeEach
-        public void beforeEach() {
+        void beforeEach() {
             restTemplate.getRestTemplate().getInterceptors().add(bai);
         }
 
         @Test
-        public void testAuthorizedAccessToHealthEndpoint() {
+        void testAuthorizedAccessToHealthEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(HEALTH_URL, String.class);
             assertEquals(HttpStatus.OK, response.getStatusCode());
         }
 
         @Test
-        public void testAuthorizedAccessToEnvEndpoint() {
+        void testAuthorizedAccessToEnvEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(ENV_URL, String.class);
             assertEquals(HttpStatus.OK, response.getStatusCode());
         }
 
         @Test
-        public void testAuthorizedAccessToAuditEventEndpoint() {
+        void testAuthorizedAccessToAuditEventEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(AUDIT_EVENTS_URL, String.class);
             assertEquals(HttpStatus.OK, response.getStatusCode());
         }
 
         @Test
-        public void testAuthorizedAccessToBeansEndpoint() {
+        void testAuthorizedAccessToBeansEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(BEANS_URL, String.class);
             assertEquals(HttpStatus.OK, response.getStatusCode());
         }
 
         @Test
-        public void testAuthorizedAccessToCachesEndpoint() {
+        void testAuthorizedAccessToCachesEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(CACHES_URL, String.class);
             assertEquals(HttpStatus.OK, response.getStatusCode());
         }
 
         @Test
-        public void testAuthorizedAccessToConditionsEndpoint() {
+        void testAuthorizedAccessToConditionsEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(CONDITIONS_URL, String.class);
             assertEquals(HttpStatus.OK, response.getStatusCode());
         }
 
         @Test
-        public void testAuthorizedAccessToConfigPropsEndpoint() {
+        void testAuthorizedAccessToConfigPropsEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(CONFIG_PROPS_URL, String.class);
             assertEquals(HttpStatus.OK, response.getStatusCode());
         }
 
         @Test
-        public void testAuthorizedAccessToHttpTraceEndpoint() {
+        void testAuthorizedAccessToHttpTraceEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(HTTP_TRACE_URL, String.class);
             assertEquals(HttpStatus.OK, response.getStatusCode());
         }
 
         @Test
-        public void testAuthorizedAccessToInfoEndpoint() {
+        void testAuthorizedAccessToInfoEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(INFO_URL, String.class);
             assertEquals(HttpStatus.OK, response.getStatusCode());
         }
 
         @Test
-        public void testAuthorizedAccessToLoggersEndpoint() {
+        void testAuthorizedAccessToLoggersEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(LOGGERS_URL, String.class);
             assertEquals(HttpStatus.OK, response.getStatusCode());
         }
 
 
         @Test
-        public void testAuthorizedAccessToMetricsEndpoint() {
+        void testAuthorizedAccessToMetricsEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(METRICS_URL, String.class);
             assertEquals(HttpStatus.OK, response.getStatusCode());
         }
 
         @Test
-        public void testAuthorizedAccessToMappingsEndpoint() {
+        void testAuthorizedAccessToMappingsEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(MAPPINGS_URL, String.class);
             assertEquals(HttpStatus.OK, response.getStatusCode());
         }
 
         @Test
-        public void testAuthorizedAccessToScheduledTasksEndpoint() {
+        void testAuthorizedAccessToScheduledTasksEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(SCHEDULED_TASKS_URL, String.class);
             assertEquals(HttpStatus.OK, response.getStatusCode());
         }
 
         @Test
-        public void testAuthorizedAccessToThreadDumpEndpoint() {
+        void testAuthorizedAccessToThreadDumpEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(THREAD_DUMP_URL, String.class);
             assertEquals(HttpStatus.OK, response.getStatusCode());
         }
 
         @Test
-        public void testAuthorizedAccessToHeapDumpEndpoint() {
+        void testAuthorizedAccessToHeapDumpEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(HEAP_DUMP_URL, String.class);
             assertEquals(HttpStatus.OK, response.getStatusCode());
         }

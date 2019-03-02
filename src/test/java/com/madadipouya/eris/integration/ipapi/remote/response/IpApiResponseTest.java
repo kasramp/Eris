@@ -21,11 +21,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 * © 2017-2019 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
-
-public class IpApiResponseTest {
+class IpApiResponseTest {
 
     @Test
-    public void testIpApiResponseGetterSetter() {
+    void testIpApiResponseGetterSetter() {
         IpApiResponse ipApiResponse = new IpApiResponse();
         ipApiResponse.setLatitude("1.00");
         ipApiResponse.setLongitude("2.00");

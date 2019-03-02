@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Matchers.anyBoolean;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 /*
@@ -37,7 +37,8 @@ import static org.mockito.Mockito.*;
 */
 
 @ExtendWith(MockitoExtension.class)
-public class CurrentWeatherAPIControllerTest {
+class CurrentWeatherAPIControllerTest {
+
     @Spy
     @InjectMocks
     private CurrentWeatherAPIController controller;
@@ -46,7 +47,7 @@ public class CurrentWeatherAPIControllerTest {
     private DefaultWeather weatherService;
 
     @Test
-    public void testGetCurrentWhenLatitudeLongitudeIsNull() {
+    void testGetCurrentWhenLatitudeLongitudeIsNull() {
         ResponseEntity<CurrentWeatherCondition> response = controller.getCurrent(null, null, false, mock(HttpServletRequest.class));
         verify(weatherService, never()).getCurrent(anyString(), anyString(), anyBoolean());
         assertNotNull(response);
@@ -85,7 +86,7 @@ public class CurrentWeatherAPIControllerTest {
     }
 
     @Test
-    public void testGetCurrentWhenLatitudeLongitudeIsNotNumber() {
+    void testGetCurrentWhenLatitudeLongitudeIsNotNumber() {
         ResponseEntity<CurrentWeatherCondition> response = controller.getCurrent("1.00", "2.00ABC", false, mock(HttpServletRequest.class));
         verify(weatherService, never()).getCurrent(anyString(), anyString(), anyBoolean());
         assertNotNull(response);
@@ -115,7 +116,7 @@ public class CurrentWeatherAPIControllerTest {
     }
 
     @Test
-    public void testGetCurrent() {
+    void testGetCurrent() {
         when(weatherService.getCurrent("1.00", "2.00", false)).thenReturn(mock(CurrentWeatherCondition.class));
         ResponseEntity<CurrentWeatherCondition> response = controller.getCurrent("1.00", "2.00", false, mock(HttpServletRequest.class));
         verify(weatherService, times(1)).getCurrent("1.00", "2.00", false);
@@ -126,7 +127,7 @@ public class CurrentWeatherAPIControllerTest {
     }
 
     @Test
-    public void testGetCurrentByIpAddress() {
+    void testGetCurrentByIpAddress() {
         HttpServletRequest request = mock(HttpServletRequest.class);
         when(weatherService.getCurrent(request, false)).thenReturn(mock(CurrentWeatherCondition.class));
         ResponseEntity<CurrentWeatherCondition> response = controller.getCurrentByIp(false, request);

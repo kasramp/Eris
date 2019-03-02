@@ -15,13 +15,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 @ExtendWith(MockitoExtension.class)
-public class SwaggerConfigurationTest {
+class SwaggerConfigurationTest {
 
     @Spy
     private SwaggerConfiguration swaggerConfiguration;
 
     @Test
-    public void testGetSwaggerApiInfo() {
+    void testGetSwaggerApiInfo() {
         ApiInfo apiInfo = swaggerConfiguration.metaData();
         Contact contact = apiInfo.getContact();
         assertNotNull(apiInfo);
@@ -39,7 +39,7 @@ public class SwaggerConfigurationTest {
     }
 
     @Test
-    public void testProductApi() {
+    void testProductApi() {
         Docket docket = swaggerConfiguration.productApi();
         ApiSelectorBuilder builder = docket.select();
         assertNotNull(docket);

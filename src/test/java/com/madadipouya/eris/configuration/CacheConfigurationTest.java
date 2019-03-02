@@ -33,14 +33,14 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 */
 
 @ExtendWith(MockitoExtension.class)
-public class CacheConfigurationTest {
+class CacheConfigurationTest {
 
     @Spy
     @InjectMocks
     private CacheConfiguration cacheConfiguration;
 
     @Test
-    public void testCacheConfiguration() {
+    void testCacheConfiguration() {
         CacheManager cacheManager = cacheConfiguration.cacheManager();
         assertNotNull(cacheManager);
         List<? extends Cache> caches = (List<? extends Cache>) ReflectionTestUtils.getField(cacheManager, "caches");
