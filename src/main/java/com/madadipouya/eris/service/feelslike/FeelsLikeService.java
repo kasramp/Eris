@@ -20,6 +20,8 @@ package com.madadipouya.eris.service.feelslike;
 /**
  * This service calculates @see <a href="https://www.accuweather.com/en/weather-news/what-is-accuweather-realfeel/7198202">Feels Like</a>.
 * */
+
+@FunctionalInterface
 public interface FeelsLikeService {
 
     /**

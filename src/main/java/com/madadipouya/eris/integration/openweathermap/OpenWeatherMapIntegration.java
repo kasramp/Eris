@@ -22,6 +22,7 @@ import com.madadipouya.eris.integration.openweathermap.remote.response.OpenWeath
 /**
  * This service retrieves the current weather condition of a geographical location
  * */
+@FunctionalInterface
 public interface OpenWeatherMapIntegration {
 
     /**

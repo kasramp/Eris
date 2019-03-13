@@ -20,6 +20,7 @@ package com.madadipouya.eris.integration.groupkt;
 /**
 * This service is responsible to resolve a ISO 3166-1 alpha-2 country code to a full country name
 * */
+@FunctionalInterface
 public interface GroupktCountryNameIntegration {
 
     /**

@@ -61,6 +61,7 @@ class LogToSegmentInterceptorTest {
 
     @Test
     void testGetIp() {
+        System.out.println();
         JoinPoint joinPoint = mock(JoinPoint.class);
         when(joinPoint.getArgs()).thenReturn(new Object[]{new MockHttpServletResponse(), new MockHttpServletRequest()});
         when(ipGeoLocation.getRequestIpAddress(any(HttpServletRequest.class))).thenReturn("192.168.0.1");

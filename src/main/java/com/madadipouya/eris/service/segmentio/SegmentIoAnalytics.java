@@ -25,6 +25,7 @@ import static org.apache.commons.lang3.StringUtils.contains;
  * This service is responsible to send usage analytics of the {@link com.madadipouya.eris.service.weather.model.CurrentWeatherCondition}
  * API to @see <a href="segment.io">Segment.io</a>
 * */
+@FunctionalInterface
 public interface SegmentIoAnalytics {
 
     enum EventType {

@@ -24,6 +24,7 @@ import com.madadipouya.eris.integration.ipapi.remote.response.IpApiResponse;
  * retrieve latitude and longitude of a given ipAddress
  * with other information such as country code, see {@link IpApiResponse}
  * */
+@FunctionalInterface
 public interface IpApiIntegration {
 
     /**
