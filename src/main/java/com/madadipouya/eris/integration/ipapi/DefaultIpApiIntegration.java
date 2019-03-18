@@ -1,6 +1,7 @@
 package com.madadipouya.eris.integration.ipapi;
 
 import com.madadipouya.eris.integration.ipapi.remote.response.IpApiResponse;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -38,8 +39,14 @@ public class DefaultIpApiIntegration implements IpApiIntegration {
 
     @Override
     @Cacheable(IP_API_CACHE)
+    @HystrixCommand(fallbackMethod = "emptyResult")
     public IpApiResponse getCoordinatesFromIp(String ipAddress) {
         return restTemplate.getForObject(
                 String.format(API_URL, trim(ipAddress)), IpApiResponse.class);
+    }
+
+    @SuppressWarnings("unused")
+    private IpApiResponse emptyResult(String ipAddress) {
+        return new IpApiResponse();
     }
 }

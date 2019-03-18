@@ -1,6 +1,7 @@
 package com.madadipouya.eris.integration.openstreetmap;
 
 import com.madadipouya.eris.integration.openstreetmap.remote.response.OpenStreetMapLocationResponse;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -48,6 +49,7 @@ public class DefaultOpenStreetMapIntegration implements OpenStreetMapIntegration
     }
 
     @Override
+    @HystrixCommand(fallbackMethod = "emptyResult")
     public OpenStreetMapLocationResponse getReverseGeocoding(String latitude, String longitude) {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(List.of(APPLICATION_JSON));
@@ -56,5 +58,10 @@ public class DefaultOpenStreetMapIntegration implements OpenStreetMapIntegration
         HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
         return restTemplate.exchange(format(API_URL, latitude, longitude),
                 GET, entity, OpenStreetMapLocationResponse.class).getBody();
+    }
+
+    @SuppressWarnings("unused")
+    private OpenStreetMapLocationResponse emptyResult(String latitude, String longitude) {
+        return new OpenStreetMapLocationResponse();
     }
 }

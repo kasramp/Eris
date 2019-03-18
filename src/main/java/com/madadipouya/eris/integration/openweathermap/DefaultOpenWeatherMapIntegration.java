@@ -2,6 +2,7 @@ package com.madadipouya.eris.integration.openweathermap;
 
 import com.madadipouya.eris.integration.openweathermap.remote.response.OpenWeatherMapCurrentWeatherResponse;
 import com.madadipouya.eris.util.PropertyUtils;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -48,10 +49,16 @@ public class DefaultOpenWeatherMapIntegration implements OpenWeatherMapIntegrati
     }
 
     @Override
+    @HystrixCommand(fallbackMethod = "emptyResult")
     public OpenWeatherMapCurrentWeatherResponse getCurrentWeatherCondition(String latitude, String longitude, boolean fahrenheit) {
         return adjustResult(restTemplate.getForObject(
                 String.format(API_URL, propertyUtils.getOpenWeatherMapApiKey(), getTemperatureUnit(fahrenheit), latitude, longitude),
                 OpenWeatherMapCurrentWeatherResponse.class), latitude, longitude, fahrenheit);
+    }
+
+    @SuppressWarnings("unused")
+    private OpenWeatherMapCurrentWeatherResponse emptyResult(String latitude, String longitude, boolean fahrenheit) {
+        return new OpenWeatherMapCurrentWeatherResponse();
     }
 
     private String getTemperatureUnit(boolean fahrenheit) {

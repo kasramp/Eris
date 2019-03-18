@@ -2,6 +2,7 @@ package com.madadipouya.eris;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 
 /*
 * This file is part of Eris Weather API.
@@ -20,6 +21,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 * © 2017-2019 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
+@EnableCircuitBreaker
 @SpringBootApplication(scanBasePackages = { "com.madadipouya.eris" })
 public class Application {
 
