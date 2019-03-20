@@ -1,6 +1,5 @@
 package com.madadipouya.eris.integration.groupkt;
 
-import com.madadipouya.eris.integration.fallbacks.RestCountriesIntegration;
 import com.madadipouya.eris.integration.groupkt.remote.response.GroupktCountryNameResponse;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
@@ -36,20 +35,15 @@ public class DefaultGroupktCountryNameIntegration implements GroupktCountryNameI
 
     private final RestTemplate restTemplate;
 
-    private final RestCountriesIntegration restCountriesIntegration;
-
-    private int i = 0;
-
-    public DefaultGroupktCountryNameIntegration(RestTemplate restTemplate, RestCountriesIntegration restCountriesIntegration) {
+    public DefaultGroupktCountryNameIntegration(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
-        this.restCountriesIntegration = restCountriesIntegration;
     }
 
     @Override
     @Cacheable(COUNTRY_CODE_CACHE)
-    @HystrixCommand(fallbackMethod = "getFallbackResult", commandProperties = {
-            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000"),
-            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "50")})
+    //@HystrixCommand(fallbackMethod = "getFallbackResult", commandProperties = {
+    //        @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000"),
+    //        @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "30")})
     public String getCountryFullName(String countryCode) {
         return getCountryDetails(countryCode).getRestResponse().getResult().getName();
     }
@@ -57,10 +51,5 @@ public class DefaultGroupktCountryNameIntegration implements GroupktCountryNameI
     private GroupktCountryNameResponse getCountryDetails(String countryCode) {
         return isBlank(countryCode) ? new GroupktCountryNameResponse() :
                 restTemplate.getForObject(String.format(API_URL, countryCode), GroupktCountryNameResponse.class);
-    }
-
-    @SuppressWarnings("unused")
-    private String getFallbackResult(String countryCode) {
-        return restCountriesIntegration.getCountryFullName(countryCode);
     }
 }
