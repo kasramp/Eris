@@ -1,12 +1,12 @@
-package com.madadipouya.eris.integration.ipapi;
+package com.madadipouya.eris.integration.fallbacks.iplookup.impl;
 
+import com.madadipouya.eris.integration.fallbacks.iplookup.ExtremeIpLookupIntegration;
 import com.madadipouya.eris.integration.ipapi.remote.response.IpApiResponse;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import static com.madadipouya.eris.configuration.CacheConfiguration.IP_API_CACHE;
-import static org.apache.commons.lang3.StringUtils.trim;
+import static com.madadipouya.eris.configuration.CacheConfiguration.EXTREME_IP_LOOKUP_CACHE;
 
 /*
  * This file is part of Eris Weather API.
@@ -25,20 +25,20 @@ import static org.apache.commons.lang3.StringUtils.trim;
  * © 2017-2019 Kasra Madadipouya <kasra@madadipouya.com>
  */
 
-@Service("ipApiIntegration")
-public class DefaultIpApiIntegration implements IpApiIntegration {
+@Service("extremeIpLookupIntegration")
+public class DefaultExtremeIpLookupIntegration implements ExtremeIpLookupIntegration {
 
-    private static final String API_URL = "http://ip-api.com/json/%s";
+    private static final String API_URL = "http://extreme-ip-lookup.com/json/%s";
 
     private final RestTemplate restTemplate;
 
-    public DefaultIpApiIntegration(RestTemplate restTemplate) {
+    public DefaultExtremeIpLookupIntegration(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
+    @Cacheable(EXTREME_IP_LOOKUP_CACHE)
     @Override
-    @Cacheable(IP_API_CACHE)
-    public IpApiResponse getCoordinatesFromIp(String ipAddress) {
-        return restTemplate.getForObject(String.format(API_URL, trim(ipAddress)), IpApiResponse.class);
+    public IpApiResponse getCoordinates(String ipAddress) {
+        return restTemplate.getForObject(String.format(API_URL, ipAddress), IpApiResponse.class);
     }
 }

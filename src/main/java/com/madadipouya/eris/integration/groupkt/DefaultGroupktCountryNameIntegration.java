@@ -1,8 +1,6 @@
 package com.madadipouya.eris.integration.groupkt;
 
 import com.madadipouya.eris.integration.groupkt.remote.response.GroupktCountryNameResponse;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -41,9 +39,6 @@ public class DefaultGroupktCountryNameIntegration implements GroupktCountryNameI
 
     @Override
     @Cacheable(COUNTRY_CODE_CACHE)
-    //@HystrixCommand(fallbackMethod = "getFallbackResult", commandProperties = {
-    //        @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000"),
-    //        @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "30")})
     public String getCountryFullName(String countryCode) {
         return getCountryDetails(countryCode).getRestResponse().getResult().getName();
     }
