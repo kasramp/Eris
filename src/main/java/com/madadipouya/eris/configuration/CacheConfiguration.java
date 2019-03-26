@@ -39,6 +39,8 @@ public class CacheConfiguration {
 
     public static final String IP_API_CACHE = "ipApiCache";
 
+    public static final String EXTREME_IP_LOOKUP_CACHE = "extremeIpLookup";
+
     @Bean
     public CacheManager cacheManager() {
         SimpleCacheManager cacheManager = new SimpleCacheManager();
@@ -56,7 +58,12 @@ public class CacheConfiguration {
                 .expireAfterAccess(30, TimeUnit.MINUTES)
                 .build());
 
-        cacheManager.setCaches(Arrays.asList(countryCodeCache, openStreetCache, ipApiCache));
+        CaffeineCache extremeIpLookup = new CaffeineCache(EXTREME_IP_LOOKUP_CACHE, Caffeine.newBuilder()
+                .maximumSize(500)
+                .expireAfterAccess(30, TimeUnit.MINUTES)
+                .build());
+
+        cacheManager.setCaches(Arrays.asList(countryCodeCache, openStreetCache, ipApiCache, extremeIpLookup));
         return cacheManager;
     }
 }

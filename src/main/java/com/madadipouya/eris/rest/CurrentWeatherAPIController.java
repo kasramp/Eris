@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static org.apache.commons.lang3.math.NumberUtils.isCreatable;
@@ -54,25 +55,25 @@ public class CurrentWeatherAPIController {
     @ApiOperation(value = "Get current weather condition based on latitude and longitude", response = CurrentWeatherCondition.class, tags = "Get weather by latitude, longitude")
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successfully retrieve weather condition"), @ApiResponse(code = 400, message = "Failed to get weather condition")})
     @GetMapping(value = {"v1/weather/current", "/current"}, produces = "application/json")
-    public ResponseEntity<CurrentWeatherCondition> getCurrent(@RequestParam(value = "lat") String latitude, @RequestParam(value = "lon") String longitude,
-                                                              @RequestParam(value = "fahrenheit", required = false, defaultValue = "false") boolean fahrenheit,
-                                                              HttpServletRequest request) {
+    public Callable<ResponseEntity<CurrentWeatherCondition>> getCurrent(@RequestParam(value = "lat") String latitude, @RequestParam(value = "lon") String longitude,
+                                                                        @RequestParam(value = "fahrenheit", required = false, defaultValue = "false") boolean fahrenheit,
+                                                                        HttpServletRequest request) {
         if (!isLatitudeLongitudeExist(latitude, longitude)) {
-            return ResponseEntity.badRequest().body(createErrorResponse(ERR_NO_LATITUDE_LONGITUDE_PROVIDED));
+            return () -> ResponseEntity.badRequest().body(createErrorResponse(ERR_NO_LATITUDE_LONGITUDE_PROVIDED));
         } else if (!isLatitudeLongitudeValid(latitude, longitude)) {
-            return ResponseEntity.badRequest().body(createErrorResponse(ERR_INVALID_LATITUDE_LONGITUDE_PROVIDED));
+            return () -> ResponseEntity.badRequest().body(createErrorResponse(ERR_INVALID_LATITUDE_LONGITUDE_PROVIDED));
         } else {
-            return ResponseEntity.ok(weather.getCurrent(latitude, longitude, fahrenheit));
+            return () -> ResponseEntity.ok(weather.getCurrent(latitude, longitude, fahrenheit));
         }
     }
 
     @ApiOperation(value = "Get current weather condition based on requester IP address", response = CurrentWeatherCondition.class, tags = "Get weather by requester IP address")
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Successfully retrieve weather condition"), @ApiResponse(code = 400, message = "Failed to get weather condition")})
     @GetMapping(value = {"v1/weather/currentbyip"}, produces = "application/json")
-    public ResponseEntity<CurrentWeatherCondition> getCurrentByIp(@RequestParam(value = "fahrenheit",
+    public Callable<ResponseEntity<CurrentWeatherCondition>> getCurrentByIp(@RequestParam(value = "fahrenheit",
             required = false, defaultValue = "false") boolean fahrenheit, HttpServletRequest request) {
 
-        return ResponseEntity.ok(weather.getCurrent(request, fahrenheit));
+        return () -> ResponseEntity.ok(weather.getCurrent(request, fahrenheit));
     }
 
     private boolean isLatitudeLongitudeExist(String latitude, String longitude) {
