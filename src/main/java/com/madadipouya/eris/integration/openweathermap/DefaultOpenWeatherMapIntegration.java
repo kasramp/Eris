@@ -2,7 +2,6 @@ package com.madadipouya.eris.integration.openweathermap;
 
 import com.madadipouya.eris.integration.openweathermap.remote.response.OpenWeatherMapCurrentWeatherResponse;
 import com.madadipouya.eris.util.PropertyUtils;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,21 +12,21 @@ import static com.madadipouya.eris.util.UnitConversionUtils.meterToKiloMeter;
 import static com.madadipouya.eris.util.UnitConversionUtils.meterToMile;
 
 /*
-* This file is part of Eris Weather API.
-*
-* Eris Weather API is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License version 3
-* as published by the Free Software Foundation.
-*
-* Eris Weather API is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.  <http://www.gnu.org/licenses/>
-*
-* Author(s):
-*
-* © 2017-2019 Kasra Madadipouya <kasra@madadipouya.com>
-*/
+ * This file is part of Eris Weather API.
+ *
+ * Eris Weather API is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 3
+ * as published by the Free Software Foundation.
+ *
+ * Eris Weather API is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.  <http://www.gnu.org/licenses/>
+ *
+ * Author(s):
+ *
+ * © 2017-2019 Kasra Madadipouya <kasra@madadipouya.com>
+ */
 
 @Service("openWeatherMapIntegration")
 public class DefaultOpenWeatherMapIntegration implements OpenWeatherMapIntegration {
@@ -49,16 +48,10 @@ public class DefaultOpenWeatherMapIntegration implements OpenWeatherMapIntegrati
     }
 
     @Override
-    @HystrixCommand(fallbackMethod = "emptyResult")
     public OpenWeatherMapCurrentWeatherResponse getCurrentWeatherCondition(String latitude, String longitude, boolean fahrenheit) {
         return adjustResult(restTemplate.getForObject(
                 String.format(API_URL, propertyUtils.getOpenWeatherMapApiKey(), getTemperatureUnit(fahrenheit), latitude, longitude),
                 OpenWeatherMapCurrentWeatherResponse.class), latitude, longitude, fahrenheit);
-    }
-
-    @SuppressWarnings("unused")
-    private OpenWeatherMapCurrentWeatherResponse emptyResult(String latitude, String longitude, boolean fahrenheit) {
-        return new OpenWeatherMapCurrentWeatherResponse();
     }
 
     private String getTemperatureUnit(boolean fahrenheit) {
