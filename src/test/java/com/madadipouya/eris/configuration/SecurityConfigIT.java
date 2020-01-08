@@ -53,8 +53,6 @@ class SecurityConfigIT {
 
     private static final String ENV_URL = String.format(BASE_ACTUATOR_URL, "env");
 
-    private static final String AUDIT_EVENTS_URL = String.format(BASE_ACTUATOR_URL, "auditevents");
-
     private static final String BEANS_URL = String.format(BASE_ACTUATOR_URL, "beans");
 
     private static final String CACHES_URL = String.format(BASE_ACTUATOR_URL, "caches");
@@ -62,8 +60,6 @@ class SecurityConfigIT {
     private static final String CONDITIONS_URL = String.format(BASE_ACTUATOR_URL, "conditions");
 
     private static final String CONFIG_PROPS_URL = String.format(BASE_ACTUATOR_URL, "configprops");
-
-    private static final String HTTP_TRACE_URL = String.format(BASE_ACTUATOR_URL, "httptrace");
 
     private static final String INFO_URL = String.format(BASE_ACTUATOR_URL, "info");
 
@@ -115,12 +111,6 @@ class SecurityConfigIT {
         }
 
         @Test
-        void testUnauthorizedAccessToAuditEventEndpoint() {
-            ResponseEntity<String> response = restTemplate.getForEntity(AUDIT_EVENTS_URL, String.class);
-            assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
-        }
-
-        @Test
         void testUnauthorizedAccessToBeansEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(BEANS_URL, String.class);
             assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
@@ -141,12 +131,6 @@ class SecurityConfigIT {
         @Test
         void testUnauthorizedAccessToConfigPropsEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(CONFIG_PROPS_URL, String.class);
-            assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
-        }
-
-        @Test
-        void testUnauthorizedAccessToHttpTraceEndpoint() {
-            ResponseEntity<String> response = restTemplate.getForEntity(HTTP_TRACE_URL, String.class);
             assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
         }
 
@@ -215,12 +199,6 @@ class SecurityConfigIT {
         }
 
         @Test
-        void testAuthorizedAccessToAuditEventEndpoint() {
-            ResponseEntity<String> response = restTemplate.getForEntity(AUDIT_EVENTS_URL, String.class);
-            assertEquals(HttpStatus.OK, response.getStatusCode());
-        }
-
-        @Test
         void testAuthorizedAccessToBeansEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(BEANS_URL, String.class);
             assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -241,12 +219,6 @@ class SecurityConfigIT {
         @Test
         void testAuthorizedAccessToConfigPropsEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(CONFIG_PROPS_URL, String.class);
-            assertEquals(HttpStatus.OK, response.getStatusCode());
-        }
-
-        @Test
-        void testAuthorizedAccessToHttpTraceEndpoint() {
-            ResponseEntity<String> response = restTemplate.getForEntity(HTTP_TRACE_URL, String.class);
             assertEquals(HttpStatus.OK, response.getStatusCode());
         }
 
