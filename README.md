@@ -13,7 +13,7 @@ The technology stack consists of Spring Boot framework only. The free version of
 
 ## Heroku deployment
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/kasramp/Eris)
 
 ## Dependencies
 All the project dependencies exist in pom.xml file and once your run the project, all dependencies will be downloaded.
