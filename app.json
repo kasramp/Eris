@@ -7,7 +7,7 @@
   "env": {
     "OPENWEATHERMAP_API_KEY": {
       "description": "API key for the OpenWeatherMap API",
-      "generator": "b6907d289e10d714a6e88b30761fae22"
+      "value": "OpenWeatherMap API key"
     },
     "HEALTH_USERNAME": {
       "description": "Username of the health endpoint",
@@ -16,6 +16,11 @@
     "HEALTH_PASSWORD": {
       "description": "Password of the health endpoint",
       "value": "password"
+    },
+    "SEGMENTIO_WRITE_API_KEY": {
+      "description": "API Key for the Segment.io analytics",
+      "required": false,
+      "value": "Segmentio API key"
     }
   }
 }
