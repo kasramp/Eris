@@ -2,7 +2,7 @@
   "name": "Eris Weather API",
   "description": "Eris is an open source weather API for getting the current weather condition across the globe",
   "repository": "https://github.com/kasramp/Eris/",
-  "logo": "https://raw.githubusercontent.com/kasramp/UbuntuIndicatorWeather/master/icons/64x64/indicator-weather.png",
+  "logo": "https://raw.githubusercontent.com/kasramp/Eris/master/static/logo/logo.png",
   "keywords": ["Eris", "Weather API", "Java", "Spring Boot"],
   "env": {
     "OPENWEATHERMAP_API_KEY": {
