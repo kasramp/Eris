@@ -10,6 +10,7 @@ Quick access:
     - [/v1/weather/currentbyip](#currentbyip)
     - [Examples](#examples)
 - [Deploy your own Eris instance](#deployment)
+- [One-click Heroku deployment](#heroku)
 - [Free public Eris instance](#freeinstance)
 - [Authors and Contributors](#author)
 - [Support/Contact](#contact)
@@ -189,6 +190,11 @@ To run and deploy the project on your local or any desired server, first clone t
         $ maven clean install
         $ cd target
         $ java -jar eris-[version]-SNAPSHOT.jar
+
+## <a name="heroku">One-click Heroku deployment</a>
+You can deploy to Heroku by clicking the below button.
+    
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/kasramp/Eris)
 
 ## <a name="freeinstance">Free public Eris instance</a>
 We have a free running public instance of Eris hosted on Heroku. The instance is available from the following link:
