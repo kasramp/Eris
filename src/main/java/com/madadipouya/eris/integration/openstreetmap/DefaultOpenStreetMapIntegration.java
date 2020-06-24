@@ -52,7 +52,7 @@ public class DefaultOpenStreetMapIntegration implements OpenStreetMapIntegration
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(List.of(APPLICATION_JSON));
         headers.setContentType(APPLICATION_JSON);
-        headers.set("User-Agent", "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0");
+        headers.set("User-Agent", "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:77.0) Gecko/20100101 Firefox/77.0");
         HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
         return restTemplate.exchange(format(API_URL, latitude, longitude),
                 GET, entity, OpenStreetMapLocationResponse.class).getBody();
