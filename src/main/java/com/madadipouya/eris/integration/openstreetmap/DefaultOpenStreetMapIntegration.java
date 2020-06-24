@@ -11,6 +11,8 @@ import java.util.List;
 
 import static com.madadipouya.eris.configuration.CacheConfiguration.OPEN_STREET_CACHE;
 import static java.lang.String.format;
+import static org.springframework.http.HttpHeaders.REFERER;
+import static org.springframework.http.HttpHeaders.USER_AGENT;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
@@ -34,6 +36,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 @Service("openStreetMapIntegration")
 public class DefaultOpenStreetMapIntegration implements OpenStreetMapIntegration {
     private static final String API_URL = "https://nominatim.openstreetmap.org/reverse?format=json&lat=%s&lon=%s&zoom=18&addressdetails=1";
+    private static final String USER_AGENT_NAME = "Eris weather API";
+    private static final String REFERER_NAME = "https://eris.madadipouya.com";
 
     private final RestTemplate restTemplate;
 
@@ -52,7 +56,8 @@ public class DefaultOpenStreetMapIntegration implements OpenStreetMapIntegration
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(List.of(APPLICATION_JSON));
         headers.setContentType(APPLICATION_JSON);
-        headers.set("User-Agent", "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:77.0) Gecko/20100101 Firefox/77.0");
+        headers.set(USER_AGENT, USER_AGENT_NAME);
+        headers.set(REFERER, REFERER_NAME);
         HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
         return restTemplate.exchange(format(API_URL, latitude, longitude),
                 GET, entity, OpenStreetMapLocationResponse.class).getBody();
