@@ -35,4 +35,4 @@ jobs:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           chmod +x "${GITHUB_WORKSPACE}/util/release.sh"
-          ./${GIHUB_WORKSPACE/util/release.sh
+          "./${GIHUB_WORKSPACE/util/release.sh"
