@@ -34,7 +34,5 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "HI"
           chmod +x "${GITHUB_WORKSPACE}/util/release.sh"
-          echo "BYE"
           ./${GIHUB_WORKSPACE/util/release.sh
