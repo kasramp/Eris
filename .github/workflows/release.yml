@@ -30,17 +30,12 @@ jobs:
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
       - name: Build and analyze
-        uses: sonarsource/sonarcloud-github-action@master
-#        run: mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_HOST: ${{ secrets.SONAR_HOST }}
           SONAR_ORG: ${{ secrets.SONAR_ORG }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args: >
-            -Dsonar.host.url=${SONAR_HOST}
-            -Dsonar.organization=${SONAR_PRG}
+        run: mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.host.url=${SONAR_HOST} -Dsonar.organization=${SONAR_PRG}
       - uses: actions/checkout@v2
       - name: Set last commit
         shell: bash
