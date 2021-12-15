@@ -30,6 +30,7 @@ jobs:
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
       - name: Build and analyze
+        uses: sonarsource/sonarcloud-github-action@master
         run: mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
