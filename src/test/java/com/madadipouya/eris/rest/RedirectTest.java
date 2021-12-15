@@ -27,7 +27,7 @@ import static org.mockito.Mockito.when;
 *
 * Author(s):
 *
-* © 2017-2019 Kasra Madadipouya <kasra@madadipouya.com>
+* © 2017-2022 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
 @ExtendWith(MockitoExtension.class)
@@ -48,6 +48,6 @@ class RedirectTest {
     @Test
     void testRedirectToApiDocs() {
         ModelAndView page = redirectController.redirectToApiPage();
-        assertEquals("redirect:/swagger-ui.html", page.getViewName());
+        assertEquals("redirect:/swagger-ui/", page.getViewName());
     }
 }

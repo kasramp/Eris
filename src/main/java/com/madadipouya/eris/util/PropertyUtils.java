@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 *
 * Author(s):
 *
-* © 2017-2019 Kasra Madadipouya <kasra@madadipouya.com>
+* © 2017-2022 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
 @Component
