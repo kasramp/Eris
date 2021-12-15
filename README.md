@@ -1,4 +1,4 @@
-# Eris [![Build Status](https://travis-ci.org/kasramp/Eris.svg?branch=develop)](https://travis-ci.org/kasramp/Eris) [![SonarCloud](https://sonarcloud.io/api/project_badges/measure?project=com.madadipouya.eris%3Aeris&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.madadipouya.eris%3Aeris)
+# Eris ![Release](https://github.com/kasramp/JTube/actions/workflows/release.yml/badge.svg) [![SonarCloud](https://sonarcloud.io/api/project_badges/measure?project=com.madadipouya.eris%3Aeris&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.madadipouya.eris%3Aeris)
 
 Eris is an open source weather API to get the current weather condition across the globe.
 
