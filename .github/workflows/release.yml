@@ -32,11 +32,8 @@ jobs:
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_HOST: ${{ secrets.SONAR_HOST }}
-          SONAR_ORG: ${{ secrets.SONAR_ORG }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
-        run: mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=${SONAR_ORG} -Dsonar.projectKey=${SONAR_PROJECT_KEY}
+        run: mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=kasramp-github -Dsonar.projectKey=com.madadipouya.eris
       - uses: actions/checkout@v2
       - name: Set last commit
         shell: bash
