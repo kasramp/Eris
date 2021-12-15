@@ -1,0 +1,38 @@
+name: CI/CD pipeline
+
+on:
+  push:
+    branches:
+      - develop
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Cache
+        uses: actions/cache@v1.0.3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Set up JDK 17
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+      - uses: actions/checkout@v1
+      - name: Set last commit
+        shell: bash
+        run: |
+          echo "::set-output name=LAST_COMMIT::$(git log -n 1)"
+        id: version
+      - name: Release
+        shell: bash
+        env:
+          VERSION: ${{ steps.version.outputs.LAST_COMMIT }}
+          EMAIL: ${{ secrets.EMAIL }}
+          USERNAME: ${{ secrets.USERNAME }}
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          - chmod +x "${GITHUB_WORKSPACE}/util/release.sh"
+          - ./${GIHUB_WORKSPACE/util/release.sh
