@@ -118,7 +118,7 @@
         <dependency>
             <groupId>org.owasp</groupId>
             <artifactId>dependency-check-maven</artifactId>
-            <version>6.5.0</version>
+            <version>8.2.1</version>
             <type>maven-plugin</type>
         </dependency>
     </dependencies>
@@ -188,7 +188,7 @@
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
-                <version>6.5.0</version>
+                <version>8.2.1</version>
                 <executions>
                     <execution>
                         <goals>
