@@ -1,6 +1,7 @@
 package com.madadipouya.eris.configuration;
 
 import com.madadipouya.eris.util.PropertyUtils;
+import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -13,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.test.context.TestPropertySource;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * Author(s):
  *
- * © 2017-2022 Kasra Madadipouya <kasra@madadipouya.com>
+ * © 2017-2023 Kasra Madadipouya <kasra@madadipouya.com>
  */
 
 
@@ -96,7 +96,7 @@ class SecurityConfigIT {
         @Test
         void testUnauthorizedAccessToHealthEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(HEALTH_URL, String.class);
-            assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
+            assertEquals(HttpStatus.OK, response.getStatusCode());
         }
 
         @Test

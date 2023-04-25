@@ -3,6 +3,7 @@ package com.madadipouya.eris.service.ipgeolocation.impl;
 import com.madadipouya.eris.integration.ipapi.IpApiIntegration;
 import com.madadipouya.eris.integration.ipapi.remote.response.IpApiResponse;
 import com.madadipouya.eris.service.ipgeolocation.model.Coordinates;
+import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -10,28 +11,26 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.servlet.http.HttpServletRequest;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 /*
-* This file is part of Eris Weather API.
-*
-* Eris Weather API is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License version 3
-* as published by the Free Software Foundation.
-*
-* Eris Weather API is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.  <http://www.gnu.org/licenses/>
-*
-* Author(s):
-*
-* © 2017-2022 Kasra Madadipouya <kasra@madadipouya.com>
-*/
+ * This file is part of Eris Weather API.
+ *
+ * Eris Weather API is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 3
+ * as published by the Free Software Foundation.
+ *
+ * Eris Weather API is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.  <http://www.gnu.org/licenses/>
+ *
+ * Author(s):
+ *
+ * © 2017-2023 Kasra Madadipouya <kasra@madadipouya.com>
+ */
 
 @ExtendWith(MockitoExtension.class)
 class DefaultIpGeoLocationTest {

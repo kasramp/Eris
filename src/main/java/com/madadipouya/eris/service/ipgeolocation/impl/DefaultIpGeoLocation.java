@@ -6,14 +6,11 @@ import com.madadipouya.eris.service.ipgeolocation.IpGeoLocation;
 import com.madadipouya.eris.service.ipgeolocation.model.Coordinates;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
-
 import static com.madadipouya.eris.util.BeanUtils.copyProperties;
-import static org.apache.commons.lang3.StringUtils.isBlank;
-import static org.apache.commons.lang3.StringUtils.split;
-import static org.apache.commons.lang3.StringUtils.trim;
+import static org.apache.commons.lang3.StringUtils.*;
 
 /*
  * This file is part of Eris Weather API.
@@ -29,7 +26,7 @@ import static org.apache.commons.lang3.StringUtils.trim;
  *
  * Author(s):
  *
- * © 2017-2022 Kasra Madadipouya <kasra@madadipouya.com>
+ * © 2017-2023 Kasra Madadipouya <kasra@madadipouya.com>
  */
 
 @Service("ipGeoLocation")

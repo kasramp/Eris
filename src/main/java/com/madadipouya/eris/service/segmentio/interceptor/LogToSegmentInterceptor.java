@@ -3,13 +3,13 @@ package com.madadipouya.eris.service.segmentio.interceptor;
 import com.madadipouya.eris.service.ipgeolocation.IpGeoLocation;
 import com.madadipouya.eris.service.segmentio.SegmentIoAnalytics;
 import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
+import jakarta.servlet.http.HttpServletRequest;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -18,21 +18,21 @@ import static org.apache.commons.collections4.CollectionUtils.isEmpty;
 import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 
 /*
-* This file is part of Eris Weather API.
-*
-* Eris Weather API is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License version 3
-* as published by the Free Software Foundation.
-*
-* Eris Weather API is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.  <http://www.gnu.org/licenses/>
-*
-* Author(s):
-*
-* © 2017-2022 Kasra Madadipouya <kasra@madadipouya.com>
-*/
+ * This file is part of Eris Weather API.
+ *
+ * Eris Weather API is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 3
+ * as published by the Free Software Foundation.
+ *
+ * Eris Weather API is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.  <http://www.gnu.org/licenses/>
+ *
+ * Author(s):
+ *
+ * © 2017-2023 Kasra Madadipouya <kasra@madadipouya.com>
+ */
 
 @Aspect
 @Component
@@ -66,10 +66,10 @@ public class LogToSegmentInterceptor {
         if (!hasError(errors)) {
             locationData.putAll(
                     Map.of(
-                    "COUNTRY", currentWeatherCondition.getSys().getCountryNameFull(),
-                    "LATITUDE", currentWeatherCondition.getCoordinates().getLatitude(),
-                    "LONGITUDE", currentWeatherCondition.getCoordinates().getLongitude(),
-                    "TEMPERATURE", currentWeatherCondition.getMain().getTemperature().toString()
+                            "COUNTRY", currentWeatherCondition.getSys().getCountryNameFull(),
+                            "LATITUDE", currentWeatherCondition.getCoordinates().getLatitude(),
+                            "LONGITUDE", currentWeatherCondition.getCoordinates().getLongitude(),
+                            "TEMPERATURE", currentWeatherCondition.getMain().getTemperature().toString()
                     )
             );
         }

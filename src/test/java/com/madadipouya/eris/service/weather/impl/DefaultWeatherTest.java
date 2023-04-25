@@ -16,7 +16,7 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -38,7 +38,7 @@ import static org.mockito.Mockito.*;
 *
 * Author(s):
 *
-* © 2017-2022 Kasra Madadipouya <kasra@madadipouya.com>
+* © 2017-2023 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
 @ExtendWith(MockitoExtension.class)

@@ -7,30 +7,29 @@ import com.madadipouya.eris.integration.openweathermap.remote.response.OpenWeath
 import com.madadipouya.eris.service.feelslike.FeelsLikeService;
 import com.madadipouya.eris.service.ipgeolocation.IpGeoLocation;
 import com.madadipouya.eris.service.ipgeolocation.model.Coordinates;
-import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
 import com.madadipouya.eris.service.weather.Weather;
+import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
-
-import javax.servlet.http.HttpServletRequest;
 
 import static com.madadipouya.eris.util.BeanUtils.copyProperties;
 
 /*
-* This file is part of Eris Weather API.
-*
-* Eris Weather API is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License version 3
-* as published by the Free Software Foundation.
-*
-* Eris Weather API is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.  <http://www.gnu.org/licenses/>
-*
-* Author(s):
-*
-* © 2017-2022 Kasra Madadipouya <kasra@madadipouya.com>
-*/
+ * This file is part of Eris Weather API.
+ *
+ * Eris Weather API is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 3
+ * as published by the Free Software Foundation.
+ *
+ * Eris Weather API is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.  <http://www.gnu.org/licenses/>
+ *
+ * Author(s):
+ *
+ * © 2017-2023 Kasra Madadipouya <kasra@madadipouya.com>
+ */
 
 @Service("weather")
 public class DefaultWeather implements Weather {
@@ -46,7 +45,7 @@ public class DefaultWeather implements Weather {
     private final FeelsLikeService feelsLikeService;
 
     public DefaultWeather(OpenWeatherMapIntegration openWeatherMapIntegration, OpenStreetMapIntegration openStreetMapIntegration
-    , GroupktCountryNameIntegration groupktCountryNameIntegration, IpGeoLocation ipGeoLocation, FeelsLikeService feelsLikeService) {
+            , GroupktCountryNameIntegration groupktCountryNameIntegration, IpGeoLocation ipGeoLocation, FeelsLikeService feelsLikeService) {
         this.openWeatherMapIntegration = openWeatherMapIntegration;
         this.openStreetMapIntegration = openStreetMapIntegration;
         this.groupktCountryNameIntegration = groupktCountryNameIntegration;

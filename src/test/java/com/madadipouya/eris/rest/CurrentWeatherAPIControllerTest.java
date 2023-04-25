@@ -2,6 +2,7 @@ package com.madadipouya.eris.rest;
 
 import com.madadipouya.eris.service.weather.impl.DefaultWeather;
 import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
+import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -11,17 +12,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import javax.servlet.http.HttpServletRequest;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /*
  * This file is part of Eris Weather API.
@@ -37,7 +32,7 @@ import static org.mockito.Mockito.when;
  *
  * Author(s):
  *
- * © 2017-2022 Kasra Madadipouya <kasra@madadipouya.com>
+ * © 2017-2023 Kasra Madadipouya <kasra@madadipouya.com>
  */
 
 @ExtendWith(MockitoExtension.class)
