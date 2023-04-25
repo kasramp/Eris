@@ -1,55 +1,46 @@
 package com.madadipouya.eris.configuration;
 
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-
-import java.util.Collections;
-
-import static springfox.documentation.builders.PathSelectors.regex;
 
 /*
-* This file is part of Eris Weather API.
-*
-* Eris Weather API is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License version 3
-* as published by the Free Software Foundation.
-*
-* Eris Weather API is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.  <http://www.gnu.org/licenses/>
-*
-* Author(s):
-*
-* © 2017-2022 Kasra Madadipouya <kasra@madadipouya.com>
-*/
+ * This file is part of Eris Weather API.
+ *
+ * Eris Weather API is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 3
+ * as published by the Free Software Foundation.
+ *
+ * Eris Weather API is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.  <http://www.gnu.org/licenses/>
+ *
+ * Author(s):
+ *
+ * © 2017-2023 Kasra Madadipouya <kasra@madadipouya.com>
+ */
 
 @Configuration
 public class SwaggerConfiguration {
 
     @Bean
-    public Docket productApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.madadipouya.eris.rest"))
-                .paths(regex("/v1/weather/.*"))
-                .build()
-                .apiInfo(metaData());
+    public OpenAPI apiInfo() {
+        return new OpenAPI().info(new Info().title("Eris API documentation")
+                .description("Documentation for Eris weather API")
+                .version("v1")
+                .contact(getContactDetails())
+                .license(getLicenseDetails()));
     }
 
-    ApiInfo metaData() {
-        return new ApiInfo(
-                "Eris API documentation",
-                "Documentation for Eris weather API",
-                "v1",
-                "Free of charge",
-                new Contact("Kasra Madadipouya", "https://eris.madadipouya.com", "kasra@madadipouya.com"),
-                "GNU General Public License v3.0",
-                "https://github.com/kasramp/Eris/blob/develop/LICENSE", Collections.emptyList());
+    private Contact getContactDetails() {
+        return new Contact().name("Kasra Madadipouya").email("kasra@madadipouya.com").url("https://eris.madadipouya.com");
+    }
+
+    private License getLicenseDetails() {
+        return new License().name("GNU General Public License v3.0").url("https://github.com/kasramp/Eris/blob/develop/LICENSE");
     }
 }
