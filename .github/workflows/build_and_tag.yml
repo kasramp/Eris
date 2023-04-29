@@ -51,7 +51,8 @@ jobs:
           pwd ${GITHUB_WORKSPACE}
           chmod +x "${GITHUB_WORKSPACE}/util/release.sh"
           ./${GIHUB_WORKSPACE}/util/release.sh
-      - uses: actions/upload-artifact@v3
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ github.ref_name }}-jar
           path: target/*.jar
