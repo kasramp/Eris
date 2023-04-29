@@ -3,6 +3,7 @@
 Eris is an open source weather API to get the current weather condition across the globe.
 
 ## Description
+
 Eris is a simple Spring Boot Java API that is developed as a consolidation of the following services:
 - [Open Weather Map](https://openweathermap.org/)
 - [Open Street Map](http://openstreetmap.org/)
@@ -29,12 +30,15 @@ To run and deploy the project on your local or any desired server, first clone t
         $ java -jar eris-[version]-SNAPSHOT.jar
 
 ## Project & API documentation
+
 To know more about the project structure and API documentation please refer to our Github page [documentation](https://eris.madadipouya.com/#apicall) at this link.
 
 ## Contact
+
 * kasra@madadipouya.com
 
 ## License
+
 <p>
 <img src="https://www.gnu.org/graphics/gplv3-127x51.png" alt="License"/>
 </p>
