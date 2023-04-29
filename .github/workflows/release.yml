@@ -14,12 +14,17 @@ jobs:
         with:
           ref: master
           fetch-depth: 0
+      - name: Make release directory
+        run: mkdir release_files
       - name: Download artifact
-        uses: actions/download-artifact@v3
+        uses: dawidd6/action-download-artifact@v3
         with:
-          name: master-jar
+          workflow: build_and_tag.yml
+          workflow_conclusion: success
+          branch: master
+          path: release_files/
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            target/*.jar
+            release_files/master-jar/*.jar

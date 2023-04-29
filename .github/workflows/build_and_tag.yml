@@ -56,3 +56,4 @@ jobs:
         with:
           name: ${{ github.ref_name }}-jar
           path: target/*.jar
+          retention-days: 1
