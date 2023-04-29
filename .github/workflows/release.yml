@@ -1,15 +1,22 @@
 name: Do release
-
 on:
-  push:
-    tags:
-      - "^(?!.*-beta).*$"
-
+  workflow_run:
+    workflows: ["Build and Tag"]
+    branches: [master]
+    types:
+      - completed
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ github.ref_name }}-jar
       - name: Checkout
         uses: actions/checkout@v3
       - name: Release
         uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            target/*.jar
