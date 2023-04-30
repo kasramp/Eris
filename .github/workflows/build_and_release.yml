@@ -59,9 +59,10 @@ jobs:
       - name: Generate Release Notes
         uses: release-drafter/release-drafter@v5.23.0
         id: release-drafter
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          config-path: .github/release.yml
+          config-name: .github/release.yml
       - name: Perform release
         uses: softprops/action-gh-release@v1
         if: ${{ github.ref == 'refs/heads/develop' }}
