@@ -53,7 +53,7 @@ jobs:
           ./${GIHUB_WORKSPACE}/util/release.sh
       - name: Get latest tagged version
         id: tagged_version
-        uses: actions/checkout@v3
+        shell: bash
         run: |
           echo "::set-output name=TAGGED_VERSION::$(git for-each-ref --sort=-creatordate --format='%(refname:short)' refs/tags --count 10 | grep -oP '^eris-(\d+).*' | head -1)"
       - name: Perform release
