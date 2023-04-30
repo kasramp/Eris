@@ -38,14 +38,8 @@ jobs:
       - name: Set last commit
         shell: bash
         run: |
-          echo "::set-output name=LAST_COMMIT::$(git log -n 1)"
+          echo "LAST_COMMIT=$(git log -n 1)" >> $GITHUB_OUTPUT
         id: version
-      - name: Get previous tagged version
-        id: previous_tagged_version
-        if: ${{ github.ref == 'refs/heads/master' }}
-        shell: bash
-        run: |
-          echo "::set-output name=OLD_TAGGED_VERSION::$(git for-each-ref --sort=-creatordate --format='%(refname:short)' refs/tags --count 10 | grep -oP '^eris-(\d+).*' | head -1)"
       - name: Tag
         shell: bash
         env:
@@ -62,23 +56,11 @@ jobs:
         if: ${{ github.ref == 'refs/heads/master' }}
         shell: bash
         run: |
-          echo "::set-output name=TAGGED_VERSION::$(git for-each-ref --sort=-creatordate --format='%(refname:short)' refs/tags --count 10 | grep -oP '^eris-(\d+).*' | head -1)"
-      - name: Generate release note
-        uses: mikepenz/release-changelog-builder-action@v3.7.1
-        id: release_note
-        if: ${{ github.ref == 'refs/heads/master' }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          owner: "kasramp"
-          config-name: ".github/release.json"
-          fromTag: ${{ steps.previous_tagged_version.outputs.OLD_TAGGED_VERSION }}
-          toTag: ${{ steps.tagged_version.outputs.TAGGED_VERSION }}
+          echo "TAGGED_VERSION=$(git for-each-ref --sort=-creatordate --format='%(refname:short)' refs/tags --count 10 | grep -oP '^eris-(\d+).*' | head -1)" >> $GITHUB_OUTPUT
       - name: Perform release
-        uses: softprops/action-gh-release@v1
+        uses: ncipollo/release-action@v1
         if: ${{ github.ref == 'refs/heads/master' }}
         with:
-          tag_name: ${{ steps.tagged_version.outputs.TAGGED_VERSION }}
-          body: ${{ steps.release_note.outputs.changelog }}
-          files: |
-            target/*.jar
+          tag: ${{ steps.tagged_version.outputs.TAGGED_VERSION }}
+          generateReleaseNotes: true
+          artifacts: "target/*.jar"
