@@ -1,4 +1,4 @@
-name: Build and Tag
+name: Build and Release
 on:
   push:
     branches:
@@ -64,7 +64,7 @@ jobs:
         run: |
           echo "::set-output name=TAGGED_VERSION::$(git for-each-ref --sort=-creatordate --format='%(refname:short)' refs/tags --count 10 | grep -oP '^eris-(\d+).*' | head -1)"
       - name: Generate release note
-        uses: mikepenz/release-changelog-builder-action@@v3.7.1
+        uses: mikepenz/release-changelog-builder-action@v3.7.1
         id: release_note
         if: ${{ github.ref == 'refs/heads/master' }}
         env:
