@@ -56,10 +56,17 @@ jobs:
         shell: bash
         run: |
           echo "::set-output name=TAGGED_VERSION::$(git for-each-ref --sort=-creatordate --format='%(refname:short)' refs/tags --count 10 | grep -oP '^eris-(\d+).*' | head -1)"
+      - name: Generate Release Notes
+        uses: release-drafter/release-drafter@v5.23.0
+        id: release-drafter
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          config-path: .github/release.yml
       - name: Perform release
         uses: softprops/action-gh-release@v1
-        if: ${{ github.ref == 'refs/heads/master' }}
+        if: ${{ github.ref == 'refs/heads/develop' }}
         with:
           tag_name: ${{ steps.tagged_version.outputs.TAGGED_VERSION }}
+          body: ${{ steps.release-drafter.outputs.changelog }}
           files: |
             target/*.jar

@@ -115,12 +115,12 @@
             <version>5.3.1</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.owasp</groupId>
-            <artifactId>dependency-check-maven</artifactId>
-            <version>8.2.1</version>
-            <type>maven-plugin</type>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.owasp</groupId>-->
+<!--            <artifactId>dependency-check-maven</artifactId>-->
+<!--            <version>8.2.1</version>-->
+<!--            <type>maven-plugin</type>-->
+<!--        </dependency>-->
     </dependencies>
 
     <dependencyManagement>
