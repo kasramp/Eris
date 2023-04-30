@@ -2,7 +2,7 @@ name: Do release
 on:
   workflow_run:
     workflows: ["Build and Tag"]
-    branches: [master]
+    branches: [blah]
     types:
       - completed
 jobs:

@@ -51,9 +51,9 @@ jobs:
           pwd ${GITHUB_WORKSPACE}
           chmod +x "${GITHUB_WORKSPACE}/util/release.sh"
           ./${GIHUB_WORKSPACE}/util/release.sh
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
+      - name: Perform release
+        uses: softprops/action-gh-release@v1
+        if: ${{ github.ref == 'refs/heads/master' }}
         with:
-          name: ${{ github.ref_name }}-jar
-          path: target/*.jar
-          retention-days: 1
+          files: |
+            target/*.jar
