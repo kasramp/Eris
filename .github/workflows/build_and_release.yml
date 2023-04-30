@@ -38,7 +38,9 @@ jobs:
       - name: Set last commit
         shell: bash
         run: |
-          echo "LAST_COMMIT=$(git log -n 1)" >> "$GITHUB_OUTPUT"
+          echo "LAST_COMMIT<<EOF" >> $GITHUB_OUTPUT
+          echo "$(git log -n 1)" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
         id: version
       - name: Tag
         shell: bash
@@ -56,7 +58,7 @@ jobs:
         if: ${{ github.ref == 'refs/heads/master' }}
         shell: bash
         run: |
-          echo "TAGGED_VERSION=$(git for-each-ref --sort=-creatordate --format='%(refname:short)' refs/tags --count 10 | grep -oP '^eris-(\d+).*' | head -1)" >> "$GITHUB_OUTPUT"
+          echo "TAGGED_VERSION=$(git for-each-ref --sort=-creatordate --format='%(refname:short)' refs/tags --count 10 | grep -oP '^eris-(\d+).*' | head -1)" >> $GITHUB_OUTPUT
       - name: Perform release
         uses: ncipollo/release-action@v1
         if: ${{ github.ref == 'refs/heads/master' }}
