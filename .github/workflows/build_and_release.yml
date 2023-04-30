@@ -40,6 +40,12 @@ jobs:
         run: |
           echo "::set-output name=LAST_COMMIT::$(git log -n 1)"
         id: version
+      - name: Get previous tagged version
+        id: previous_tagged_version
+        if: ${{ github.ref == 'refs/heads/master' }}
+        shell: bash
+        run: |
+          echo "::set-output name=OLD_TAGGED_VERSION::$(git for-each-ref --sort=-creatordate --format='%(refname:short)' refs/tags --count 10 | grep -oP '^eris-(\d+).*' | head -1)"
       - name: Tag
         shell: bash
         env:
@@ -53,17 +59,21 @@ jobs:
           ./${GIHUB_WORKSPACE}/util/release.sh
       - name: Get latest tagged version
         id: tagged_version
+        if: ${{ github.ref == 'refs/heads/master' }}
         shell: bash
         run: |
           echo "::set-output name=TAGGED_VERSION::$(git for-each-ref --sort=-creatordate --format='%(refname:short)' refs/tags --count 10 | grep -oP '^eris-(\d+).*' | head -1)"
       - name: Generate release note
-        uses: release-drafter/release-drafter@v5.23.0
+        uses: mikepenz/release-changelog-builder-action@@v3.7.1
         id: release_note
         if: ${{ github.ref == 'refs/heads/master' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          config-name: release.yml
+          owner: "kasramp"
+          config-name: ".github/release.json"
+          fromTag: ${{ steps.previous_tagged_version.outputs.OLD_TAGGED_VERSION }}
+          toTag: ${{ steps.tagged_version.outputs.TAGGED_VERSION }}
       - name: Perform release
         uses: softprops/action-gh-release@v1
         if: ${{ github.ref == 'refs/heads/master' }}
