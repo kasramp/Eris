@@ -62,7 +62,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          config-name: .github/release.yml
+          config-name: release.yml
       - name: Perform release
         uses: softprops/action-gh-release@v1
         if: ${{ github.ref == 'refs/heads/develop' }}
