@@ -9,12 +9,12 @@
       "description": "API key for the OpenWeatherMap API",
       "value": "OpenWeatherMap API key"
     },
-    "HEALTH_USERNAME": {
-      "description": "Username of the health endpoint",
+    "ACTUATOR_USERNAME": {
+      "description": "Username of the actuator endpoints",
       "value": "username"
     },
-    "HEALTH_PASSWORD": {
-      "description": "Password of the health endpoint",
+    "ACTUATOR_PASSWORD": {
+      "description": "Password of the actuator endpoints",
       "value": "password"
     },
     "SEGMENTIO_WRITE_API_KEY": {

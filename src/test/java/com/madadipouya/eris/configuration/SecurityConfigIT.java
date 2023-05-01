@@ -80,7 +80,7 @@ class SecurityConfigIT {
 
     @PostConstruct
     void afterPropertiesSet() {
-        bai = new BasicAuthenticationInterceptor(propertyUtils.getHealthUsername(), propertyUtils.getHealthPassword());
+        bai = new BasicAuthenticationInterceptor(propertyUtils.getActuatorUsername(), propertyUtils.getActuatorPassword());
         restTemplate.getRestTemplate().setInterceptors(List.of(bai));
     }
 
@@ -94,7 +94,7 @@ class SecurityConfigIT {
         }
 
         @Test
-        void testUnauthorizedAccessToHealthEndpoint() {
+        void testPublicAccessToHealthEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(HEALTH_URL, String.class);
             assertEquals(HttpStatus.OK, response.getStatusCode());
         }

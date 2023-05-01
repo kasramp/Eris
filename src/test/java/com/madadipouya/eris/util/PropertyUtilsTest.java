@@ -10,21 +10,21 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /*
-* This file is part of Eris Weather API.
-*
-* Eris Weather API is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License version 3
-* as published by the Free Software Foundation.
-*
-* Eris Weather API is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.  <http://www.gnu.org/licenses/>
-*
-* Author(s):
-*
-* © 2017-2022 Kasra Madadipouya <kasra@madadipouya.com>
-*/
+ * This file is part of Eris Weather API.
+ *
+ * Eris Weather API is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 3
+ * as published by the Free Software Foundation.
+ *
+ * Eris Weather API is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.  <http://www.gnu.org/licenses/>
+ *
+ * Author(s):
+ *
+ * © 2017-2023 Kasra Madadipouya <kasra@madadipouya.com>
+ */
 
 @ExtendWith(SpringExtension.class)
 @TestPropertySource(locations = {"classpath:test.properties"})
@@ -45,12 +45,12 @@ class PropertyUtilsTest {
     }
 
     @Test
-    void testGetHealthUsername() {
-        assertEquals("testUsername", propertyUtils.getHealthUsername());
+    void testGetActuatorUsername() {
+        assertEquals("testUsername", propertyUtils.getActuatorUsername());
     }
 
     @Test
-    void testGetHealthPassword() {
-        assertEquals("testPassword", propertyUtils.getHealthPassword());
+    void testGetActuatorPassword() {
+        assertEquals("testPassword", propertyUtils.getActuatorPassword());
     }
 }
