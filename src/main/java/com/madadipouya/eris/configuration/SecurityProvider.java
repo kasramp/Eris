@@ -38,8 +38,8 @@ public class SecurityProvider {
     @Autowired
     void registerProvider(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .withUser(propertyUtils.getHealthUsername())
-                .password(passwordEncoder.encode(propertyUtils.getHealthPassword()))
+                .withUser(propertyUtils.getActuatorUsername())
+                .password(passwordEncoder.encode(propertyUtils.getActuatorPassword()))
                 .roles("ADMIN");
     }
 }
