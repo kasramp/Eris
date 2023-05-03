@@ -49,6 +49,8 @@ jobs:
           EMAIL: ${{ secrets.EMAIL }}
           USERNAME: ${{ secrets.USERNAME }}
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
           pwd ${GITHUB_WORKSPACE}
           chmod +x "${GITHUB_WORKSPACE}/util/release.sh"
