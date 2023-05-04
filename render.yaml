@@ -7,7 +7,7 @@ services:
     region: oregon
     plan: free
     branch: master
-    numInstances: 2
+    numInstances: 1
     healthCheckPath: /actuator/health
     envVars:
       - key: OPENWEATHERMAP_API_KEY
