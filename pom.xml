@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.madadipouya.eris</groupId>
     <artifactId>eris</artifactId>
-    <version>0.2.74</version>
+    <version>0.2.75-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Eris</name>
     <description>Eris Weather API</description>
@@ -13,7 +13,7 @@
         <connection>scm:git:https://github.com/kasramp/Eris.git</connection>
         <developerConnection>scm:git:https://github.com/kasramp/Eris.git</developerConnection>
         <url>https://github.com/kasramp/Eris</url>
-        <tag>eris-0.2.74</tag>
+        <tag>eris-0.2.0</tag>
     </scm>
     <parent>
         <groupId>org.springframework.boot</groupId>
