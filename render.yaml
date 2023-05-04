@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: eris-prod
+    name: eris
     env: docker
     dockerfilePath: ./deploy/Dockerfile.render
     repo: https://github.com/kasramp/Eris.git
