@@ -5,7 +5,7 @@ services:
     dockerfilePath: ./deploy/Dockerfile.render
     repo: https://github.com/kasramp/Eris.git
     region: oregon
-    plan: starter
+    plan: free
     branch: master
     numInstances: 2
     healthCheckPath: /actuator/health
