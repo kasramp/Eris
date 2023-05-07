@@ -1,16 +1,20 @@
 package com.madadipouya.eris.service.ipgeolocation.impl;
 
+import static com.madadipouya.eris.util.BeanUtils.copyProperties;
+import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.apache.commons.lang3.StringUtils.split;
+import static org.apache.commons.lang3.StringUtils.trim;
+
+import org.springframework.stereotype.Service;
+
 import com.madadipouya.eris.integration.fallbacks.iplookup.ExtremeIpLookupIntegration;
 import com.madadipouya.eris.integration.ipapi.IpApiIntegration;
 import com.madadipouya.eris.service.ipgeolocation.IpGeoLocation;
 import com.madadipouya.eris.service.ipgeolocation.model.Coordinates;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
-import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.stereotype.Service;
 
-import static com.madadipouya.eris.util.BeanUtils.copyProperties;
-import static org.apache.commons.lang3.StringUtils.*;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
+import jakarta.servlet.http.HttpServletRequest;
 
 /*
  * This file is part of Eris Weather API.
@@ -46,9 +50,8 @@ public class DefaultIpGeoLocation implements IpGeoLocation {
         return getCoordinates(getRequestIpAddress(request));
     }
 
-    @HystrixCommand(fallbackMethod = "doCallFallbackService", commandProperties = {
-            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000"),
-            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "30")})
+    @CircuitBreaker(name = "ipApiCircuitBreaker", fallbackMethod = "doCallFallbackService")
+    @TimeLimiter(name = "ipApiCircuitBreaker", fallbackMethod = "doCallFallbackService")
     @Override
     public Coordinates getCoordinates(String ipAddress) {
         return copyProperties(ipApiIntegration.getCoordinatesFromIp(ipAddress), new Coordinates());
@@ -68,7 +71,7 @@ public class DefaultIpGeoLocation implements IpGeoLocation {
     }
 
     @SuppressWarnings("unused")
-    private Coordinates doCallFallbackService(String ipAddress) {
+    private Coordinates doCallFallbackService(String ipAddress, Exception exception) {
         return copyProperties(extremeIpLookupIntegration.getCoordinates(ipAddress), new Coordinates());
     }
 }
