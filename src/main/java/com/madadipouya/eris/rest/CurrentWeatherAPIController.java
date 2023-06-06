@@ -1,22 +1,24 @@
 package com.madadipouya.eris.rest;
 
-import com.madadipouya.eris.service.weather.Weather;
-import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static org.apache.commons.lang3.math.NumberUtils.isCreatable;
+
+import java.util.List;
+import java.util.concurrent.Callable;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import jakarta.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.concurrent.Callable;
+import com.madadipouya.eris.service.weather.Weather;
+import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
 
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
-import static org.apache.commons.lang3.math.NumberUtils.isCreatable;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.servlet.http.HttpServletRequest;
 
 /*
  * This file is part of Eris Weather API.
@@ -54,13 +56,15 @@ public class CurrentWeatherAPIController {
      *
      * */
     @Operation(summary = "Get current weather condition based on latitude and longitude",
-            parameters = {@Parameter(name = "lat", description = "Latitude of a location", required = true), @Parameter(name = "lon", description = "Longitude of a location", required = true),
-                    @Parameter(name = "fahrenheit", description = "Return weather temperatures in Fahrenheit instead of Celsius (default)")}, tags = "Get weather by latitude, longitude")
-    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Successfully retrieve weather condition"), @ApiResponse(responseCode = "400", description = "Failed to get weather condition")})
-    @GetMapping(value = {"v1/weather/current", "/current"}, produces = "application/json")
+        parameters = {
+            @Parameter(name = "lat", description = "Latitude of a location", required = true, example = "52.5200"),
+            @Parameter(name = "lon", description = "Longitude of a location", example = "13.4050", required = true),
+            @Parameter(name = "fahrenheit", description = "Return weather temperatures in Fahrenheit instead of Celsius", example = "false")
+        }, tags = "Get weather by latitude, longitude")
+    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Successfully retrieve weather condition"), @ApiResponse(responseCode = "400", description = "Failed to get weather condition") })
+    @GetMapping(value = { "v1/weather/current", "/current" }, produces = "application/json")
     public Callable<ResponseEntity<CurrentWeatherCondition>> getCurrent(@RequestParam(value = "lat") String latitude, @RequestParam(value = "lon") String longitude,
-                                                                        @RequestParam(value = "fahrenheit", required = false, defaultValue = "false") boolean fahrenheit,
-                                                                        HttpServletRequest request) {
+        @RequestParam(value = "fahrenheit", required = false, defaultValue = "false") boolean fahrenheit, HttpServletRequest request) {
         if (!isLatitudeLongitudeExist(latitude, longitude)) {
             return () -> ResponseEntity.badRequest().body(createErrorResponse(ERR_NO_LATITUDE_LONGITUDE_PROVIDED));
         } else if (!isLatitudeLongitudeValid(latitude, longitude)) {
