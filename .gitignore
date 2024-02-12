@@ -42,3 +42,5 @@ local.properties
 .settings/
 .loadpath
 
+# Consul data
+consul-data/

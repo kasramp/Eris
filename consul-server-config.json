@@ -1,0 +1,13 @@
+{
+  "node_name": "Cassini",
+  "server": true,
+  "data_dir": "consul-data",
+  "log_level": "INFO",
+  "client_addr": "0.0.0.0",
+  "bind_addr": "0.0.0.0",
+  "advertise_addr": "127.0.0.1",
+  "bootstrap_expect": 1,
+  "ui_config": {
+    "enabled": true
+  }
+}

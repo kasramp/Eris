@@ -12,22 +12,68 @@ Eris is a simple Spring Boot Java API that is developed as a consolidation of th
 
 The technology stack consists of Spring Boot framework only. The free version of the service is also hosted on Heroku. Though the API can be hosted in any platform that supports Spring Boot. Feel free to fork it and create your private API.
 
+## Dependencies
+
+The project depends on JDK 17 and Maven. Make sure to have them installed. Any other project dependencies exist in pom.xml file and once you run the project, they will be downloaded.
+
+## Development
+
+Eris can operate in **two modes**:
+  - Standalone: single node (default)
+  - Cluster: multiple nodes registering with Consul
+
+### Standalone mode
+
+To run the project in standalone mode just run,
+
+```bash
+$ mvn spring-boot:run
+```
+
+### Cluster mode 
+
+To test the cluster mode, you need to have the Consul agent up and running. You can use `docker-compose.yml` file included in the project,
+
+```bash
+$ docker-compose -f docker-compose.yml up
+```
+
+After that, enable the cluster mode via exporting the following environment variable,
+
+```bash
+$ export SPRING_CLOUD_CONSUL_ENABLED=true
+```
+
+Lastly, run the project,
+
+```bash
+$ mvn spring-boot:run
+```
+
+You can monitor the Eris instance via Consul UI at [http://localhost:8500/ui](http://localhost:8500/ui).
+
+## Build JAR file
+
+If you decide to build your own Über-JAR file to deploy either locally or on a server, after cloning the project, you have to set `openweathermap` key
+and `actuator.username` and `actuator.password`. For that, modify `apikey.properties` and `application.properties` file respectively before generating
+the JAR file. Alternatively, you can overwrite them those variables at runtime, see `Dockerfile` for all variable names.
+
+To generate the Über-JAR, run:
+
+```bash
+$ maven clean install
+```
+
+To test the generated JAR file,
+
+```bash
+$ cd target
+$ java -jar eris-[version]-SNAPSHOT.jar
+```
+
 ## Heroku deployment
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/kasramp/Eris)
-
-## Dependencies
-All the project dependencies exist in pom.xml file and once your run the project, all dependencies will be downloaded.
-
-## How to use
-
-To run and deploy the project on your local or any desired server, first clone the project and the follow the below instruction.
-- Add Open Weather Map API key to `apikey.properties` that located under `resource` folder.
-- Compile and run the API using Maven
-
-        $ maven clean install
-        $ cd target
-        $ java -jar eris-[version]-SNAPSHOT.jar
 
 ## Project & API documentation
 
@@ -53,5 +99,5 @@ GNU General Public License for more details.  <http://www.gnu.org/licenses/>
 
 Author(s):
 
-© 2017-2023 Kasra Madadipouya <kasra@madadipouya.com> 
+© 2017-2024 Kasra Madadipouya <kasra@madadipouya.com> 
 
