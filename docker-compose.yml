@@ -7,4 +7,7 @@ services:
     ports:
       - "8500:8500"
       - "8600:8600/udp"
-    command: "agent -dev -client 0.0.0.0"
+    volumes:
+      - ./consul-server-config.json:/consul/config/consul-config.json
+      - ./consul-data:/consul/config
+    #command: "agent -dev -client 0.0.0.0"
