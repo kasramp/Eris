@@ -50,6 +50,8 @@ Lastly, run the project,
 $ mvn spring-boot:run
 ```
 
+You can monitor the Eris instance via Consul UI at [http://localhost:8500/ui](http://localhost:8500/ui).
+
 ## Build JAR file
 
 If you decide to build your own Über-JAR file to deploy either locally or on a server, after cloning the project, you have to set `openweathermap` key
