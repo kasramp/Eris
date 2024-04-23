@@ -21,5 +21,7 @@ jobs:
           distribution: 'corretto'
           java-version: '21'
       - name: Test
+        env:
+          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
         run: |
-          mvn clean verify -X
+          mvn clean verify
