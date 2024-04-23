@@ -22,4 +22,4 @@ jobs:
           java-version: '21'
       - name: Test
         run: |
-          mvn clean verify
+          mvn clean verify -X
