@@ -1,0 +1,16 @@
+{
+  "status":"success",
+  "country":"Germany",
+  "countryCode":"DE",
+  "region":"BE",
+  "regionName":"State of Berlin",
+  "city":"Berlin",
+  "zip":"10999",
+  "lat":10.4822,
+  "lon":9.3392,
+  "timezone":"Europe/Berlin",
+  "isp":"Vodafone Kabel Deutschland",
+  "org":"Vodafone Kabel Deutschland GmbH",
+  "as":"AS3209 Vodafone GmbH",
+  "query":"95.90.235.219"
+}

@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/json/192.168.0.1"
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "ip_api_error_response.json",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

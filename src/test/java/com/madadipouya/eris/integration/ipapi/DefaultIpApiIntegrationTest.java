@@ -2,11 +2,9 @@ package com.madadipouya.eris.integration.ipapi;
 
 import com.madadipouya.eris.integration.ipapi.remote.response.IpApiResponse;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Spy;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.web.client.RestTemplate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,17 +25,16 @@ import static org.mockito.Mockito.*;
 *
 * Author(s):
 *
-* © 2017-2022 Kasra Madadipouya <kasra@madadipouya.com>
+* © 2017-2025 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
-@ExtendWith(MockitoExtension.class)
+@SpringJUnitConfig(DefaultIpApiIntegration.class)
 class DefaultIpApiIntegrationTest {
 
-    @Spy
-    @InjectMocks
-    private DefaultIpApiIntegration defaultIpApiIntegration;
+    @Autowired
+    private DefaultIpApiIntegration ipApiIntegration;
 
-    @Mock
+    @MockBean
     private RestTemplate restTemplate;
 
     @Test
@@ -45,7 +42,7 @@ class DefaultIpApiIntegrationTest {
         IpApiResponse mockIpApi = mock(IpApiResponse.class);
         when(mockIpApi.getCountry()).thenReturn("Australia");
         when(restTemplate.getForObject("http://ip-api.com/json/139.130.4.5", IpApiResponse.class)).thenReturn(mockIpApi);
-        IpApiResponse response = defaultIpApiIntegration.getCoordinatesFromIp("139.130.4.5");
+        IpApiResponse response = ipApiIntegration.getCoordinatesFromIp("139.130.4.5");
         verify(restTemplate, times(1)).getForObject(anyString(), any());
         assertNotNull(response);
         assertEquals("Australia", response.getCountry());

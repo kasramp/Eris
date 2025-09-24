@@ -2,6 +2,7 @@ package com.madadipouya.eris.integration.ipapi.remote.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 /*
 * This file is part of Eris Weather API.
@@ -17,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 *
 * Author(s):
 *
-* © 2017-2022 Kasra Madadipouya <kasra@madadipouya.com>
+* © 2017-2025 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -192,5 +193,24 @@ public class IpApiResponse {
 
     public void setZip(String zip) {
         this.zip = zip;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        IpApiResponse that = (IpApiResponse) o;
+        return Objects.equals(as, that.as) && Objects.equals(city, that.city) && Objects.equals(country, that.country) &&
+            Objects.equals(countryCode, that.countryCode) && Objects.equals(isp, that.isp) &&
+            Objects.equals(latitude, that.latitude) && Objects.equals(longitude, that.longitude) &&
+            Objects.equals(organization, that.organization) && Objects.equals(query, that.query) &&
+            Objects.equals(region, that.region) && Objects.equals(regionName, that.regionName) &&
+            Objects.equals(status, that.status) && Objects.equals(timezone, that.timezone) && Objects.equals(zip, that.zip);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(as, city, country, countryCode, isp, latitude, longitude, organization, query, region, regionName, status, timezone, zip);
     }
 }

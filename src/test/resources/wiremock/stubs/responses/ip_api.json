@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/json/95.90.235.219"
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "ip_api_response.json",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
