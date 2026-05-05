@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 *
 * Author(s):
 *
-* © 2017-2022 Kasra Madadipouya <kasra@madadipouya.com>
+* © 2017-2026 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
 @Configuration
@@ -45,20 +45,24 @@ public class CacheConfiguration {
     public CacheManager cacheManager() {
         SimpleCacheManager cacheManager = new SimpleCacheManager();
         CaffeineCache countryCodeCache = new CaffeineCache(COUNTRY_CODE_CACHE, Caffeine.newBuilder()
+                .recordStats()
                 .maximumSize(500)
                 .build());
 
         CaffeineCache openStreetCache = new CaffeineCache(OPEN_STREET_CACHE, Caffeine.newBuilder()
+                .recordStats()
                 .maximumSize(1000)
                 .expireAfterAccess(30, TimeUnit.MINUTES)
                 .build());
 
         CaffeineCache ipApiCache = new CaffeineCache(IP_API_CACHE, Caffeine.newBuilder()
+                .recordStats()
                 .maximumSize(500)
                 .expireAfterAccess(30, TimeUnit.MINUTES)
                 .build());
 
         CaffeineCache extremeIpLookup = new CaffeineCache(EXTREME_IP_LOOKUP_CACHE, Caffeine.newBuilder()
+                .recordStats()
                 .maximumSize(500)
                 .expireAfterAccess(30, TimeUnit.MINUTES)
                 .build());

@@ -1,10 +1,13 @@
 package com.madadipouya.eris.configuration;
 
 import com.madadipouya.eris.util.PropertyUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 /*
  * This file is part of Eris Weather API.
@@ -20,14 +23,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  *
  * Author(s):
  *
- * © 2017-2023 Kasra Madadipouya <kasra@madadipouya.com>
+ * © 2017-2026 Kasra Madadipouya <kasra@madadipouya.com>
  */
 
 @Configuration
 public class SecurityProvider {
 
     private final PropertyUtils propertyUtils;
-
     private final PasswordEncoder passwordEncoder;
 
     public SecurityProvider(PropertyUtils propertyUtils, PasswordEncoder passwordEncoder) {
@@ -35,11 +37,13 @@ public class SecurityProvider {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Autowired
-    void registerProvider(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser(propertyUtils.getActuatorUsername())
+    @Bean
+    public UserDetailsService userDetailsService() {
+        UserDetails user = User.builder()
+                .username(propertyUtils.getActuatorUsername())
                 .password(passwordEncoder.encode(propertyUtils.getActuatorPassword()))
-                .roles("ADMIN");
+                .roles("ADMIN")
+                .build();
+        return new InMemoryUserDetailsManager(user);
     }
 }
