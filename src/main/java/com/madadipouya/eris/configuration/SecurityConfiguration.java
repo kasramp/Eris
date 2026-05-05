@@ -2,6 +2,7 @@ package com.madadipouya.eris.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -20,7 +21,7 @@ import org.springframework.security.web.SecurityFilterChain;
  *
  * Author(s):
  *
- * © 2017-2023 Kasra Madadipouya <kasra@madadipouya.com>
+ * © 2017-2026 Kasra Madadipouya <kasra@madadipouya.com>
  */
 
 @Configuration
@@ -28,11 +29,12 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http.authorizeHttpRequests((authorize) ->
-                authorize.requestMatchers("/actuator/health").permitAll()
-                        .requestMatchers("/actuator/**").fullyAuthenticated()
-                        .anyRequest().permitAll()
-        ).httpBasic().and().build();
+        return http.authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/actuator/health").permitAll()
+                        .requestMatchers("/actuator/**").hasRole("ADMIN")
+                        .anyRequest().permitAll())
+                .httpBasic(Customizer.withDefaults())
+                .build();
     }
 
     @Bean
