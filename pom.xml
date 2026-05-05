@@ -221,6 +221,7 @@
                 <configuration>
                     <nvdApiKeyEnvironmentVariable>NVD_API_KEY</nvdApiKeyEnvironmentVariable>
                     <ossIndexAnalyzerEnabled>false</ossIndexAnalyzerEnabled>
+                    <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
                 </configuration>
             </plugin>
             <plugin>
