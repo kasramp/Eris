@@ -28,7 +28,7 @@ import static com.madadipouya.eris.util.BeanUtils.copyProperties;
  *
  * Author(s):
  *
- * © 2017-2023 Kasra Madadipouya <kasra@madadipouya.com>
+ * © 2017-2026 Kasra Madadipouya <kasra@madadipouya.com>
  */
 
 @Service("weather")
@@ -56,6 +56,12 @@ public class DefaultWeather implements Weather {
     @Override
     public CurrentWeatherCondition getCurrent(HttpServletRequest request, boolean fahrenheit) {
         Coordinates coordinates = ipGeoLocation.getCoordinates(request);
+        return getCurrent(coordinates.getLatitude(), coordinates.getLongitude(), fahrenheit);
+    }
+
+    @Override
+    public CurrentWeatherCondition getCurrent(String ipAddress, boolean fahrenheit) {
+        Coordinates coordinates = ipGeoLocation.getCoordinates(ipAddress);
         return getCurrent(coordinates.getLatitude(), coordinates.getLongitude(), fahrenheit);
     }
 

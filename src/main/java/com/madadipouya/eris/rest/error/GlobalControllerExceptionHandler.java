@@ -27,7 +27,7 @@ import static org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace;
 *
 * Author(s):
 *
-* © 2017-2022 Kasra Madadipouya <kasra@madadipouya.com>
+* © 2017-2026 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
 @RestControllerAdvice
@@ -40,7 +40,7 @@ public class GlobalControllerExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<CurrentWeatherCondition> unknownException(Exception ex) {
         logger.error(getStackTrace(ex));
-        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
-                new CurrentWeatherCondition(List.of(ERR_UNABLE_TO_PROCESS_REQUEST)));
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new CurrentWeatherCondition(List.of(ERR_UNABLE_TO_PROCESS_REQUEST)));
     }
 }

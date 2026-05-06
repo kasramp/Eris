@@ -75,6 +75,17 @@ class DefaultWeatherTest {
     }
 
     @Test
+    void testGetCurrentIpAddress() {
+        String ipAddress = "192.168.0.1";
+        Coordinates coordinates = stubCoordinates();
+        doReturn(coordinates).when(ipGeoLocation).getCoordinates(ipAddress);
+        doReturn(mock(CurrentWeatherCondition.class)).when(weatherService).getCurrentWeatherCondition(anyString(), anyString(), anyBoolean());
+        weatherService.getCurrent(ipAddress, false);
+        verify(ipGeoLocation, times(1)).getCoordinates(ipAddress);
+        verify(weatherService, times(1)).getCurrent("1.00", "2.00", false);
+    }
+
+    @Test
     void testConvertBean() {
         OpenWeatherMapCurrentWeatherResponse weatherApiResponse = mock(OpenWeatherMapCurrentWeatherResponse.class);
         when(weatherApiResponse.getWeather())
