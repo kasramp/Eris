@@ -1,5 +1,6 @@
 package com.madadipouya.eris.service.mcp;
 
+import com.madadipouya.eris.service.mcp.exception.InvalidArgumentException;
 import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
 
 /*
@@ -16,7 +17,7 @@ import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
  *
  * Author(s):
  *
- * © 2017-2026 Kasra Madadipouya <kasra@madadipouya.com>
+ * © 2026 Kasra Madadipouya <kasra@madadipouya.com>
  */
 
 /**
@@ -37,8 +38,9 @@ public interface McpTools {
      * @param displayInFahrenheit Unit of measurement of weather. {@code true} means Imperial, {@code false} means Metric.
      *                            May be {@code null}, in which case Metric is used.
      * @return {@link CurrentWeatherCondition} The current weather condition data
+     * @throws InvalidArgumentException When latitude or longitude is invalid or out of range
      */
-    CurrentWeatherCondition getWeatherByLatitudeAndLongitude(String latitude, String longitude, Boolean displayInFahrenheit);
+    CurrentWeatherCondition getWeatherByLatitudeAndLongitude(String latitude, String longitude, Boolean displayInFahrenheit) throws InvalidArgumentException;
 
     /**
      * Get current weather condition by IP address. It does a basic validation
@@ -49,5 +51,5 @@ public interface McpTools {
      *                            May be {@code null}, in which case Metric is used.
      * @return {@link CurrentWeatherCondition} The current weather condition data
      */
-    CurrentWeatherCondition getWeatherByIpAddress(String ipAddress, Boolean displayInFahrenheit);
+    CurrentWeatherCondition getWeatherByIpAddress(String ipAddress, Boolean displayInFahrenheit) throws InvalidArgumentException;
 }
