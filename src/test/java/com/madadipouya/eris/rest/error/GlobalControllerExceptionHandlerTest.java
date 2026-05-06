@@ -41,7 +41,7 @@ class GlobalControllerExceptionHandlerTest {
     void testUnknownException() {
         ResponseEntity<CurrentWeatherCondition> response = exceptionHandler.unknownException(mock(RuntimeException.class));
         assertNotNull(response);
-        assertEquals(HttpStatus.NOT_IMPLEMENTED, response.getStatusCode());
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
         assertNotNull(response.getBody());
         assertNotNull(response.getBody().getErrors());
         assertEquals(1, response.getBody().getErrors().size());

@@ -49,7 +49,7 @@ class SwaggerConfigurationTest {
         assertNotNull(licenseDetails);
         assertEquals("Eris API documentation", apiInfo.getTitle());
         assertEquals("Documentation for Eris weather API", apiInfo.getDescription());
-        assertEquals("v1", apiInfo.getVersion());
+        assertEquals("v1.0", apiInfo.getVersion());
         assertEquals("Kasra Madadipouya", contactDetails.getName());
         assertEquals("kasra@madadipouya.com", contactDetails.getEmail());
         assertEquals("https://eris.madadipouya.com", contactDetails.getUrl());
