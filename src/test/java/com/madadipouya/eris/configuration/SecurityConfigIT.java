@@ -9,14 +9,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.test.context.TestPropertySource;
 
 import java.util.List;
 
+import static javolution.testing.TestContext.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 /*
@@ -69,6 +70,8 @@ class SecurityConfigIT {
     private static final String THREAD_DUMP_URL = String.format(BASE_ACTUATOR_URL, "threaddump");
 
     private static final String HEAP_DUMP_URL = String.format(BASE_ACTUATOR_URL, "heapdump");
+
+    private static final String MCP_URL = "/mcp";
 
     private BasicAuthenticationInterceptor bai;
 
@@ -258,6 +261,188 @@ class SecurityConfigIT {
         void testAuthorizedAccessToHeapDumpEndpoint() {
             ResponseEntity<String> response = restTemplate.getForEntity(HEAP_DUMP_URL, String.class);
             assertEquals(HttpStatus.OK, response.getStatusCode());
+        }
+    }
+
+    @Nested
+    @DisplayName("Public access to MCP endpoints")
+    class PublicAccessToMcpEndpoints {
+
+        @Test
+        void testPublicAccessToMcpInitializeEndpoint() {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.setAccept(List.of(
+                MediaType.TEXT_EVENT_STREAM,
+                MediaType.APPLICATION_JSON
+            ));
+
+            HttpEntity<String> request = new HttpEntity<>("""
+                {
+                  "jsonrpc":"2.0",
+                  "id":1,
+                  "method":"initialize",
+                  "params":{
+                    "protocolVersion":"2025-03-26",
+                    "capabilities":{},
+                    "clientInfo":{
+                      "name":"test",
+                      "version":"1.0"
+                    }
+                  }
+                }
+                """, headers);
+
+            ResponseEntity<String> response = restTemplate.exchange(
+                MCP_URL,
+                HttpMethod.POST,
+                request,
+                String.class
+            );
+
+            assertEquals(HttpStatus.OK, response.getStatusCode());
+        }
+
+        @Test
+        void testMcpInitializeReturnsSessionId() {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.setAccept(List.of(
+                MediaType.TEXT_EVENT_STREAM,
+                MediaType.APPLICATION_JSON
+            ));
+
+            HttpEntity<String> request = new HttpEntity<>("""
+                {
+                  "jsonrpc":"2.0",
+                  "id":1,
+                  "method":"initialize",
+                  "params":{
+                    "protocolVersion":"2025-03-26",
+                    "capabilities":{},
+                    "clientInfo":{
+                      "name":"test",
+                      "version":"1.0"
+                    }
+                  }
+                }
+                """, headers);
+
+            ResponseEntity<String> response = restTemplate.exchange(
+                MCP_URL,
+                HttpMethod.POST,
+                request,
+                String.class
+            );
+
+            assertEquals(HttpStatus.OK, response.getStatusCode());
+
+            String sessionId = response.getHeaders()
+                .getFirst("Mcp-Session-Id");
+
+            assertNotNull(sessionId);
+        }
+
+        @Test
+        void testMcpToolsListAccessibleWithoutAuthentication() {
+            HttpHeaders initializeHeaders = new HttpHeaders();
+            initializeHeaders.setContentType(MediaType.APPLICATION_JSON);
+            initializeHeaders.setAccept(List.of(
+                MediaType.TEXT_EVENT_STREAM,
+                MediaType.APPLICATION_JSON
+            ));
+
+            HttpEntity<String> initializeRequest = new HttpEntity<>("""
+                {
+                  "jsonrpc":"2.0",
+                  "id":1,
+                  "method":"initialize",
+                  "params":{
+                    "protocolVersion":"2025-03-26",
+                    "capabilities":{},
+                    "clientInfo":{
+                      "name":"test",
+                      "version":"1.0"
+                    }
+                  }
+                }
+                """, initializeHeaders);
+
+            ResponseEntity<String> initializeResponse = restTemplate.exchange(
+                MCP_URL,
+                HttpMethod.POST,
+                initializeRequest,
+                String.class
+            );
+
+            assertEquals(HttpStatus.OK, initializeResponse.getStatusCode());
+
+            String sessionId = initializeResponse.getHeaders()
+                .getFirst("Mcp-Session-Id");
+
+            assertNotNull(sessionId);
+
+            HttpHeaders toolHeaders = new HttpHeaders();
+            toolHeaders.setContentType(MediaType.APPLICATION_JSON);
+            toolHeaders.setAccept(List.of(
+                MediaType.TEXT_EVENT_STREAM,
+                MediaType.APPLICATION_JSON
+            ));
+            toolHeaders.set("Mcp-Session-Id", sessionId);
+
+            HttpEntity<String> toolsRequest = new HttpEntity<>("""
+                {
+                  "jsonrpc":"2.0",
+                  "id":2,
+                  "method":"tools/list",
+                  "params":{}
+                }
+                """, toolHeaders);
+
+            ResponseEntity<String> toolsResponse = restTemplate.exchange(
+                MCP_URL,
+                HttpMethod.POST,
+                toolsRequest,
+                String.class
+            );
+
+            assertEquals(HttpStatus.OK, toolsResponse.getStatusCode());
+
+            assertNotNull(toolsResponse.getBody());
+
+            assertTrue(toolsResponse.getBody()
+                .contains("get_current_weather_by_ip_address"));
+
+            assertTrue(toolsResponse.getBody()
+                .contains("get_current_weather_by_latitude_and_longitude"));
+        }
+
+        @Test
+        void testMcpToolsListFailsWithoutSessionId() {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.setAccept(List.of(
+                MediaType.TEXT_EVENT_STREAM,
+                MediaType.APPLICATION_JSON
+            ));
+
+            HttpEntity<String> request = new HttpEntity<>("""
+                {
+                  "jsonrpc":"2.0",
+                  "id":2,
+                  "method":"tools/list",
+                  "params":{}
+                }
+                """, headers);
+
+            ResponseEntity<String> response = restTemplate.exchange(
+                MCP_URL,
+                HttpMethod.POST,
+                request,
+                String.class
+            );
+
+            assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         }
     }
 }
