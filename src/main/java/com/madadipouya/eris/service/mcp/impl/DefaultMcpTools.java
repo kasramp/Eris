@@ -79,7 +79,7 @@ public class DefaultMcpTools implements McpTools {
     private double parseCoordinate(String value, String name) throws InvalidArgumentException {
         try {
             return Double.parseDouble(value);
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException numberFormatException) {
             throw new InvalidArgumentException(MUST_BE_NUMBER_ERROR_TEMPLATE.formatted(name));
         }
     }
