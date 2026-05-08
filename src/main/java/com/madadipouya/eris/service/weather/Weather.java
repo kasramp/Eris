@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServletRequest;
  *
  * Author(s):
  *
- * © 2017-2023 Kasra Madadipouya <kasra@madadipouya.com>
+ * © 2017-2026 Kasra Madadipouya <kasra@madadipouya.com>
  */
 
 /**
@@ -41,6 +41,15 @@ public interface Weather {
      * @return {@link CurrentWeatherCondition} The current weather condition data
      */
     CurrentWeatherCondition getCurrent(HttpServletRequest request, boolean fahrenheit);
+
+    /**
+     * Gets the current weather condition based on IP address
+     *
+     * @param ipAddress  IP address of a geographical point that want to retrieve its weather condition
+     * @param fahrenheit Unit of measurement of weather. {@code true} means Imperial, {@code false} means Metric
+     * @return {@link CurrentWeatherCondition} The current weather condition data
+     */
+    CurrentWeatherCondition getCurrent(String ipAddress, boolean fahrenheit);
 
     /**
      * Gets the current weather condition based on geographical points/coordinates

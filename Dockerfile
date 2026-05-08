@@ -1,4 +1,4 @@
-FROM amazoncorretto:17 as builder
+FROM amazoncorretto:25 as builder
 ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} application.jar
 RUN java -Djarmode=layertools -jar application.jar extract

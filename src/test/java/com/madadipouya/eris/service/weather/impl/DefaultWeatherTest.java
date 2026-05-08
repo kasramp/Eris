@@ -38,7 +38,7 @@ import static org.mockito.Mockito.*;
 *
 * Author(s):
 *
-* © 2017-2023 Kasra Madadipouya <kasra@madadipouya.com>
+* © 2017-2026 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
 @ExtendWith(MockitoExtension.class)
@@ -71,6 +71,17 @@ class DefaultWeatherTest {
         doReturn(mock(CurrentWeatherCondition.class)).when(weatherService).getCurrentWeatherCondition(anyString(), anyString(), anyBoolean());
         weatherService.getCurrent(request, false);
         verify(ipGeoLocation, times(1)).getCoordinates(isA(HttpServletRequest.class));
+        verify(weatherService, times(1)).getCurrent("1.00", "2.00", false);
+    }
+
+    @Test
+    void testGetCurrentIpAddress() {
+        String ipAddress = "192.168.0.1";
+        Coordinates coordinates = stubCoordinates();
+        doReturn(coordinates).when(ipGeoLocation).getCoordinates(ipAddress);
+        doReturn(mock(CurrentWeatherCondition.class)).when(weatherService).getCurrentWeatherCondition(anyString(), anyString(), anyBoolean());
+        weatherService.getCurrent(ipAddress, false);
+        verify(ipGeoLocation, times(1)).getCoordinates(ipAddress);
         verify(weatherService, times(1)).getCurrent("1.00", "2.00", false);
     }
 

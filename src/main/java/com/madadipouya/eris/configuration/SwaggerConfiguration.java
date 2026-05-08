@@ -31,7 +31,7 @@ public class SwaggerConfiguration {
     public OpenAPI apiInfo() {
         return new OpenAPI().info(new Info().title("Eris API documentation")
                 .description("Documentation for Eris weather API")
-                .version("v1")
+                .version("v1.0")
                 .contact(getContactDetails())
                 .license(getLicenseDetails()));
     }
