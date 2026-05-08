@@ -42,7 +42,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
         run: mvn clean install
-      - uses: actions/checkout@v4
       - name: Set last commit
         shell: bash
         run: |
@@ -60,9 +59,9 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
-          pwd ${GITHUB_WORKSPACE}
+          pwd
           chmod +x "${GITHUB_WORKSPACE}/util/release.sh"
-          ./${GITHUB_WORKSPACE}/util/release.sh
+          "${GITHUB_WORKSPACE}/util/release.sh"
       - name: Get latest tagged version
         id: tagged_version
         if: ${{ github.ref == 'refs/heads/master' }}
