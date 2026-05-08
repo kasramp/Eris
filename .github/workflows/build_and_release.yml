@@ -55,7 +55,7 @@ jobs:
         run: |
           pwd ${GITHUB_WORKSPACE}
           chmod +x "${GITHUB_WORKSPACE}/util/release.sh"
-          ./${GIHUB_WORKSPACE}/util/release.sh
+          ./${GITHUB_WORKSPACE}/util/release.sh
       - name: Get latest tagged version
         id: tagged_version
         if: ${{ github.ref == 'refs/heads/master' }}

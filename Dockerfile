@@ -17,4 +17,4 @@ ENV SPRING_CLOUD_CONSUL_ENABLED=false
 ENV SPRING_CLOUD_CONSUL_HOST=localhost
 ENV SPRING_CLOUD_CONSUL_PORT=8500
 
-ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
+ENTRYPOINT ["java", "org.springframework.boot.loader.launch.JarLauncher"]

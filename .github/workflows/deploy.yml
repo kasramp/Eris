@@ -1,0 +1,33 @@
+name: Deploy
+
+on:
+  workflow_run:
+    workflows: ["Build and Release"]
+    types:
+      - completed
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Get latest release version
+        id: tagged_version
+        run: |
+          echo "TAGGED_VERSION=$(git for-each-ref --sort=-creatordate --format='%(refname:short)' refs/tags --count 10 | grep -oP '^eris-(\d+).*' | head -1 | cut -d "-" -f2)" >> $GITHUB_OUTPUT
+      - name: Deploy to production
+        shell: bash
+        env:
+          TAGGED_VERSION: ${{ steps.tagged_version.outputs.TAGGED_VERSION }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          WEBHOOK_TOKEN: ${{ secrets.WEBHOOK_TOKEN }}
+        run: |
+          chmod +x "${GITHUB_WORKSPACE}/util/webhook_deploy.sh"
+          ./${GITHUB_WORKSPACE}/util/webhook_deploy.sh
