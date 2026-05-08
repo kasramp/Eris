@@ -34,7 +34,7 @@
         {
           "match":{
             "type":"regex",
-            "regex":"^v\\d+\\.\\d+\\.\\d+$",
+            "regex": "^\\d+\\.\\d+\\.\\d+$",
             "parameter":{
               "source":"header",
               "name":"X-Docker-Version"
