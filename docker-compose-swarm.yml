@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  metasearch:
+    image: "kasramp/eris:${IMAGE_TAG:-latest}"
+    environment:
+      OPENWEATHERMAP_API_KEY: ${OPENWEATHERMAP_API_KEY}
+      SEGMENTIO_WRITE_API_KEY: ${SEGMENTIO_WRITE_API_KEY}
+      ACTUATOR_USERNAME: ${ACTUATOR_USERNAME}
+      ACTUATOR_PASSWORD: ${ACTUATOR_PASSWORD}
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "8686:8080"
+    networks:
+      - shared-network
+      - docker_gwbridge
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+      start_period: 10s
+
+networks:
+  shared-network:
+    external: true
+  docker_gwbridge:

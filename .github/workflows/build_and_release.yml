@@ -34,7 +34,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
-        run: mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=kasramp-github -Dsonar.projectKey=Eris
+        run: mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=kasramp -Dsonar.projectKey=kasramp_Eris
       - uses: actions/checkout@v4
       - name: Set last commit
         shell: bash
@@ -55,7 +55,7 @@ jobs:
         run: |
           pwd ${GITHUB_WORKSPACE}
           chmod +x "${GITHUB_WORKSPACE}/util/release.sh"
-          ./${GIHUB_WORKSPACE}/util/release.sh
+          ./${GITHUB_WORKSPACE}/util/release.sh
       - name: Get latest tagged version
         id: tagged_version
         if: ${{ github.ref == 'refs/heads/master' }}
