@@ -23,18 +23,25 @@ jobs:
         with:
           distribution: 'corretto'
           java-version: '25'
-      - name: Cache SonarCloud packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-${{ github.ref_name }}-sonar
-          restore-keys: ${{ runner.os }}-${{ github.ref_name }}-sonar
-      - name: Build and analyze
+#      Using automatic Sonar Analysis that also runs on PRs automatically without any configuration needed.
+#      It's good enough for now for what Eris project does.
+#      - name: Cache SonarCloud packages
+#        uses: actions/cache@v4
+#        with:
+#          path: ~/.sonar/cache
+#          key: ${{ runner.os }}-${{ github.ref_name }}-sonar
+#          restore-keys: ${{ runner.os }}-${{ github.ref_name }}-sonar
+#      - name: Build and analyze
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
+#        run: mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=kasramp -Dsonar.projectKey=kasramp_Eris
+      - name: Build and test
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
-        run: mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=kasramp -Dsonar.projectKey=kasramp_Eris
+        run: mvn clean install
       - uses: actions/checkout@v4
       - name: Set last commit
         shell: bash
