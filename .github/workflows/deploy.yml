@@ -30,4 +30,4 @@ jobs:
           WEBHOOK_TOKEN: ${{ secrets.WEBHOOK_TOKEN }}
         run: |
           chmod +x "${GITHUB_WORKSPACE}/util/webhook_deploy.sh"
-          ./${GITHUB_WORKSPACE}/util/webhook_deploy.sh
+          "${GITHUB_WORKSPACE}/util/webhook_deploy.sh"
