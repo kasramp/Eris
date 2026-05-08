@@ -56,7 +56,7 @@ Copy the `Mcp-Session-Id` and call the `/mcp` endpoint with
 the Session-Id as follows:
 
 ```bash
-curl -X POST http://localhost:8080/mcp \\
+$ curl -X POST http://localhost:8080/mcp \
   -H "Content-Type: application/json" \
   -H "Accept: text/event-stream, application/json" \
   -H "Mcp-Session-Id: [SESSION_ID]" \
