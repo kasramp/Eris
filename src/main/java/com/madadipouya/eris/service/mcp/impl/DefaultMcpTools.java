@@ -1,10 +1,13 @@
 package com.madadipouya.eris.service.mcp.impl;
 
+import com.madadipouya.eris.rest.error.GlobalControllerExceptionHandler;
 import com.madadipouya.eris.service.mcp.McpTools;
 import com.madadipouya.eris.service.mcp.exception.InvalidArgumentException;
 import com.madadipouya.eris.service.weather.Weather;
 import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springaicommunity.mcp.annotation.McpTool;
 import org.springaicommunity.mcp.annotation.McpToolParam;
 import org.springframework.stereotype.Service;
@@ -34,6 +37,7 @@ public class DefaultMcpTools implements McpTools {
     private static final String LATITUDE_OUT_OF_RANGE_ERROR = "Latitude must be between -90 and 90";
     private static final String LONGITUDE_OUT_OF_RANGE_ERROR = "Longitude must be between -180 and 180";
     private static final String MUST_BE_NUMBER_ERROR_TEMPLATE = "%s must be a valid number";
+    private static final Logger logger = LoggerFactory.getLogger(DefaultMcpTools.class);
 
     private final Weather weather;
 
@@ -80,6 +84,7 @@ public class DefaultMcpTools implements McpTools {
         try {
             return Double.parseDouble(value);
         } catch (NumberFormatException numberFormatException) {
+            logger.error("Unable to parse coordinate {}", name, numberFormatException);
             throw new InvalidArgumentException(MUST_BE_NUMBER_ERROR_TEMPLATE.formatted(name));
         }
     }
