@@ -30,7 +30,7 @@ Eris exposes a public MCP server endpoint that works out of the box with any MCP
 https://weather-api.madadipouya.com/mcp
 ```
 
-![demo](https://raw.githubusercontent.com/kasramp/Eris/master/assets/Claude AI Integration.mp4)
+![demo](https://raw.githubusercontent.com/kasramp/Eris/master/assets/Claude_AI_Integration.mp4)
 
 ### Connect to Claude Desktop
 
