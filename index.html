@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Eris — Public Weather API & MCP Server</title>
+    <title>Eris - Public Weather API & MCP Server</title>
     <meta name="description" content="Free public weather API and MCP server. Get current weather by coordinates or IP. Open source, battle-tested since 2017, 100% test coverage." />
     <meta name="keywords" content="weather api, free weather api, mcp server, model context protocol, open source weather, spring boot weather api, weather by ip" />
-    <meta property="og:title" content="Eris — Public Weather API & MCP Server" />
+    <meta property="og:title" content="Eris - Public Weather API & MCP Server" />
     <meta property="og:description" content="Free public weather API and MCP server. Open source, battle-tested since 2017." />
     <meta property="og:url" content="https://eris.madadipouya.com" />
 
@@ -442,6 +442,9 @@
             font-family: var(--mono);
             font-size: 0.82rem;
             line-height: 2;
+            white-space: pre;
+            overflow-x: auto;
+            margin: 0;
         }
         .pipe-green { color: var(--green); }
         .pipe-blue  { color: var(--cyan); }
@@ -535,7 +538,7 @@
         <span class="dim">for the AI era</span>
     </h1>
     <p class="hero-sub">
-        A free, open-source weather API and public MCP server. Get current conditions by coordinates or IP — no key, no sign-up, no limits on the public instance.
+        A free, open-source weather API and public MCP server. Get current conditions by coordinates or IP - no key, no sign up, no limits on the public instance.
     </p>
     <div class="hero-badges">
         <img src="https://github.com/kasramp/Eris/actions/workflows/build_and_release.yml/badge.svg" alt="Build" />
@@ -606,7 +609,7 @@
         <div class="section-label">Model Context Protocol</div>
         <h2>Use Eris as an AI Tool</h2>
         <p class="section-intro">
-            Eris exposes a public MCP server. Connect it to Claude, Cursor, or any MCP-compatible agent and let your AI query live weather data — no key required.
+            Eris exposes a public MCP server. Connect it to Claude, Cursor, or any MCP-compatible agent and let your AI query live weather data, no key required.
         </p>
 
         <div class="mcp-grid">
@@ -668,7 +671,7 @@
         <div class="section-label">Engineering</div>
         <h2>Built to last. Built right.</h2>
         <p class="section-intro">
-            The kind of quality you'd expect from a professional codebase — in an open-source side project, maintained for 8 years and counting.
+            The kind of quality you'd expect from a professional codebase, an open-source side project, maintained for 8 years and counting.
         </p>
         <div class="features-grid">
             <div class="feature-card">
@@ -704,7 +707,7 @@
             <div class="feature-card">
                 <div class="feature-icon">📖</div>
                 <div class="feature-title">Swagger / OpenAPI Docs</div>
-                <div class="feature-desc">Interactive API documentation at <code style="font-size:0.75rem;color:var(--cyan)">/swagger-ui/index.html</code> — try it live.</div>
+                <div class="feature-desc">Interactive API documentation at <code style="font-size:0.75rem;color:var(--cyan)">/swagger-ui/index.html</code>, try it live.</div>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🐳</div>
@@ -721,26 +724,17 @@
 </section>
 
 <!-- PIPELINE -->
-<section style="background: var(--sky-mid); padding: 5rem 2rem;">
-    <div class="container">
-        <div class="section-label">CI/CD</div>
-        <h2>Pipeline at a glance</h2>
-        <p class="section-intro">From pull request to live deployment — fully automated.</p>
-        <div class="pipeline">
-            <span class="pipe-muted"># develop branch</span>
-            <span class="pipe-blue">Pull Request → develop</span>
-            <span class="pipe-muted">├──</span> <span class="pipe-green">✓ SonarCloud</span>  <span class="pipe-muted">(quality gate + 100% coverage check)</span>
-            <span class="pipe-muted">└──</span> <span class="pipe-green">✓ NVD scan</span>    <span class="pipe-muted">(dependency vulnerability check)</span>
+<pre class="pipeline"><span class="pipe-muted"># develop branch</span>
+<span class="pipe-blue">Pull Request → develop</span>
+    <span class="pipe-muted">├──</span> <span class="pipe-green">✓ SonarCloud</span>  <span class="pipe-muted">(quality gate + 100% coverage check)</span>
+    <span class="pipe-muted">└──</span> <span class="pipe-green">✓ NVD scan</span>    <span class="pipe-muted">(dependency vulnerability check)</span>
 
-            <span class="pipe-muted"># master branch</span>
-            <span class="pipe-blue">Merge to master</span>
-            <span class="pipe-muted">├──</span> <span class="pipe-green">✓ Build &amp; Test</span>
-            <span class="pipe-muted">├──</span> <span class="pipe-purple">↑ Docker Hub</span>   <span class="pipe-muted">kasramp/eris:latest</span>
-            <span class="pipe-muted">├──</span> <span class="pipe-purple">↑ GitHub Release</span> <span class="pipe-muted">+ auto release notes + Jar artifact</span>
-            <span class="pipe-muted">└──</span> <span class="pipe-cyan">⟳ Live deploy</span>  <span class="pipe-muted">webhook → Docker Swarm → weather-api.madadipouya.com</span>
-        </div>
-    </div>
-</section>
+<span class="pipe-muted"># master branch</span>
+<span class="pipe-blue">Merge to master</span>
+    <span class="pipe-muted">├──</span> <span class="pipe-green">✓ Build &amp; Test</span>
+    <span class="pipe-muted">├──</span> <span class="pipe-purple">↑ Docker Hub</span>   <span class="pipe-muted">kasramp/eris:latest</span>
+    <span class="pipe-muted">├──</span> <span class="pipe-purple">↑ GitHub Release</span> <span class="pipe-muted">+ auto release notes + Jar artifact</span>
+    <span class="pipe-muted">└──</span> <span class="pipe-cyan">⟳ Live deploy</span>  <span class="pipe-muted">webhook → Docker Swarm → weather-api.madadipouya.com</span></pre>
 
 <!-- API DOCS -->
 <section id="api">
@@ -816,7 +810,7 @@
                 <span class="method">GET</span>
                 <span class="api-path">/v1/weather/currentbyip</span>
             </div>
-            <div class="api-desc-text">Weather by caller's IP address. No coordinates needed — location is inferred automatically.</div>
+            <div class="api-desc-text">Weather by caller's IP address. No coordinates needed, location is inferred automatically.</div>
             <table>
                 <thead>
                 <tr>
