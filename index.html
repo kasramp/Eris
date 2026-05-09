@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eris — Public Weather API & MCP Server</title>
+    <meta name="description" content="Free public weather API and MCP server. Get current weather by coordinates or IP. Open source, battle-tested since 2017, 100% test coverage." />
+    <meta name="keywords" content="weather api, free weather api, mcp server, model context protocol, open source weather, spring boot weather api, weather by ip" />
+    <meta property="og:title" content="Eris — Public Weather API & MCP Server" />
+    <meta property="og:description" content="Free public weather API and MCP server. Open source, battle-tested since 2017." />
+    <meta property="og:url" content="https://eris.madadipouya.com" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet" />
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --sky:     #0a0f1e;
+            --sky-mid: #0d1630;
+            --cloud:   #1a2540;
+            --blue:    #2d6be4;
+            --cyan:    #38d9f5;
+            --green:   #23e0a0;
+            --text:    #e8edf8;
+            --muted:   #8899bb;
+            --border:  rgba(56,217,245,0.15);
+            --mono:    'Space Mono', monospace;
+            --sans:    'DM Sans', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--sky);
+            color: var(--text);
+            font-family: var(--sans);
+            font-size: 16px;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1.1rem 2.5rem;
+            background: rgba(10,15,30,0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-logo {
+            font-family: var(--mono);
+            font-size: 1.15rem;
+            color: var(--cyan);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+        .nav-logo span { color: var(--muted); }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--cyan); }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center;
+            padding: 8rem 2rem 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* animated sky background */
+        .hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background:
+                    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(45,107,228,0.25) 0%, transparent 70%),
+                    radial-gradient(ellipse 40% 40% at 20% 80%, rgba(56,217,245,0.08) 0%, transparent 60%),
+                    radial-gradient(ellipse 30% 30% at 80% 70%, rgba(35,224,160,0.06) 0%, transparent 60%);
+            animation: sky-pulse 8s ease-in-out infinite alternate;
+        }
+        @keyframes sky-pulse {
+            from { opacity: 0.7; }
+            to   { opacity: 1; }
+        }
+
+        .hero-tag {
+            display: inline-block;
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--cyan);
+            background: rgba(56,217,245,0.08);
+            border: 1px solid rgba(56,217,245,0.3);
+            border-radius: 100px;
+            padding: 0.35rem 1rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        h1 {
+            font-family: var(--mono);
+            font-size: clamp(2.8rem, 7vw, 5.5rem);
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        h1 .accent { color: var(--cyan); }
+        h1 .dim    { color: var(--muted); font-weight: 400; }
+
+        .hero-sub {
+            font-size: clamp(1rem, 2.2vw, 1.25rem);
+            color: var(--muted);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            font-weight: 300;
+            position: relative;
+        }
+
+        .hero-badges {
+            display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        .hero-badges img { height: 22px; }
+
+        .hero-ctas {
+            display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;
+            position: relative;
+        }
+
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.8rem 1.8rem;
+            border-radius: 6px;
+            font-family: var(--sans);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-primary {
+            background: var(--cyan);
+            color: var(--sky);
+        }
+        .btn-primary:hover { background: #60e4f8; transform: translateY(-1px); }
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover { border-color: var(--cyan); color: var(--cyan); transform: translateY(-1px); }
+        .btn-mcp {
+            background: linear-gradient(135deg, var(--blue), #7b4be4);
+            color: white;
+        }
+        .btn-mcp:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        /* ── LIVE ENDPOINT STRIP ── */
+        .endpoint-strip {
+            background: var(--cloud);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 1.2rem 2rem;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        .endpoint-strip-inner {
+            display: flex; gap: 3rem; justify-content: center; align-items: center;
+            font-family: var(--mono); font-size: 0.8rem;
+        }
+        .ep-label { color: var(--muted); margin-right: 0.5rem; }
+        .ep-url { color: var(--cyan); }
+        .ep-url a { color: inherit; text-decoration: none; }
+        .ep-url a:hover { text-decoration: underline; }
+
+        /* ── SECTIONS ── */
+        section { padding: 6rem 2rem; }
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        .section-label {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--cyan);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+        h2 {
+            font-family: var(--mono);
+            font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        .section-intro {
+            color: var(--muted);
+            max-width: 600px;
+            margin-bottom: 3.5rem;
+            font-size: 1.05rem;
+        }
+
+        /* ── MCP SECTION ── */
+        .mcp-section { background: var(--sky-mid); }
+
+        .mcp-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+        @media (max-width: 720px) { .mcp-grid { grid-template-columns: 1fr; } }
+
+        .mcp-highlight {
+            background: linear-gradient(135deg, rgba(45,107,228,0.15), rgba(123,75,228,0.1));
+            border: 1px solid rgba(123,75,228,0.3);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+        .mcp-highlight h3 {
+            font-family: var(--mono);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+        .mcp-url-box {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            color: var(--cyan);
+            word-break: break-all;
+            margin-bottom: 1.5rem;
+        }
+        .mcp-tools {
+            display: flex; flex-direction: column; gap: 0.75rem;
+        }
+        .mcp-tool {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.85rem 1rem;
+        }
+        .mcp-tool-name {
+            font-family: var(--mono);
+            font-size: 0.78rem;
+            color: var(--green);
+            margin-bottom: 0.25rem;
+        }
+        .mcp-tool-desc { font-size: 0.85rem; color: var(--muted); }
+
+        /* ── CODE BLOCK ── */
+        .code-block {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .code-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0.7rem 1.2rem;
+            background: rgba(255,255,255,0.03);
+            border-bottom: 1px solid var(--border);
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+        .code-lang {
+            display: flex; gap: 0.4rem; align-items: center;
+        }
+        .code-dot {
+            width: 10px; height: 10px; border-radius: 50%;
+        }
+        pre {
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            line-height: 1.7;
+            color: var(--text);
+        }
+        .kw  { color: #c792ea; }
+        .str { color: var(--green); }
+        .cm  { color: var(--muted); font-style: italic; }
+        .fn  { color: var(--cyan); }
+
+        /* ── FEATURES GRID ── */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+        .feature-card {
+            background: var(--cloud);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .feature-card:hover {
+            border-color: rgba(56,217,245,0.4);
+            transform: translateY(-2px);
+        }
+        .feature-icon {
+            font-size: 1.6rem;
+            margin-bottom: 0.75rem;
+        }
+        .feature-title {
+            font-family: var(--mono);
+            font-size: 0.9rem;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+        .feature-desc { font-size: 0.875rem; color: var(--muted); }
+
+        /* ── API DOCS ── */
+        .api-section { background: var(--sky-mid); }
+
+        .api-endpoint {
+            background: var(--cloud);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+        .api-endpoint-header {
+            display: flex; align-items: center; gap: 1rem;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .method {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            background: rgba(35,224,160,0.15);
+            color: var(--green);
+            border: 1px solid rgba(35,224,160,0.3);
+        }
+        .api-path {
+            font-family: var(--mono);
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+        .api-desc-text {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.875rem;
+            color: var(--muted);
+            border-bottom: 1px solid var(--border);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+        th {
+            text-align: left;
+            padding: 0.7rem 1.5rem;
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--muted);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border);
+        }
+        td {
+            padding: 0.7rem 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            vertical-align: top;
+        }
+        tr:last-child td { border-bottom: none; }
+        td:first-child { font-family: var(--mono); color: var(--cyan); font-size: 0.8rem; }
+        .req { color: var(--green); }
+        .opt { color: var(--muted); }
+
+        /* Example response */
+        .response-example { padding: 0 1.5rem 1.5rem; }
+        .response-toggle {
+            background: none;
+            border: none;
+            color: var(--cyan);
+            font-family: var(--mono);
+            font-size: 0.78rem;
+            cursor: pointer;
+            padding: 0.75rem 0 0.5rem;
+            text-align: left;
+        }
+        .response-toggle:hover { color: #60e4f8; }
+        .response-json {
+            display: none;
+        }
+        .response-json.open { display: block; }
+
+        /* ── DEPLOY SECTION ── */
+        .deploy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.25rem;
+        }
+        .deploy-card {
+            background: var(--cloud);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+        }
+        .deploy-card h3 {
+            font-family: var(--mono);
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+            color: var(--text);
+        }
+        .deploy-card p {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-bottom: 1rem;
+        }
+
+        /* ── PIPELINE ── */
+        .pipeline {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 2rem;
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            line-height: 2;
+        }
+        .pipe-green { color: var(--green); }
+        .pipe-blue  { color: var(--cyan); }
+        .pipe-muted { color: var(--muted); }
+        .pipe-purple{ color: #c792ea; }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--cloud);
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        .footer-logo {
+            font-family: var(--mono);
+            font-size: 1.5rem;
+            color: var(--cyan);
+            margin-bottom: 0.5rem;
+        }
+        .footer-sub { color: var(--muted); font-size: 0.875rem; margin-bottom: 1.5rem; }
+        .footer-links {
+            display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        .footer-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: var(--cyan); }
+        .footer-copy { color: var(--muted); font-size: 0.8rem; }
+
+        /* ── STAT ROW ── */
+        .stat-row {
+            display: flex; flex-wrap: wrap; gap: 0; justify-content: center;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 4rem;
+        }
+        .stat {
+            flex: 1; min-width: 160px;
+            padding: 1.5rem 1.25rem;
+            text-align: center;
+            border-right: 1px solid var(--border);
+        }
+        .stat:last-child { border-right: none; }
+        .stat-num {
+            font-family: var(--mono);
+            font-size: 1.8rem;
+            color: var(--cyan);
+            display: block;
+        }
+        .stat-label { font-size: 0.8rem; color: var(--muted); }
+
+        /* copy btn */
+        .copy-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .copy-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <a href="#" class="nav-logo">Eris <span>☁</span></a>
+    <ul class="nav-links">
+        <li><a href="#mcp">MCP</a></li>
+        <li><a href="#api">API Docs</a></li>
+        <li><a href="#deploy">Deploy</a></li>
+        <li><a href="https://github.com/kasramp/Eris" target="_blank">GitHub</a></li>
+        <li><a href="https://weather-api.madadipouya.com/swagger-ui/index.html" target="_blank">Swagger</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-tag">⚡ Now with MCP Server support</div>
+    <h1>
+        <span class="accent">Weather API</span><br>
+        <span class="dim">for the AI era</span>
+    </h1>
+    <p class="hero-sub">
+        A free, open-source weather API and public MCP server. Get current conditions by coordinates or IP — no key, no sign-up, no limits on the public instance.
+    </p>
+    <div class="hero-badges">
+        <img src="https://github.com/kasramp/Eris/actions/workflows/build_and_release.yml/badge.svg" alt="Build" />
+        <img src="https://sonarcloud.io/api/project_badges/measure?project=Eris&metric=alert_status" alt="Quality Gate" />
+        <img src="https://sonarcloud.io/api/project_badges/measure?project=Eris&metric=coverage" alt="Coverage" />
+        <img src="https://img.shields.io/docker/pulls/kasramp/eris" alt="Docker Pulls" />
+        <img src="https://img.shields.io/badge/License-GPLv3-blue.svg" alt="License" />
+    </div>
+    <div class="hero-ctas">
+        <a href="#mcp" class="btn btn-mcp">🤖 Use as MCP Tool</a>
+        <a href="https://weather-api.madadipouya.com/swagger-ui/index.html" target="_blank" class="btn btn-primary">Try the API →</a>
+        <a href="https://github.com/kasramp/Eris" target="_blank" class="btn btn-secondary">★ GitHub</a>
+    </div>
+</section>
+
+<!-- ENDPOINT STRIP -->
+<div class="endpoint-strip">
+    <div class="endpoint-strip-inner">
+        <div>
+            <span class="ep-label">LIVE API</span>
+            <span class="ep-url"><a href="https://weather-api.madadipouya.com" target="_blank">weather-api.madadipouya.com</a></span>
+        </div>
+        <div>
+            <span class="ep-label">MCP</span>
+            <span class="ep-url"><a href="https://weather-api.madadipouya.com/mcp" target="_blank">weather-api.madadipouya.com/mcp</a></span>
+        </div>
+        <div>
+            <span class="ep-label">SWAGGER</span>
+            <span class="ep-url"><a href="https://weather-api.madadipouya.com/swagger-ui/index.html" target="_blank">swagger-ui/index.html</a></span>
+        </div>
+        <div>
+            <span class="ep-label">DOCKER</span>
+            <span class="ep-url"><a href="https://hub.docker.com/r/kasramp/eris" target="_blank">kasramp/eris</a></span>
+        </div>
+    </div>
+</div>
+
+<!-- STATS -->
+<section style="padding: 5rem 2rem 0;">
+    <div class="container">
+        <div class="stat-row">
+            <div class="stat">
+                <span class="stat-num">8+</span>
+                <span class="stat-label">Years maintained</span>
+            </div>
+            <div class="stat">
+                <span class="stat-num">100%</span>
+                <span class="stat-label">Test coverage</span>
+            </div>
+            <div class="stat">
+                <span class="stat-num">0</span>
+                <span class="stat-label">Code smells</span>
+            </div>
+            <div class="stat">
+                <span class="stat-num">SB 1→3.5</span>
+                <span class="stat-label">Spring Boot history</span>
+            </div>
+            <div class="stat">
+                <span class="stat-num">Free</span>
+                <span class="stat-label">Public instance</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- MCP SECTION -->
+<section class="mcp-section" id="mcp">
+    <div class="container">
+        <div class="section-label">Model Context Protocol</div>
+        <h2>Use Eris as an AI Tool</h2>
+        <p class="section-intro">
+            Eris exposes a public MCP server. Connect it to Claude, Cursor, or any MCP-compatible agent and let your AI query live weather data — no key required.
+        </p>
+
+        <div class="mcp-grid">
+            <div>
+                <div class="mcp-highlight">
+                    <h3>MCP Server Endpoint</h3>
+                    <div class="mcp-url-box">https://weather-api.madadipouya.com/mcp</div>
+                    <div class="mcp-tools">
+                        <div class="mcp-tool">
+                            <div class="mcp-tool-name">get_current_weather_by_latitude_and_longitude</div>
+                            <div class="mcp-tool-desc">Fetch current weather for any coordinates on Earth</div>
+                        </div>
+                        <div class="mcp-tool">
+                            <div class="mcp-tool-name">get_current_weather_by_ip_address</div>
+                            <div class="mcp-tool-desc">Get weather for the caller's IP address location</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <p style="color:var(--muted); font-size:0.875rem; margin-bottom:1rem;">Add to <strong style="color:var(--text)">claude_desktop_config.json</strong>:</p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <div class="code-lang">
+                            <div class="code-dot" style="background:#ff5f57"></div>
+                            <div class="code-dot" style="background:#febc2e"></div>
+                            <div class="code-dot" style="background:#28c840"></div>
+                            <span style="margin-left:0.5rem;">claude_desktop_config.json</span>
+                        </div>
+                        <button class="copy-btn" onclick="copyCode(this, 'mcp-config')">copy</button>
+                    </div>
+                    <pre id="mcp-config">{
+  <span class="str">"mcpServers"</span>: {
+    <span class="str">"eris-weather"</span>: {
+      <span class="str">"type"</span>: <span class="str">"sse"</span>,
+      <span class="str">"url"</span>: <span class="str">"https://weather-api.madadipouya.com/mcp"</span>
+    }
+  }
+}</pre>
+                </div>
+
+                <p style="color:var(--muted); font-size:0.875rem; margin: 1.25rem 0 0.5rem;">Or test with curl:</p>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>bash</span>
+                        <button class="copy-btn" onclick="copyCode(this, 'mcp-curl')">copy</button>
+                    </div>
+                    <pre id="mcp-curl">curl <span class="str">"https://weather-api.madadipouya.com/mcp"</span></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+    <div class="container">
+        <div class="section-label">Engineering</div>
+        <h2>Built to last. Built right.</h2>
+        <p class="section-intro">
+            The kind of quality you'd expect from a professional codebase — in an open-source side project, maintained for 8 years and counting.
+        </p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">✅</div>
+                <div class="feature-title">100% Test Coverage</div>
+                <div class="feature-desc">Every line covered, enforced by SonarCloud on every pull request. Zero exceptions.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <div class="feature-title">SonarCloud Quality Gate</div>
+                <div class="feature-desc">Zero code smells, zero duplications, zero security hotspots. Always green.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <div class="feature-title">Fully Automated CI/CD</div>
+                <div class="feature-desc">GitHub Actions builds, tests, and releases. Docker Hub push and GitHub Release on every tag.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔄</div>
+                <div class="feature-title">Auto-deployment</div>
+                <div class="feature-desc">Merges to master trigger live redeployment via Adnanh Webhook and Docker Swarm. Zero manual steps.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <div class="feature-title">NVD Vulnerability Scanning</div>
+                <div class="feature-desc">Dependency CVE checks run on every merge to develop, catching issues before they reach production.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <div class="feature-title">Public MCP Server</div>
+                <div class="feature-desc">Plug Eris directly into any MCP-compatible AI agent. Weather data as an AI tool, out of the box.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📖</div>
+                <div class="feature-title">Swagger / OpenAPI Docs</div>
+                <div class="feature-desc">Interactive API documentation at <code style="font-size:0.75rem;color:var(--cyan)">/swagger-ui/index.html</code> — try it live.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🐳</div>
+                <div class="feature-title">Docker Swarm Ready</div>
+                <div class="feature-desc">Swarm configuration included. Scale horizontally with a single command.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📦</div>
+                <div class="feature-title">Auto Release Notes</div>
+                <div class="feature-desc">Each release gets a GitHub Release with auto-generated notes and downloadable Jar artifacts.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PIPELINE -->
+<section style="background: var(--sky-mid); padding: 5rem 2rem;">
+    <div class="container">
+        <div class="section-label">CI/CD</div>
+        <h2>Pipeline at a glance</h2>
+        <p class="section-intro">From pull request to live deployment — fully automated.</p>
+        <div class="pipeline">
+            <span class="pipe-muted"># develop branch</span>
+            <span class="pipe-blue">Pull Request → develop</span>
+            <span class="pipe-muted">├──</span> <span class="pipe-green">✓ SonarCloud</span>  <span class="pipe-muted">(quality gate + 100% coverage check)</span>
+            <span class="pipe-muted">└──</span> <span class="pipe-green">✓ NVD scan</span>    <span class="pipe-muted">(dependency vulnerability check)</span>
+
+            <span class="pipe-muted"># master branch</span>
+            <span class="pipe-blue">Merge to master</span>
+            <span class="pipe-muted">├──</span> <span class="pipe-green">✓ Build &amp; Test</span>
+            <span class="pipe-muted">├──</span> <span class="pipe-purple">↑ Docker Hub</span>   <span class="pipe-muted">kasramp/eris:latest</span>
+            <span class="pipe-muted">├──</span> <span class="pipe-purple">↑ GitHub Release</span> <span class="pipe-muted">+ auto release notes + Jar artifact</span>
+            <span class="pipe-muted">└──</span> <span class="pipe-cyan">⟳ Live deploy</span>  <span class="pipe-muted">webhook → Docker Swarm → weather-api.madadipouya.com</span>
+        </div>
+    </div>
+</section>
+
+<!-- API DOCS -->
+<section id="api">
+    <div class="container">
+        <div class="section-label">API Reference</div>
+        <h2>Endpoints</h2>
+        <p class="section-intro">
+            Two endpoints, same response shape. Try them live in the
+            <a href="https://weather-api.madadipouya.com/swagger-ui/index.html" target="_blank" style="color:var(--cyan)">Swagger UI →</a>
+        </p>
+
+        <!-- Endpoint 1 -->
+        <div class="api-endpoint">
+            <div class="api-endpoint-header">
+                <span class="method">GET</span>
+                <span class="api-path">/v1/weather/current</span>
+            </div>
+            <div class="api-desc-text">Weather by coordinates (latitude &amp; longitude). Most accurate option.</div>
+            <table>
+                <thead>
+                <tr>
+                    <th>Parameter</th><th>Type</th><th>Required</th><th>Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>lat</td>
+                    <td>Decimal</td>
+                    <td><span class="req">Yes</span></td>
+                    <td>Latitude</td>
+                </tr>
+                <tr>
+                    <td>lon</td>
+                    <td>Decimal</td>
+                    <td><span class="req">Yes</span></td>
+                    <td>Longitude</td>
+                </tr>
+                <tr>
+                    <td>fahrenheit</td>
+                    <td>Boolean</td>
+                    <td><span class="opt">No</span></td>
+                    <td>Use Fahrenheit + miles (default: false = Celsius + km)</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="response-example">
+                <button class="response-toggle" onclick="toggleResponse(this)">▶ Show example response</button>
+                <div class="code-block response-json">
+          <pre>{
+  <span class="str">"country"</span>: <span class="str">"Germany"</span>,
+  <span class="str">"geoLocation"</span>: <span class="str">"Berlin, 10115, Germany"</span>,
+  <span class="str">"temperature"</span>: 18.4,
+  <span class="str">"feelsLike"</span>: 17.1,
+  <span class="str">"main"</span>: {
+    <span class="str">"temp"</span>: 18.4,
+    <span class="str">"pressure"</span>: 1015,
+    <span class="str">"humidity"</span>: 62,
+    <span class="str">"temp_min"</span>: 16.0,
+    <span class="str">"temp_max"</span>: 20.0
+  },
+  <span class="str">"weather"</span>: [{ <span class="str">"main"</span>: <span class="str">"Clouds"</span>, <span class="str">"description"</span>: <span class="str">"scattered clouds"</span> }],
+  <span class="str">"wind"</span>: { <span class="str">"speed"</span>: 3.2, <span class="str">"deg"</span>: 220 },
+  <span class="str">"visibility"</span>: <span class="str">"10000"</span>,
+  <span class="str">"errors"</span>: []
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Endpoint 2 -->
+        <div class="api-endpoint">
+            <div class="api-endpoint-header">
+                <span class="method">GET</span>
+                <span class="api-path">/v1/weather/currentbyip</span>
+            </div>
+            <div class="api-desc-text">Weather by caller's IP address. No coordinates needed — location is inferred automatically.</div>
+            <table>
+                <thead>
+                <tr>
+                    <th>Parameter</th><th>Type</th><th>Required</th><th>Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>fahrenheit</td>
+                    <td>Boolean</td>
+                    <td><span class="opt">No</span></td>
+                    <td>Use Fahrenheit + miles (default: false)</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="response-example">
+                <button class="response-toggle" onclick="toggleResponse(this)">▶ Show example response</button>
+                <div class="code-block response-json">
+          <pre><span class="cm">/* Same response shape as /current */</span>
+{
+  <span class="str">"country"</span>: <span class="str">"..."</span>,
+  <span class="str">"geoLocation"</span>: <span class="str">"..."</span>,
+  <span class="str">"temperature"</span>: 0.0,
+  <span class="str">"errors"</span>: []
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick start examples -->
+        <div class="section-label" style="margin-top:2.5rem;">Quick Examples</div>
+        <div class="code-block" style="margin-bottom:1rem;">
+            <div class="code-header">
+                <span>bash — by coordinates (Berlin)</span>
+                <button class="copy-btn" onclick="copyCode(this, 'ex1')">copy</button>
+            </div>
+            <pre id="ex1">curl <span class="str">"https://weather-api.madadipouya.com/v1/weather/current?lat=52.52&amp;lon=13.405"</span></pre>
+        </div>
+        <div class="code-block">
+            <div class="code-header">
+                <span>bash — by IP</span>
+                <button class="copy-btn" onclick="copyCode(this, 'ex2')">copy</button>
+            </div>
+            <pre id="ex2">curl <span class="str">"https://weather-api.madadipouya.com/v1/weather/currentbyip"</span></pre>
+        </div>
+    </div>
+</section>
+
+<!-- DEPLOY -->
+<section style="background: var(--sky-mid);" id="deploy">
+    <div class="container">
+        <div class="section-label">Deployment</div>
+        <h2>Run your own instance</h2>
+        <p class="section-intro">
+            Self-host with a single Docker command, scale with Swarm, or deploy to Heroku in one click.
+        </p>
+        <div class="deploy-grid">
+            <div class="deploy-card">
+                <h3>🐳 Docker</h3>
+                <p>Recommended. Images are auto-published to Docker Hub on every release.</p>
+                <div class="code-block">
+          <pre style="font-size:0.76rem;">docker run -p 8080:8080 \
+  -e OPENWEATHERMAP_API_KEY=key \
+  -e ACTUATOR_USERNAME=user \
+  -e ACTUATOR_PASSWORD=pass \
+  kasramp/eris:latest</pre>
+                </div>
+            </div>
+            <div class="deploy-card">
+                <h3>🐙 Docker Swarm</h3>
+                <p>Multi-node clustering with the included Swarm compose template.</p>
+                <div class="code-block">
+          <pre style="font-size:0.76rem;">export OPENWEATHERMAP_API_KEY=key
+docker stack deploy \
+  -c docker-compose-swarm.yml \
+  eris_stack</pre>
+                </div>
+            </div>
+            <div class="deploy-card">
+                <h3>☕ JAR File</h3>
+                <p>Requires JDK 25. Download from the GitHub Releases page.</p>
+                <div class="code-block">
+                    <pre style="font-size:0.76rem;">java -jar eris*.jar</pre>
+                </div>
+                <a href="https://github.com/kasramp/Eris/releases" target="_blank" class="btn btn-secondary" style="margin-top:1rem; font-size:0.8rem; padding:0.5rem 1rem;">Releases →</a>
+            </div>
+            <div class="deploy-card">
+                <h3>🚀 Heroku</h3>
+                <p>One-click deployment to Heroku. No setup needed.</p>
+                <a href="https://heroku.com/deploy?template=https://github.com/kasramp/Eris" target="_blank">
+                    <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku" style="margin-top:0.5rem;" />
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-logo">Eris ☁</div>
+    <p class="footer-sub">Open source weather API & MCP server — free forever</p>
+    <div class="footer-links">
+        <a href="https://github.com/kasramp/Eris" target="_blank">GitHub</a>
+        <a href="https://weather-api.madadipouya.com/swagger-ui/index.html" target="_blank">Swagger UI</a>
+        <a href="https://weather-api.madadipouya.com/mcp" target="_blank">MCP Endpoint</a>
+        <a href="https://hub.docker.com/r/kasramp/eris" target="_blank">Docker Hub</a>
+        <a href="https://sonarcloud.io/dashboard?id=kasramp_Eris" target="_blank">SonarCloud</a>
+        <a href="mailto:kasra@madadipouya.com">Contact</a>
+    </div>
+    <p class="footer-copy">© 2017–2026 Kasra Madadipouya — GPLv3 License</p>
+</footer>
+
+<script>
+    function toggleResponse(btn) {
+        const block = btn.nextElementSibling;
+        const open = block.classList.toggle('open');
+        btn.textContent = (open ? '▼' : '▶') + ' ' + (open ? 'Hide' : 'Show') + ' example response';
+    }
+
+    function copyCode(btn, id) {
+        const el = document.getElementById(id);
+        const text = el ? el.innerText : '';
+        navigator.clipboard.writeText(text).then(() => {
+            btn.textContent = 'copied!';
+            setTimeout(() => btn.textContent = 'copy', 1500);
+        });
+    }
+</script>
+</body>
+</html>
