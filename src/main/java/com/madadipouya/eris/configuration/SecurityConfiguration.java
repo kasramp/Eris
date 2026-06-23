@@ -7,6 +7,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+
+import java.util.List;
 
 /*
  * This file is part of Eris Weather API.
@@ -37,6 +40,20 @@ public class SecurityConfiguration {
             .requestMatchers("/actuator/**").hasRole("ADMIN")
             .anyRequest().permitAll())
         .httpBasic(Customizer.withDefaults())
+        .cors(cors -> cors.configurationSource(request -> {
+          CorsConfiguration config = new CorsConfiguration();
+          config.setAllowedOrigins(List.of("*"));
+          config.setAllowedMethods(List.of(
+              "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"
+          ));
+          config.setAllowedHeaders(List.of(
+              "Authorization",
+              "Content-Type"
+          ));
+          config.setAllowCredentials(false);
+          config.setMaxAge(3600L);
+          return config;
+        }))
         .build();
   }
 
