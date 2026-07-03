@@ -137,12 +137,14 @@
             <artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
+        <!-- disabled as causing pipeline to fail and take 3 hours to run -->
+        <!-- https://github.com/kasramp/Eris/actions/runs/28036008574/job/84626626505 -->
+        <!--<dependency>
             <groupId>org.owasp</groupId>
             <artifactId>dependency-check-maven</artifactId>
             <version>12.2.2</version>
             <type>maven-plugin</type>
-        </dependency>
+        </dependency>-->
     </dependencies>
 
     <dependencyManagement>
@@ -219,7 +221,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.5.5</version>
             </plugin>
-            <plugin>
+            <!-- disabled as causing pipeline to fail and take 3 hours to run -->
+            <!-- https://github.com/kasramp/Eris/actions/runs/28036008574/job/84626626505 -->
+            <!--<plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
                 <version>12.2.2</version>
@@ -235,7 +239,7 @@
                     <ossIndexAnalyzerEnabled>false</ossIndexAnalyzerEnabled>
                     <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
                 </configuration>
-            </plugin>
+            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
