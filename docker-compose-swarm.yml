@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  metasearch:
+  eris:
     image: "kasramp/eris:${IMAGE_TAG:-latest}"
     environment:
       OPENWEATHERMAP_API_KEY: ${OPENWEATHERMAP_API_KEY}
