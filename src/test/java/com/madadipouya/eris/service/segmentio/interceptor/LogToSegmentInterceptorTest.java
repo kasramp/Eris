@@ -63,8 +63,7 @@ class LogToSegmentInterceptorTest {
     void testGetIp() {
         System.out.println();
         JoinPoint joinPoint = mock(JoinPoint.class);
-        when(joinPoint.getArgs()).thenReturn(new Object[]{new MockHttpServletResponse(), new MockHttpServletRequest()});
-        when(ipGeoLocation.getRequestIpAddress(any(HttpServletRequest.class))).thenReturn("192.168.0.1");
+        setupJoinPointGetArgsAndGetRequestIpAddressStubs(joinPoint);
         String ipAddress = logToSegmentInterceptor.getIp(joinPoint);
         verify(ipGeoLocation, times(1)).getRequestIpAddress(Mockito.isA(HttpServletRequest.class));
         assertEquals(2, joinPoint.getArgs().length);
@@ -147,11 +146,15 @@ class LogToSegmentInterceptorTest {
         when(responseEntity.getBody()).thenReturn(currentWeather);
         when(singature.getName()).thenReturn("getCurrentByIp");
         when(joinPoint.getSignature()).thenReturn(singature);
-        when(joinPoint.getArgs()).thenReturn(new Object[]{new MockHttpServletResponse(), new MockHttpServletRequest()});
-        when(ipGeoLocation.getRequestIpAddress(any(HttpServletRequest.class))).thenReturn("192.168.0.1");
+        setupJoinPointGetArgsAndGetRequestIpAddressStubs(joinPoint);
         logToSegmentInterceptor.logAnalytics(joinPoint, responseEntity);
         verify(ipGeoLocation, times(1)).getRequestIpAddress(any(HttpServletRequest.class));
         verify(segmentIoAnalytics, times(1)).fireEvent(any(SegmentIoAnalytics.EventType.class), anyString(), anyMap());
         assertEquals("v1.0", currentWeather.getApiVersion());
+    }
+
+    private void setupJoinPointGetArgsAndGetRequestIpAddressStubs(JoinPoint joinPoint) {
+        when(joinPoint.getArgs()).thenReturn(new Object[] { new MockHttpServletResponse(), new MockHttpServletRequest() });
+        when(ipGeoLocation.getRequestIpAddress(any(HttpServletRequest.class))).thenReturn("192.168.0.1");
     }
 }
