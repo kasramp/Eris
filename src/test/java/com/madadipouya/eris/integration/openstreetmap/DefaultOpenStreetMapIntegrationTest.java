@@ -47,14 +47,7 @@ class DefaultOpenStreetMapIntegrationTest {
         String whiteHouseAddress = "White House, 1600, Pennsylvania Avenue Northwest, Golden Triangle, Washington, District of Columbia, 20500, United States of America";
         OpenStreetMapLocationResponse mockResult = mock(OpenStreetMapLocationResponse.class);
         ResponseEntity<OpenStreetMapLocationResponse> responseEntity = mock(ResponseEntity.class);
-        when(mockResult.getDisplayName()).thenReturn(whiteHouseAddress);
-        when(restTemplate.exchange(
-                ArgumentMatchers.eq("https://nominatim.openstreetmap.org/reverse?format=json&lat=38.8977&lon=-77.0365&zoom=18&addressdetails=1"),
-                ArgumentMatchers.eq(HttpMethod.GET),
-                ArgumentMatchers.<HttpEntity<List<Object>>>any(),
-                ArgumentMatchers.<Class<OpenStreetMapLocationResponse>>any()
-        )).thenReturn(responseEntity);
-        when(responseEntity.getBody()).thenReturn(mockResult);
+        setupOpenStreetMapLocationResponseGetDisplayNameAndGetBodyAnd1MoreStubs(mockResult, whiteHouseAddress, responseEntity);
         String result = openStreetMapIntegration.getAddressByCoordinates("38.8977", "-77.0365");
         verify(openStreetMapIntegration, times(1)).getReverseGeocoding("38.8977", "-77.0365");
         assertEquals(whiteHouseAddress, result);
@@ -65,15 +58,14 @@ class DefaultOpenStreetMapIntegrationTest {
         String whiteHouseAddress = "White House, 1600, Pennsylvania Avenue Northwest, Golden Triangle, Washington, District of Columbia, 20500, United States of America";
         OpenStreetMapLocationResponse mockResult = mock(OpenStreetMapLocationResponse.class);
         ResponseEntity<OpenStreetMapLocationResponse> responseEntity = mock(ResponseEntity.class);
-        when(mockResult.getDisplayName()).thenReturn(whiteHouseAddress);
-        when(restTemplate.exchange(
-                ArgumentMatchers.eq("https://nominatim.openstreetmap.org/reverse?format=json&lat=38.8977&lon=-77.0365&zoom=18&addressdetails=1"),
-                ArgumentMatchers.eq(HttpMethod.GET),
-                ArgumentMatchers.<HttpEntity<List<Object>>>any(),
-                ArgumentMatchers.<Class<OpenStreetMapLocationResponse>>any()
-        )).thenReturn(responseEntity);
-        when(responseEntity.getBody()).thenReturn(mockResult);
+        setupOpenStreetMapLocationResponseGetDisplayNameAndGetBodyAnd1MoreStubs(mockResult, whiteHouseAddress, responseEntity);
         OpenStreetMapLocationResponse result = openStreetMapIntegration.getReverseGeocoding("38.8977", "-77.0365");
         assertEquals(whiteHouseAddress, result.getDisplayName());
+    }
+
+    private void setupOpenStreetMapLocationResponseGetDisplayNameAndGetBodyAnd1MoreStubs(OpenStreetMapLocationResponse mockResult, String whiteHouseAddress, ResponseEntity<OpenStreetMapLocationResponse> responseEntity) {
+        when(mockResult.getDisplayName()).thenReturn(whiteHouseAddress);
+        when(restTemplate.exchange(ArgumentMatchers.eq("https://nominatim.openstreetmap.org/reverse?format=json&lat=38.8977&lon=-77.0365&zoom=18&addressdetails=1"), ArgumentMatchers.eq(HttpMethod.GET), ArgumentMatchers.<HttpEntity<List<Object>>>any(), ArgumentMatchers.<Class<OpenStreetMapLocationResponse>>any())).thenReturn(responseEntity);
+        when(responseEntity.getBody()).thenReturn(mockResult);
     }
 }
