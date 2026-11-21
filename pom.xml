@@ -61,6 +61,13 @@
         <dependency>
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-starter-mcp-server-webmvc</artifactId>
+            <exclusions>
+                <!-- same io.swagger classes as springdoc's swagger-annotations 3.x; which one wins would depend on classpath order -->
+                <exclusion>
+                    <groupId>io.swagger.core.v3</groupId>
+                    <artifactId>swagger-annotations-jakarta</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -134,7 +141,7 @@
             <version>4.4.3</version>
             <scope>test</scope>
             <exclusions>
-                <!-- WireMock's old 1.x overrides the 3.x the MCP server needs at runtime -->
+                <!-- WireMock's old 1.x overrides the 3.x the MCP server needs at runtime; WireMock matchesJsonSchema stubs won't work without it -->
                 <exclusion>
                     <groupId>com.networknt</groupId>
                     <artifactId>json-schema-validator</artifactId>
