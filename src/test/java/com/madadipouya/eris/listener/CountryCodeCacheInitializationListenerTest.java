@@ -51,7 +51,8 @@ class CountryCodeCacheInitializationListenerTest {
     @Mock
     private CacheManager cacheManager;
 
-    private Resource resource = mock(Resource.class);
+    @Mock
+    private Resource resource;
 
     @BeforeEach
     void setup() {

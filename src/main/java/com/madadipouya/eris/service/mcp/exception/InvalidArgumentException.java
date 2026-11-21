@@ -17,7 +17,7 @@ package com.madadipouya.eris.service.mcp.exception;
  * © 2026 Kasra Madadipouya <kasra@madadipouya.com>
  */
 
-public class InvalidArgumentException extends Exception {
+public class InvalidArgumentException extends RuntimeException {
 
   public InvalidArgumentException(String message) {
     super(message);

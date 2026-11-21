@@ -1,17 +1,14 @@
 package com.madadipouya.eris.integration.ipapi;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.madadipouya.eris.WireMockTestConfig;
 import com.madadipouya.eris.integration.ipapi.remote.response.IpApiResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
-import org.springframework.context.annotation.Import;
-import org.springframework.test.context.TestPropertySource;import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.springframework.test.context.TestPropertySource;
+import org.wiremock.spring.ConfigureWireMock;
+import org.wiremock.spring.EnableWireMock;
 
 /*
 * This file is part of Eris Weather API.
@@ -30,11 +27,7 @@ import org.springframework.test.context.TestPropertySource;import static org.jun
 * © 2017-2025 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
-@Import({WireMockTestConfig.class})
-@AutoConfigureWireMock(
-    port = 0,
-    stubs = "classpath:/wiremock/stubs/responses",
-    files = "classpath:/wiremock/stubs")
+@EnableWireMock(@ConfigureWireMock(filesUnderClasspath = "wiremock/stubs"))
 @TestPropertySource(locations = {"classpath:test.properties"})
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class DefaultIpApiIntegrationIT {

@@ -90,8 +90,9 @@ class DefaultWeatherTest {
         OpenWeatherMapCurrentWeatherResponse weatherApiResponse = mock(OpenWeatherMapCurrentWeatherResponse.class);
         when(weatherApiResponse.getWeather())
                 .thenReturn(List.of(new OpenWeatherMapCurrentWeatherResponse.Weather(1, "Main", "Description", "Icon")));
-        when(weatherApiResponse.getMain()).thenReturn(mock(OpenWeatherMapCurrentWeatherResponse.Main.class));
-        when(weatherApiResponse.getMain().getTemperature()).thenReturn(new BigDecimal("30.5"));
+        OpenWeatherMapCurrentWeatherResponse.Main main = mock(OpenWeatherMapCurrentWeatherResponse.Main.class);
+        when(weatherApiResponse.getMain()).thenReturn(main);
+        when(main.getTemperature()).thenReturn(new BigDecimal("30.5"));
         CurrentWeatherCondition weatherCondition = weatherService.convertBean(weatherApiResponse);
         assertEquals("Icon", weatherCondition.getIconName());
         assertEquals(String.format(BeanUtils.ICON_URL, "Icon"), weatherCondition.getIcon());
@@ -101,8 +102,9 @@ class DefaultWeatherTest {
     @Test
     void testGetCountryCode() {
         CurrentWeatherCondition currentWeatherCondition = mock(CurrentWeatherCondition.class);
-        when(currentWeatherCondition.getSys()).thenReturn(mock(OpenWeatherMapCurrentWeatherResponse.Sys.class));
-        when(currentWeatherCondition.getSys().getCountry()).thenReturn("AU");
+        OpenWeatherMapCurrentWeatherResponse.Sys sys = mock(OpenWeatherMapCurrentWeatherResponse.Sys.class);
+        when(currentWeatherCondition.getSys()).thenReturn(sys);
+        when(sys.getCountry()).thenReturn("AU");
         String countryName = weatherService.getCountryCode(currentWeatherCondition);
         assertEquals("AU", countryName);
     }

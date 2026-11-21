@@ -31,7 +31,7 @@ import org.springframework.stereotype.Component;
 public class McpToolExceptionInterceptor {
   private static final Logger logger = LoggerFactory.getLogger(McpToolExceptionInterceptor.class);
 
-  @Around("@annotation(org.springaicommunity.mcp.annotation.McpTool)")
+  @Around("@annotation(org.springframework.ai.mcp.annotation.McpTool)")
   public Object intercept(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
     try {
       return proceedingJoinPoint.proceed();

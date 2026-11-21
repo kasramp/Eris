@@ -2,10 +2,10 @@ package com.madadipouya.eris;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 /*
 * This file is part of Eris Weather API.
@@ -24,7 +24,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 * © 2017-2022 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
-@ExtendWith(SpringExtension.class)
 @TestPropertySource(locations = {"classpath:test.properties"}
         , properties = {"spring.mvc.throw-exception-if-no-handler-found=true"})
 @SpringBootTest(classes = Application.class)
@@ -38,6 +37,6 @@ class ApplicationIT {
 
     @Test
     void testApplicationBootstrap() {
-        Application.main(new String[]{"--spring.main.web-environment=false"});
+        assertDoesNotThrow(() -> Application.main(new String[]{"--server.port=0"}));
     }
 }

@@ -5,6 +5,8 @@ import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
 import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
@@ -45,37 +47,11 @@ class CurrentWeatherAPIControllerTest {
     @Mock
     private DefaultWeather weatherService;
 
-    @Test
-    void testGetCurrentWhenLatitudeLongitudeIsNull() throws Exception {
-        ResponseEntity<CurrentWeatherCondition> response = controller.getCurrent(null, null, false, mock(HttpServletRequest.class)).call();
+    @ParameterizedTest
+    @CsvSource({",", "1.00,' '", "' ',2.00", "' ',' '"})
+    void testGetCurrentWhenLatitudeLongitudeIsBlank(String latitude, String longitude) throws Exception {
+        ResponseEntity<CurrentWeatherCondition> response = controller.getCurrent(latitude, longitude, false, mock(HttpServletRequest.class)).call();
 
-        verify(weatherService, never()).getCurrent(anyString(), anyString(), anyBoolean());
-        assertNotNull(response);
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertNotNull(response.getBody());
-        assertNotNull(response.getBody().getErrors());
-        assertEquals(1, response.getBody().getErrors().size());
-        assertEquals("No latitude and/or longitude provided!", response.getBody().getErrors().get(0));
-
-        response = controller.getCurrent("1.00", " ", false, mock(HttpServletRequest.class)).call();
-        verify(weatherService, never()).getCurrent(anyString(), anyString(), anyBoolean());
-        assertNotNull(response);
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertNotNull(response.getBody());
-        assertNotNull(response.getBody().getErrors());
-        assertEquals(1, response.getBody().getErrors().size());
-        assertEquals("No latitude and/or longitude provided!", response.getBody().getErrors().get(0));
-
-        response = controller.getCurrent(" ", "2.00", false, mock(HttpServletRequest.class)).call();
-        verify(weatherService, never()).getCurrent(anyString(), anyString(), anyBoolean());
-        assertNotNull(response);
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertNotNull(response.getBody());
-        assertNotNull(response.getBody().getErrors());
-        assertEquals(1, response.getBody().getErrors().size());
-        assertEquals("No latitude and/or longitude provided!", response.getBody().getErrors().get(0));
-
-        response = controller.getCurrent(" ", " ", false, mock(HttpServletRequest.class)).call();
         verify(weatherService, never()).getCurrent(anyString(), anyString(), anyBoolean());
         assertNotNull(response);
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
@@ -117,7 +93,8 @@ class CurrentWeatherAPIControllerTest {
 
     @Test
     void testGetCurrent() throws Exception {
-        when(weatherService.getCurrent("1.00", "2.00", false)).thenReturn(mock(CurrentWeatherCondition.class));
+        CurrentWeatherCondition weatherCondition = mock(CurrentWeatherCondition.class);
+        when(weatherService.getCurrent("1.00", "2.00", false)).thenReturn(weatherCondition);
         ResponseEntity<CurrentWeatherCondition> response = controller.getCurrent("1.00", "2.00", false, mock(HttpServletRequest.class)).call();
         verify(weatherService, times(1)).getCurrent("1.00", "2.00", false);
         assertNotNull(response);
@@ -129,7 +106,8 @@ class CurrentWeatherAPIControllerTest {
     @Test
     void testGetCurrentByIpAddress() throws Exception {
         HttpServletRequest request = mock(HttpServletRequest.class);
-        when(weatherService.getCurrent(request, false)).thenReturn(mock(CurrentWeatherCondition.class));
+        CurrentWeatherCondition weatherCondition = mock(CurrentWeatherCondition.class);
+        when(weatherService.getCurrent(request, false)).thenReturn(weatherCondition);
         ResponseEntity<CurrentWeatherCondition> response = controller.getCurrentByIp(false, request).call();
         verify(weatherService, times(1)).getCurrent(request, false);
         assertNotNull(response);

@@ -76,7 +76,7 @@ This project has been quietly doing things right for nearly a decade. Here's wha
 | **Swagger Docs** | Full interactive API documentation at `/swagger-ui/index.html`                                                    |
 | **Clustering** | Docker Swarm support with provided `docker-compose-swarm.yml`                                                     |
 | **Heroku** | One click deployment button                                                                                       |
-| **Longevity** | Maintained from Spring Boot 1 → 3.5 over 8 years                                                                  |
+| **Longevity** | Maintained from Spring Boot 1 → 4.2 over 8 years                                                                  |
 
 ---
 
@@ -174,7 +174,7 @@ The live instance runs in Docker Swarm with multiple replicas for availability.
 
 ## Tech Stack
 
-- **Java 25** / **Spring Boot 3.5**
+- **Java 25** / **Spring Boot 4.2**
 - **Maven**
 - **Docker** / **Docker Swarm**
 - **SonarCloud** (quality + coverage)

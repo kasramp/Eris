@@ -9,6 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.system.CapturedOutput;
+import org.springframework.boot.test.system.OutputCaptureExtension;
 
 import java.util.Map;
 
@@ -65,5 +67,16 @@ class HttpRequestLoggerInterceptorTest {
         verify(request, times(1)).getParameterMap();
         verify(request, times(0)).getRequestURI();
         verify(ipGeoLocation, times(1)).getRequestIpAddress(any(HttpServletRequest.class));
+    }
+
+    @Test
+    @ExtendWith(OutputCaptureExtension.class)
+    void testPreHandleStripsLineBreaksFromLoggedValues(CapturedOutput output) {
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        when(request.getParameterMap()).thenReturn(Map.of("latitude", new String[]{"1.00\nFORGED"}));
+        when(request.getRequestURI()).thenReturn("/v1/weather/current\r\nFORGED");
+        doReturn("185.86.151.11").when(ipGeoLocation).getRequestIpAddress(request);
+        interceptor.preHandle(request, mock(HttpServletResponse.class), mock(Object.class));
+        assertTrue(output.getOut().contains("latitude:1.00_FORGED - @ /v1/weather/current__FORGED"), output.getOut());
     }
 }

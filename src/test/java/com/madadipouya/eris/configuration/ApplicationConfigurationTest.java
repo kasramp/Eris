@@ -42,7 +42,8 @@ class ApplicationConfigurationTest {
     @Test
     void testAddInterceptors() {
         InterceptorRegistry interceptorRegistry = mock(InterceptorRegistry.class);
-        when(interceptorRegistry.addInterceptor(handlerInterceptor)).thenReturn(mock(InterceptorRegistration.class));
+        InterceptorRegistration interceptorRegistration = mock(InterceptorRegistration.class);
+        when(interceptorRegistry.addInterceptor(handlerInterceptor)).thenReturn(interceptorRegistration);
         applicationConfiguration.addInterceptors(interceptorRegistry);
         verify(interceptorRegistry, times(1)).addInterceptor(handlerInterceptor);
     }

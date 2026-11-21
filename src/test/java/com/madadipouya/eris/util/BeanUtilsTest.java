@@ -51,6 +51,12 @@ class BeanUtilsTest {
         assertEquals("Description", target.getWeather().get(0).getDescription());
         assertEquals("Icon", target.getWeather().get(0).getIcon());
         assertEquals("Base", target.getBase());
+    }
+
+    @Test
+    void testCopyPropertiesForOpenWeatherMainAndWind() {
+        CurrentWeatherCondition target = new CurrentWeatherCondition();
+        BeanUtils.copyProperties(stubOpenWeatherObject(), target);
         assertEquals(new BigDecimal(10), target.getMain().getGroundLevel());
         assertEquals(new BigDecimal(60), target.getMain().getHumidity());
         assertEquals(new BigDecimal(700), target.getMain().getPressure());
@@ -61,6 +67,12 @@ class BeanUtilsTest {
         assertEquals(1000.000, target.getVisibility(), 0.001);
         assertEquals(new BigDecimal(4.5), target.getWind().getSpeed());
         assertEquals(new BigDecimal(2.7), target.getWind().getDegree());
+    }
+
+    @Test
+    void testCopyPropertiesForOpenWeatherSysAndBackwardCompatibility() {
+        CurrentWeatherCondition target = new CurrentWeatherCondition();
+        BeanUtils.copyProperties(stubOpenWeatherObject(), target);
         assertEquals(new BigDecimal(30), target.getClouds().getAll());
         assertEquals("MY", target.getSys().getCountry());
         assertEquals("Malaysia", target.getSys().getCountryNameFull());

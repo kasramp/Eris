@@ -22,7 +22,7 @@ import com.madadipouya.eris.service.weather.model.CurrentWeatherCondition;
 * © 2017-2022 Kasra Madadipouya <kasra@madadipouya.com>
 */
 
-public class BeanUtils extends org.springframework.beans.BeanUtils {
+public class BeanUtils {
 
     public static final String ICON_URL = "http://openweathermap.org/img/w/%s.png";
 

@@ -3,7 +3,7 @@ package com.madadipouya.eris.integration.ipapi;
 import com.madadipouya.eris.integration.ipapi.remote.response.IpApiResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.web.client.RestTemplate;
 
@@ -34,7 +34,7 @@ class DefaultIpApiIntegrationTest {
     @Autowired
     private DefaultIpApiIntegration ipApiIntegration;
 
-    @MockBean
+    @MockitoBean
     private RestTemplate restTemplate;
 
     @Test

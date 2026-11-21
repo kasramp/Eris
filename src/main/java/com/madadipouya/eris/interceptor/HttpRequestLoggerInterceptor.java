@@ -35,7 +35,6 @@ import static org.apache.commons.lang3.StringUtils.trimToEmpty;
 public class HttpRequestLoggerInterceptor implements HandlerInterceptor {
 
     private static final Logger logger = LoggerFactory.getLogger(HttpRequestLoggerInterceptor.class);
-    private static final String MESSAGE = "Serving request for IP: %s with parameters: %s - @ %s";
 
     private final IpGeoLocation ipGeoLocation;
 
@@ -46,9 +45,11 @@ public class HttpRequestLoggerInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) {
         try {
-            logger.info(String.format(MESSAGE, getRequestIp(request),
-                    beautifyRequestParameters(request.getParameterMap()), trimToEmpty(request.getRequestURI())));
-        } catch (Exception ex) {
+            if (logger.isInfoEnabled()) {
+                logger.info("Serving request for IP: {} with parameters: {} - @ {}", sanitize(getRequestIp(request)),
+                        sanitize(beautifyRequestParameters(request.getParameterMap())), sanitize(trimToEmpty(request.getRequestURI())));
+            }
+        } catch (Exception _) {
             // Don't disturb the request, suppress any error occurs while logging the request
         }
         return true;
@@ -74,5 +75,10 @@ public class HttpRequestLoggerInterceptor implements HandlerInterceptor {
 
     private String beautifyRequestParameters(Map<String, String[]> map) {
         return map.entrySet().stream().map(e -> e.getKey() + ":" + e.getValue()[0]).collect(Collectors.joining(", "));
+    }
+
+    // client-controlled values: strip line breaks so they can't forge log lines
+    private static String sanitize(String value) {
+        return value == null ? null : value.replaceAll("[\n\r\t]", "_");
     }
 }
