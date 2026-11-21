@@ -17,7 +17,7 @@ package com.madadipouya.eris.service.mcp.exception;
  * © 2026 Kasra Madadipouya <kasra@madadipouya.com>
  */
 
-public class UnexpectedProcessingException extends Exception {
+public class UnexpectedProcessingException extends RuntimeException {
 
   public UnexpectedProcessingException(String message) {
     super(message);

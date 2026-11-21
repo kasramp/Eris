@@ -8,16 +8,17 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.resttestclient.TestRestTemplate;
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureTestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.test.context.TestPropertySource;
 
 import java.util.List;
 
-import static javolution.testing.TestContext.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 /*
@@ -41,6 +42,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @TestPropertySource(locations = {"classpath:test.properties"}
         , properties = {"spring.mvc.throw-exception-if-no-handler-found=true"})
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureTestRestTemplate
 class SecurityConfigIT {
 
     private static final String BASE_ACTUATOR_URL = "/actuator/%s";
@@ -415,6 +417,27 @@ class SecurityConfigIT {
 
             assertTrue(toolsResponse.getBody()
                 .contains("get_current_weather_by_latitude_and_longitude"));
+        }
+
+        @Test
+        void testMcpToolCallReturnsValidationErrorAsToolResult() {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.setAccept(List.of(MediaType.TEXT_EVENT_STREAM, MediaType.APPLICATION_JSON));
+
+            ResponseEntity<String> initializeResponse = restTemplate.exchange(MCP_URL, HttpMethod.POST, new HttpEntity<>("""
+                {"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-03-26","capabilities":{},"clientInfo":{"name":"test","version":"1.0"}}}
+                """, headers), String.class);
+            headers.set("Mcp-Session-Id", initializeResponse.getHeaders().getFirst("Mcp-Session-Id"));
+
+            ResponseEntity<String> response = restTemplate.exchange(MCP_URL, HttpMethod.POST, new HttpEntity<>("""
+                {"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"get_current_weather_by_latitude_and_longitude","arguments":{"latitude":"999","longitude":"1"}}}
+                """, headers), String.class);
+
+            assertEquals(HttpStatus.OK, response.getStatusCode());
+            assertNotNull(response.getBody());
+            assertTrue(response.getBody().contains("\"isError\":true"), response.getBody());
+            assertTrue(response.getBody().contains("Latitude must be between -90 and 90"), response.getBody());
         }
 
         @Test
