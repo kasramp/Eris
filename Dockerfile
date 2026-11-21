@@ -12,6 +12,7 @@ ENV SPRING_CLOUD_CONSUL_PORT=8500
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","/app.jar"]
 
+
 # Since not building with mvn spring boot docker and using buildx for multiple architecture
 # have to use a simpler Docker file
 # FROM amazoncorretto:25 as builder
