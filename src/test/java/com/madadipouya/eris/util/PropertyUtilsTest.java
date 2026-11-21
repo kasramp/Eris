@@ -1,11 +1,9 @@
 package com.madadipouya.eris.util;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -26,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * © 2017-2023 Kasra Madadipouya <kasra@madadipouya.com>
  */
 
-@ExtendWith(SpringExtension.class)
 @TestPropertySource(locations = {"classpath:test.properties"})
 @SpringBootTest
 class PropertyUtilsTest {

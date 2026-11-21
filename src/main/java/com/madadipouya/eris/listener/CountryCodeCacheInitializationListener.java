@@ -64,7 +64,7 @@ public class CountryCodeCacheInitializationListener implements ApplicationListen
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(countryCodeFile.getInputStream()))) {
             return reader.lines()
-                    .map(element -> element.split("[,]"))
+                    .map(element -> element.split(","))
                     .filter(element -> element.length == 2)
                     .collect(Collectors.toMap(element -> element[0].trim(), element -> element[1].trim()));
         } catch (IOException ioException) {

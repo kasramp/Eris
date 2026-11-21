@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.List;
 
-import static org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace;
-
 /*
 * This file is part of Eris Weather API.
 *
@@ -39,7 +37,7 @@ public class GlobalControllerExceptionHandler {
     @ExceptionHandler(value = { Exception.class })
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<CurrentWeatherCondition> unknownException(Exception ex) {
-        logger.error(getStackTrace(ex));
+        logger.error(ERR_UNABLE_TO_PROCESS_REQUEST, ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(new CurrentWeatherCondition(List.of(ERR_UNABLE_TO_PROCESS_REQUEST)));
     }

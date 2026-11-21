@@ -53,7 +53,7 @@ public class CurrentWeatherCondition extends OpenWeatherMapCurrentWeatherRespons
      * @deprecated  As of /v1/ API, replaced by {@link Sys#getCountry()}
      * Available for backward compatibility only
      */
-    @Deprecated
+    @Deprecated(since = "v1")
     public String getCountry() {
         return country;
     }
@@ -62,7 +62,7 @@ public class CurrentWeatherCondition extends OpenWeatherMapCurrentWeatherRespons
      * @deprecated  As of /v1/ API, replaced by {@link Sys#setCountry(String)}
      * Available for backward compatibility only
      */
-    @Deprecated
+    @Deprecated(since = "v1")
     public void setCountry(String country) {
         this.country = country;
     }
@@ -71,7 +71,7 @@ public class CurrentWeatherCondition extends OpenWeatherMapCurrentWeatherRespons
      * @deprecated  As of /v1/ API, replaced by {@link Coordinates#getCoordinates()}
      * Available for backward compatibility only
      */
-    @Deprecated
+    @Deprecated(since = "v1")
     public String getGeoLocation() {
         return geoLocation;
     }
@@ -80,7 +80,7 @@ public class CurrentWeatherCondition extends OpenWeatherMapCurrentWeatherRespons
      * @deprecated  As of /v1/ API, replaced by {@link Coordinates#setCoordinates(Coordinates)}
      * Available for backward compatibility only
      */
-    @Deprecated
+    @Deprecated(since = "v1")
     public void setGeoLocation(String geoLocation) {
         this.geoLocation = geoLocation;
     }
@@ -89,7 +89,7 @@ public class CurrentWeatherCondition extends OpenWeatherMapCurrentWeatherRespons
      * @deprecated  As of /v1/ API, replaced by {@link Main#getTemperature()}
      * Available for backward compatibility only
      */
-    @Deprecated
+    @Deprecated(since = "v1")
     public BigDecimal getTemperature() {
         return temperature;
     }
@@ -98,7 +98,7 @@ public class CurrentWeatherCondition extends OpenWeatherMapCurrentWeatherRespons
      * @deprecated  As of /v1/ API, replaced by {@link Main#setTemperature(BigDecimal)}
      * Available for backward compatibility only
      */
-    @Deprecated
+    @Deprecated(since = "v1")
     public void setTemperature(BigDecimal temperature) {
         this.temperature = temperature;
     }
@@ -107,7 +107,7 @@ public class CurrentWeatherCondition extends OpenWeatherMapCurrentWeatherRespons
      * @deprecated  As of /v1/ API, functionality will be removed
      * Available for backward compatibility only
      */
-    @Deprecated
+    @Deprecated(since = "v1")
     public String getIcon() {
         return icon;
     }
@@ -116,7 +116,7 @@ public class CurrentWeatherCondition extends OpenWeatherMapCurrentWeatherRespons
      * @deprecated  As of /v1/ API, functionality will be removed
      * Available for backward compatibility only
      */
-    @Deprecated
+    @Deprecated(since = "v1")
     public void setIcon(String icon) {
         this.icon = icon;
     }
@@ -125,7 +125,7 @@ public class CurrentWeatherCondition extends OpenWeatherMapCurrentWeatherRespons
      * @deprecated  As of /v1/ API, replaced by {@link Weather#getIcon()}
      * Available for backward compatibility only
      */
-    @Deprecated
+    @Deprecated(since = "v1")
     public String getIconName() {
         return iconName;
     }
@@ -134,7 +134,7 @@ public class CurrentWeatherCondition extends OpenWeatherMapCurrentWeatherRespons
      * @deprecated  As of /v1/ API, replaced by {@link Weather#setIcon(String)}
      * Available for backward compatibility only
      */
-    @Deprecated
+    @Deprecated(since = "v1")
     public void setIconName(String iconName) {
         this.iconName = iconName;
     }
